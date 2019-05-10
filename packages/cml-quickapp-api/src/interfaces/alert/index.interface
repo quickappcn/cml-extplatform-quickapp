@@ -1,0 +1,26 @@
+// 引入官方标准interface文件
+<include src="chameleon-api/src/interfaces/alert/index.interface"></include>
+
+// 扩展实现新端
+<script cml-type="demo">
+class Method implements uiInterface {
+  alert(opt, successCallBack, failCallBack) {
+    let { message, confirmTitle} = opt;
+    wx.showModal({
+      showCancel: false,
+      title: '',
+      content: message,
+      confirmText: confirmTitle,
+      success() {
+        successCallBack(confirmTitle);
+      },
+      fail() {
+        failCallBack(confirmTitle);
+      }
+    });
+  }
+}
+
+export default new Method();
+
+</script>

@@ -1,0 +1,10 @@
+<include src="chameleon-store/src/interfaces/createStore/index.interface"></include>
+<script cml-type="demo">
+    import createStore from '../../platform/web'
+    class Method implements createStoreInterface {
+      createStore(options) {
+        return createStore(options)
+      }
+    }
+    export default new Method();
+</script>

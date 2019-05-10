@@ -1,0 +1,22 @@
+{
+  "name": "cml-extplatform-quickapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quickappcn/cml-extplatform-quickapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quickappcn/cml-extplatform-quickapp/issues"
+  },
+  "homepage": "https://github.com/quickappcn/cml-extplatform-quickapp",
+  "devDependencies": {
+    "lerna": "^3.5.1"
+  }
+}
