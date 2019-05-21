@@ -24,7 +24,7 @@ export default new App();
       "navigationBarTextStyle":"black"
     }
   },
-  "demo": {
+  "quickapp": {
     "window": {
       "backgroundTextStyle":"light",
       "navigationBarBackgroundColor": "#fff",

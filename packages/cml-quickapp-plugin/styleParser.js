@@ -4,7 +4,7 @@ const weexPlus = require('chameleon-css-loader/postcss/weex-plus.js')
 
 module.exports = function(source) {
   let options = {
-    cpxType: 'rpx'
+    cpxType: 'px'
   }
   return postcss([cpx(options), weexPlus()]).process(source).css;
 }
