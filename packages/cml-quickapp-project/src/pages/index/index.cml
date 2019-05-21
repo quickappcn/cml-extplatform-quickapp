@@ -1,7 +1,6 @@
 <template>
   <view c-if="{{true}}" class="scroller-wrap">
     <view class="class1"><text>chameleon</text></view>
-    <demo-com></demo-com>
   </view>
 
 </template>
@@ -33,11 +32,6 @@ cml.alert({message: 'chameleon', confirmTitle:'确定'})
 </style>
 <script cml-type="json">
 {
-  "base": {
-    "usingComponents": {
-      "demo-com": "/components/demo-com/demo-com"
-    }
-  },
   "wx": {
     "navigationBarTitleText": "index",
     "backgroundTextStyle": "dark",

@@ -1,2 +1,2 @@
 <include src="chameleon-ui-builtin/components/radio/radio.interface"></include>
-<script cml-type="demo" src="chameleon-ui-builtin/components/radio/radio.cml"></script>
+<script cml-type="quickapp" src="chameleon-ui-builtin/components/radio/radio.cml"></script>
