@@ -4,8 +4,7 @@
 
 <script>
 
-class App {
-}
+class App {}
 
 export default new App();
 </script>
