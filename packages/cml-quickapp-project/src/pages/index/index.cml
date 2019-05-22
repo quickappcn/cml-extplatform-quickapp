@@ -1,6 +1,6 @@
 <template>
-  <view c-if="{{true}}" class="scroller-wrap">
-    <view class="class1"><text>chameleon</text></view>
+  <view class="scroller-wrap">
+    <view class="class1"><text c-if="{{true}}">chameleon</text></view>
   </view>
 
 </template>
@@ -25,7 +25,8 @@ cml.alert({message: 'chameleon', confirmTitle:'确定'})
 .class1 {
   width: 100cpx;
   height: 100cpx;
-  background: url('../../assets/images/chameleon.png') no-repeat;
+  background-image: url('../../assets/images/chameleon.png');
+  background-repeat: no-repeat;
   background-size: 100cpx 100cpx;
 }
 

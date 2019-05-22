@@ -56,6 +56,29 @@ SUcBtepLnO8M8wafoGNyehbMnLzfuMbaDiJOdozGlBNHZTtPB3r4AYb8WnltdKW0
 U9VlWgfgj9Dxfwhslqb9hmyp
 -----END PRIVATE KEY-----
 `
+
+const quickAppPkg = `
+{
+  "name": "quickapp",
+  "version": "1.0.0",
+  "subversion": {
+    "toolkit": "0.3.0"
+  },
+  "description": "",
+  "scripts": {
+    "build": "hap build",
+    "release": "hap release",
+    "server": "hap server",
+    "watch": "hap watch"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.12.1",
+    "eslint-plugin-hybrid": "0.0.5",
+    "hap-toolkit": "^0.3.0"
+  }
+}
+`
 module.exports = class QuickAppPlugin {
   constructor(options) {
     let {
@@ -177,13 +200,15 @@ module.exports = class QuickAppPlugin {
       compiler.writeFile("/static/js/common.js", commonjsContent);
 
       function outputNode(currentNode) {
+        const commonPath = '/src'
+
         if (~hasCompiledNode.indexOf(currentNode)) {
           return;
         }
         hasCompiledNode.push(currentNode);
 
         if (currentNode.nodeType === "app") {
-          const uxPath = "/app.ux";
+          const uxPath = commonPath + "/app.ux";
           let uxContent = `<script>
           /**
           * 应用级别的配置，供所有页面公用
@@ -192,7 +217,7 @@ module.exports = class QuickAppPlugin {
           
           export default {}
           </script>`;
-          const manifestPath = "/manifest.json";
+          const manifestPath = commonPath + "/manifest.json";
           let manifestContent = `{
             "package": "${pkg.name.split("-").join(".")}",
             "name": "${pkg.name}",
@@ -222,7 +247,7 @@ module.exports = class QuickAppPlugin {
             },
             "display": {}
           }`;
-          const utilPath = '/util.js';
+          const utilPath = commonPath + '/util.js';
           let uitlContent = `module.exports = {}`;
 
           
@@ -237,7 +262,7 @@ module.exports = class QuickAppPlugin {
 
           compiler.writeFile('/sign/debug/certificate.pem', CERTIFICATE_PEM);
           compiler.writeFile('/sign/debug/private.pem', PRIVATE_PEM)
-
+          compiler.writeFile('/package.json', quickAppPkg);
           /* currentNode.childrens.forEach(item => {
             if (["template", "style"].indexOf(item.moduleType) > -1) {
               uxContent += `<${item.moduleType}>${item.output}</${
@@ -306,7 +331,7 @@ module.exports = class QuickAppPlugin {
             }
             outputNode(item);
           });
-          compiler.writeFile(`/src/${destPath}.ux`, uxContent);
+          compiler.writeFile(commonPath + `/${destPath}.ux`, uxContent);
         }
 
         if (
