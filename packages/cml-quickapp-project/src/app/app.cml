@@ -5,7 +5,6 @@
 <script>
 
 class App {}
-
 export default new App();
 </script>
 
