@@ -12,6 +12,7 @@ export default new Index();
 
 // cml.alert({message: 'chameleon', confirmTitle:'确定'})
 
+
 </script>
 <style>
 
@@ -24,7 +25,7 @@ export default new Index();
 .class1 {
   width: 500cpx;
   height: 500cpx;
-  /* background-image: url('../../assets/images/chameleon.png'); */
+  background-image: url('../../assets/images/chameleon.png');
   background-repeat: no-repeat;
   background-size: 500cpx 500cpx;
 }

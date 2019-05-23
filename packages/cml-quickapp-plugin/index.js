@@ -225,7 +225,7 @@ module.exports = class QuickAppPlugin {
             "versionName": "${pkg.version}",
             "versionCode": "1",
             "minPlatformVersion": "1020",
-            "icon": "",
+            "icon": "/static/img/chameleon_83ee00e.png",
             "features": [
               { "name": "system.prompt" },
               { "name": "system.router" },
