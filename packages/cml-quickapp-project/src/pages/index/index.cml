@@ -6,12 +6,11 @@
 </template>
 
 <script>
-import cml from 'cml-quickapp-api';
+// import cml from 'cml-quickapp-api';
 class Index  {}
-
 export default new Index();
 
-cml.alert({message: 'chameleon', confirmTitle:'确定'})
+// cml.alert({message: 'chameleon', confirmTitle:'确定'})
 
 </script>
 <style>
@@ -23,11 +22,11 @@ cml.alert({message: 'chameleon', confirmTitle:'确定'})
 }
 
 .class1 {
-  width: 100cpx;
-  height: 100cpx;
-  background-image: url('../../assets/images/chameleon.png');
+  width: 500cpx;
+  height: 500cpx;
+  /* background-image: url('../../assets/images/chameleon.png'); */
   background-repeat: no-repeat;
-  background-size: 100cpx 100cpx;
+  background-size: 500cpx 500cpx;
 }
 
 </style>

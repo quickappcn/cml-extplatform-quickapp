@@ -188,19 +188,20 @@ module.exports = class QuickAppPlugin {
      * 编译结束进入打包阶段
      */
     compiler.hook("pack", function (projectGraph) {
+      const commonPath = '/src'
+
       // 遍历编译图的节点，进行各项目的拼接
       let hasCompiledNode = [];
 
       let bootstrapCode = compiler.amd.getModuleBootstrap();
-      compiler.writeFile("/static/js/manifest.js", bootstrapCode);
+      compiler.writeFile(commonPath + "/static/js/manifest.js", bootstrapCode);
       let commonjsContent = `var manifest = require('./manifest.js');\n`;
       commonjsContent += `var cmldefine = manifest.cmldefine;\n`;
       // 遍历节点
       outputNode(projectGraph);
-      compiler.writeFile("/static/js/common.js", commonjsContent);
+      compiler.writeFile(commonPath + "/static/js/common.js", commonjsContent);
 
       function outputNode(currentNode) {
-        const commonPath = '/src'
 
         if (~hasCompiledNode.indexOf(currentNode)) {
           return;
@@ -224,7 +225,7 @@ module.exports = class QuickAppPlugin {
             "versionName": "${pkg.version}",
             "versionCode": "1",
             "minPlatformVersion": "1020",
-            "icon": "/static/img/chameleon_83ee00e.png",
+            "icon": "",
             "features": [
               { "name": "system.prompt" },
               { "name": "system.router" },
@@ -292,42 +293,42 @@ module.exports = class QuickAppPlugin {
                 item.moduleType
                 }>`;
             } else if (item.moduleType === "script") {
-              let relativePath;
-              let pureResourcePath = cmlUtils.delQueryPath(item.realPath);
+              // let relativePath;
+              // let pureResourcePath = cmlUtils.delQueryPath(item.realPath);
 
 
-              if (~pureResourcePath.indexOf("node_modules")) {
-                relativePath = path.relative(
-                  pureResourcePath,
-                  path.join(cml.projectRoot, "node_modules")
-                );
-              } else {
-                relativePath = path.relative(
-                  pureResourcePath,
-                  path.join(cml.projectRoot, "src")
-                );
-                if (relativePath == ".." || relativePath == ".") {
-                  relativePath = "";
-                } else {
-                  relativePath = relativePath.slice(3);
-                }
-              }
-              relativePath = cmlUtils.handleWinPath(relativePath);
+              // if (~pureResourcePath.indexOf("node_modules")) {
+              //   relativePath = path.relative(
+              //     pureResourcePath,
+              //     path.join(cml.projectRoot, "node_modules")
+              //   );
+              // } else {
+              //   relativePath = path.relative(
+              //     pureResourcePath,
+              //     path.join(cml.projectRoot, "src")
+              //   );
+              //   if (relativePath == ".." || relativePath == ".") {
+              //     relativePath = "";
+              //   } else {
+              //     relativePath = relativePath.slice(3);
+              //   }
+              // }
+              // relativePath = cmlUtils.handleWinPath(relativePath);
 
-              let jsFileName = cmlUtils.getEntryPath(
-                pureResourcePath,
-                cml.projectRoot
-              );
-              jsFileName = cmlUtils.handleWinPath(jsFileName);
-              let array = jsFileName.split("/");
-              let basename = array[array.length - 1].split(".")[0] + ".js";
-              jsFileName = [].concat(array.slice(0, -1), basename).join("/");
-              let content = `var manifest = require('${relativePath}/static/js/manifest.js');\n`;
-              content += `var cmldefine = manifest.cmldefine;\n`;
-              content += `var cmlrequire = manifest.cmlrequire;\n`;
-              content += `require('${relativePath}/static/js/common.js');\n`;
-              content += `cmlrequire('${item.modId}');\n`;
-              uxContent += `<script>${content}</script>`
+              // let jsFileName = cmlUtils.getEntryPath(
+              //   pureResourcePath,
+              //   cml.projectRoot
+              // );
+              // jsFileName = cmlUtils.handleWinPath(jsFileName);
+              // let array = jsFileName.split("/");
+              // let basename = array[array.length - 1].split(".")[0] + ".js";
+              // jsFileName = [].concat(array.slice(0, -1), basename).join("/");
+              // let content = `var manifest = require('${relativePath}/static/js/manifest.js');\n`;
+              // content += `var cmldefine = manifest.cmldefine;\n`;
+              // content += `var cmlrequire = manifest.cmlrequire;\n`;
+              // content += `require('${relativePath}/static/js/common.js');\n`;
+              // content += `cmlrequire('${item.modId}');\n`;
+              uxContent += `<script></script>`
             }
             outputNode(item);
           });
