@@ -12,8 +12,8 @@ module.exports = class QuickAppPlugin {
     this.moduleRules = []; // 文件后缀对应的节点moduleType  
     this.logLevel = 3;
     this.originComponentExtList = ['.wxml']; // 用于扩展原生组件的文件后缀查找
-    this.runtimeNpmName = 'cml-demo-runtime'; // 指定当前端的运行时库
-    this.builtinUINpmName = 'cml-demo-ui-builtin'; // 指定当前端的内置组件库
+    this.runtimeNpmName = 'cml-quickapp-runtime'; // 指定当前端的运行时库
+    this.builtinUINpmName = 'cml-quickapp-ui-builtin'; // 指定当前端的内置组件库
     this.cmlType = cmlType;
     this.media = media;
     // 需要压缩文件的后缀
@@ -145,46 +145,45 @@ module.exports = class QuickAppPlugin {
         }
   
         if(~['page','component'].indexOf(currentNode.nodeType)) {
-          
-          // currentNode.childrens.forEach(item=>{
-          //   let entryName = cmlUtils.getPureEntryName(item.realPath, self.cmlType, cml.projectRoot);
-          //   if(item.moduleType === 'json') {
+          let output = '';
+          let entryName = cmlUtils.getPureEntryName(currentNode.realPath, self.cmlType, cml.projectRoot);
+          entryName = 'src/' + entryName;
+          let filePath = entryName + '.ux';
+          let childrenObj = {};
+          currentNode.childrens.forEach(item=>{
+            childrenObj[item.moduleType] = item;
+            outputNode(item);
+          })
 
-          //     compiler.writeFile(`/${entryName}.json`, item.output, '', 4)
-          //   } else if(item.moduleType === 'style') {
-          //     compiler.writeFile(`/${entryName}.wxss`, item.output)
-          //   } else if(item.moduleType === 'template') {
-          //     compiler.writeFile(`/${entryName}.wxml`, item.output)
-          //   } else if(item.moduleType === 'script') {
-          //     let relativePath;
-          //     let pureResourcePath = cmlUtils.delQueryPath(item.realPath);
+          if(childrenObj.template) {
+            output += `
+            <template>
+              ${childrenObj.template.output}
+            </template>
+            `
+          }
 
-          //     if (~pureResourcePath.indexOf('node_modules')) {
-          //       relativePath = path.relative(pureResourcePath, path.join(cml.projectRoot, 'node_modules'));
-          //     } else {
-          //       relativePath = path.relative(pureResourcePath, path.join(cml.projectRoot, 'src'));
-          //       if (relativePath == '..' || relativePath == '.') {
-          //         relativePath = ''
-          //       } else {
-          //         relativePath = relativePath.slice(3);
-          //       }
-          //     }
-          //     relativePath = cmlUtils.handleWinPath(relativePath);
+          if(childrenObj.script) {
+            output += `
+            <script>
+              var manifest = require('${path.relative(entryName, 'src/js/manifest.js')}');
+              var cmldefine = manifest.cmldefine;
+              var cmlrequire = manifest.cmlrequire;
+              require('${path.relative(entryName, 'src/js/common.js')}');
+              module.exports = cmlrequire('${childrenObj.script.modId}');
+            </script>
+            `
+          }
 
-          //     let jsFileName = cmlUtils.getEntryPath(pureResourcePath, cml.projectRoot);
-          //     jsFileName = cmlUtils.handleWinPath(jsFileName);
-          //     let array = jsFileName.split('/');
-          //     let basename = array[array.length-1].split('.')[0] + '.js';
-          //     jsFileName = [].concat(array.slice(0,-1),basename).join('/');
-          //     let content = `var manifest = require('${relativePath}/static/js/manifest.js');\n`;
-          //     content += `var cmldefine = manifest.cmldefine;\n`;
-          //     content += `var cmlrequire = manifest.cmlrequire;\n`;
-          //     content += `require('${relativePath}/static/js/common.js');\n`;
-          //     content += `cmlrequire('${item.modId}');\n`;
-          //     compiler.writeFile(jsFileName, content)
-          //   }
-          //   outputNode(item);
-          // })
+          if(childrenObj.style) {
+            output += `
+            <style>
+              ${childrenObj.style.output}
+            </style>
+            `
+          }
+
+          compiler.writeFile(filePath, output);
         }
 
         if(currentNode.nodeType === 'module' && ~['script','asset'].indexOf(currentNode.moduleType)) {
