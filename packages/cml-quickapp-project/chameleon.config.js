@@ -25,7 +25,8 @@ cml.config.merge({
   },
   quickapp: {
     dev: {
-      minimize: true,
+      minimize: false,
+      increase: true
     },
     build: {
       minimize: true,

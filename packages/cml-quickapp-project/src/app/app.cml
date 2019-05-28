@@ -9,7 +9,6 @@ export default new App();
 </script>
 
 <style>
-
 </style>
 
 <script cml-type="json">

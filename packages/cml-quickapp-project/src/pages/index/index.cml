@@ -1,7 +1,10 @@
 <template>
-  <view class="scroller-wrap">
-    <view class="class1"><text c-if="{{true}}">chameleon</text></view>
-  </view>
+  <div class="scroller-wrap">
+    <div><text>chameleon</text></div>
+    <demo-com></demo-com>
+    <div class="class1"></div>
+    
+  </div>
 
 </template>
 
@@ -25,7 +28,7 @@ export default new Index();
 .class1 {
   width: 500cpx;
   height: 500cpx;
-  /* background-image: url('../../assets/images/chameleon.png'); */
+  background-image: url('../../assets/images/chameleon.png');
   background-repeat: no-repeat;
   background-size: 500cpx 500cpx;
 }
@@ -33,6 +36,11 @@ export default new Index();
 </style>
 <script cml-type="json">
 {
+  "base": {
+    "usingComponents": {
+      "demo-com": "/components/demo-com/demo-com"
+    }
+  },
   "wx": {
     "navigationBarTitleText": "index",
     "backgroundTextStyle": "dark",

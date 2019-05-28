@@ -2,7 +2,6 @@
 <script cml-type="quickapp">
   class Method implements createPageInterface {
     createPage(options) {
-      // Page(options);
       return options;
     }
   }

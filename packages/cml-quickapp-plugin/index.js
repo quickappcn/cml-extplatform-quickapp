@@ -4,14 +4,15 @@ const pkg = require("./package.json");
 const cmlUtils = require("chameleon-tool-utils");
 const path = require("path");
 const copyDefault = require('./pack/copyDefault.js');
-
+const copyProject = require('./pack/copyProject.js');
+const changeManifest = require('./pack/changeManifest.js');
 module.exports = class QuickAppPlugin {
   constructor(options) {
     let { cmlType, media} = options;
     this.webpackRules = []; // webpack的rules设置  用于当前端特殊文件处理
     this.moduleRules = []; // 文件后缀对应的节点moduleType  
     this.logLevel = 3;
-    this.originComponentExtList = ['.wxml']; // 用于扩展原生组件的文件后缀查找
+    this.originComponentExtList = ['.ux']; // 用于扩展原生组件的文件后缀查找
     this.runtimeNpmName = 'cml-quickapp-runtime'; // 指定当前端的运行时库
     this.builtinUINpmName = 'cml-quickapp-ui-builtin'; // 指定当前端的内置组件库
     this.cmlType = cmlType;
@@ -20,6 +21,15 @@ module.exports = class QuickAppPlugin {
     this.minimizeExt = {
       js: ['.js'],
       css: ['.css']
+    }
+    this.assetsPrePath = 'src/';
+    this.cmlConfig = {
+      dev: {
+        publicPath: '/'
+      },
+      build: {
+        publicPath: '/'
+      }
     }
   }
   /**
@@ -72,7 +82,21 @@ module.exports = class QuickAppPlugin {
      * parentNodeType 父节点的nodeType
      */
     compiler.hook("compile-template", function (currentNode, parentNodeType) {
+      let {componentFiles} = currentNode.parent.extra;
       currentNode.output = templateParser(currentNode.source);
+      if(componentFiles) {
+        let components = '';
+        Object.keys(componentFiles).forEach(key=>{
+          console.log(componentFiles[key])
+          console.log(currentNode.realPath)
+          let targetEntry = cmlUtils.getPureEntryName(componentFiles[key], self.cmlType, cml.projectRoot);
+          let sourceEntry = cmlUtils.getPureEntryName(currentNode.realPath, self.cmlType, cml.projectRoot);
+          let relativePath = cmlUtils.handleRelativePath(sourceEntry, targetEntry);
+          components += `<import name='${key}' src='${relativePath}'></import>\n`
+        })
+        // 记录引入的组件
+        currentNode.importComponents = components;
+      }
     });
 
     /**
@@ -104,8 +128,12 @@ module.exports = class QuickAppPlugin {
      */
     compiler.hook("pack", function (projectGraph) {
       // 拷贝默认文件        
-      copyDefault(compiler, cml.projectRoot);
-
+      copyDefault(compiler);
+      // 拷贝项目中配置的快应用文件
+      copyProject(compiler);
+      // 修改manifest文件 路由
+      changeManifest(compiler);
+      
       // 遍历编译图的节点，进行各项目的拼接
       let hasCompiledNode = [];
       
@@ -147,6 +175,7 @@ module.exports = class QuickAppPlugin {
         if(~['page','component'].indexOf(currentNode.nodeType)) {
           let output = '';
           let entryName = cmlUtils.getPureEntryName(currentNode.realPath, self.cmlType, cml.projectRoot);
+          // 统一加上src
           entryName = 'src/' + entryName;
           let filePath = entryName + '.ux';
           let childrenObj = {};
@@ -156,6 +185,9 @@ module.exports = class QuickAppPlugin {
           })
 
           if(childrenObj.template) {
+            if(childrenObj.template.importComponents) {
+              output += childrenObj.template.importComponents + '\n';
+            }
             output += `
             <template>
               ${childrenObj.template.output}
@@ -166,10 +198,10 @@ module.exports = class QuickAppPlugin {
           if(childrenObj.script) {
             output += `
             <script>
-              var manifest = require('${path.relative(entryName, 'src/js/manifest.js')}');
+              var manifest = require('${cmlUtils.handleRelativePath(entryName, 'src/js/manifest.js')}');
               var cmldefine = manifest.cmldefine;
               var cmlrequire = manifest.cmlrequire;
-              require('${path.relative(entryName, 'src/js/common.js')}');
+              require('${cmlUtils.handleRelativePath(entryName, 'src/js/common.js')}');
               module.exports = cmlrequire('${childrenObj.script.modId}');
             </script>
             `
