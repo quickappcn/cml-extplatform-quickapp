@@ -87,8 +87,6 @@ module.exports = class QuickAppPlugin {
       if(componentFiles) {
         let components = '';
         Object.keys(componentFiles).forEach(key=>{
-          console.log(componentFiles[key])
-          console.log(currentNode.realPath)
           let targetEntry = cmlUtils.getPureEntryName(componentFiles[key], self.cmlType, cml.projectRoot);
           let sourceEntry = cmlUtils.getPureEntryName(currentNode.realPath, self.cmlType, cml.projectRoot);
           let relativePath = cmlUtils.handleRelativePath(sourceEntry, targetEntry);
