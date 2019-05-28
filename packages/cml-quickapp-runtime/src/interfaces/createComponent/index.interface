@@ -2,7 +2,6 @@
 <script cml-type="quickapp">
   class Method implements createComponentInterface {
     createComponent(options) {
-      // Component(options);
       return options;
     }
   }
