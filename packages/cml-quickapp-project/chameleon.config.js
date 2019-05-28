@@ -10,7 +10,7 @@ cml.config.merge({
   templateType: "html",
   builtinNpmName: 'cml-quickapp-ui-builtin',
   extPlatform: {
-    demo: 'cml-quickapp-plugin',
+    quickapp: 'cml-quickapp-plugin',
   },
   babelPath: [
     path.join(__dirname,'node_modules/cml-quickapp-ui-builtin'),
@@ -19,13 +19,14 @@ cml.config.merge({
     path.join(__dirname,'node_modules/cml-quickapp-ui'),
     path.join(__dirname,'node_modules/cml-quickapp-store'),
   ],
-  platforms: ["web","weex","wx","alipay","baidu"],
+  platforms: ["web","weex","wx","alipay","baidu", "quickapp"],
   buildInfo: {
     wxAppId: '123456'
   },
-  demo: {
+  quickapp: {
     dev: {
-      minimize: true,
+      minimize: false,
+      increase: true
     },
     build: {
       minimize: true,

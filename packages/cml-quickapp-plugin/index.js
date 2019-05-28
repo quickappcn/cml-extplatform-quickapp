@@ -1,129 +1,148 @@
-
-const templateParser = require('./templateParser.js');
-const styleParser = require('./styleParser.js');
-const cmlUtils = require('chameleon-tool-utils');
-const path = require('path');
-module.exports = class DemoPlugin {
+const templateParser = require("./templateParser.js");
+const styleParser = require("./styleParser.js");
+const pkg = require("./package.json");
+const cmlUtils = require("chameleon-tool-utils");
+const path = require("path");
+const copyDefault = require('./pack/copyDefault.js');
+const copyProject = require('./pack/copyProject.js');
+const changeManifest = require('./pack/changeManifest.js');
+module.exports = class QuickAppPlugin {
   constructor(options) {
     let { cmlType, media} = options;
     this.webpackRules = []; // webpack的rules设置  用于当前端特殊文件处理
     this.moduleRules = []; // 文件后缀对应的节点moduleType  
     this.logLevel = 3;
-    this.originComponentExtList = ['.wxml']; // 用于扩展原生组件的文件后缀查找
-    this.runtimeNpmName = 'cml-quickapp-runtime';
-    this.runtimeNeedComponents = false; 
+    this.originComponentExtList = ['.ux']; // 用于扩展原生组件的文件后缀查找
+    this.runtimeNpmName = 'cml-quickapp-runtime'; // 指定当前端的运行时库
+    this.builtinUINpmName = 'cml-quickapp-ui-builtin'; // 指定当前端的内置组件库
     this.cmlType = cmlType;
     this.media = media;
-    this.miniappExt = {  // 小程序原生组件处理
-      rule: /\.wxml$/,
-      mapping: {
-        'template': '.wxml',
-        'style': '.wxss',
-        'script': '.js',
-        'json': '.json'
-      }
-    }
     // 需要压缩文件的后缀
     this.minimizeExt = {
       js: ['.js'],
-      css: ['.css','.wxss']
+      css: ['.css']
     }
-
+    this.assetsPrePath = 'src/';
+    this.cmlConfig = {
+      dev: {
+        publicPath: '/'
+      },
+      build: {
+        publicPath: '/'
+      }
+    }
   }
-/**
- * @description 注册插件
- * @param {compiler} 编译对象
- * */ 
-register(compiler) {
+  /**
+   * @description 注册插件
+   * @param {compiler} 编译对象
+   * */
+
+  register(compiler) {
     let self = this;
     /**
      * cml节点编译前
      * currentNode 当前节点
      * nodeType 节点的nodeType
      */
-    compiler.hook('compile-preCML', function(currentNode, nodeType) {
-      
-    })
+    compiler.hook("compile-preCML", function (currentNode, nodeType) { });
     /**
      * cml节点编译后
      * currentNode 当前节点
      * nodeType 节点的nodeType
      */
-    compiler.hook('compile-postCML', function(currentNode, nodeType) {
-
-    })
+    compiler.hook("compile-postCML", function (currentNode, nodeType) { });
 
     /**
      * 编译script节点，比如做模块化
      * currentNode 当前节点
      * parentNodeType 父节点的nodeType
      */
-    compiler.hook('compile-script', function(currentNode, parentNodeType) {
-      currentNode.output = compiler.amd.amdWrapModule({content:currentNode.source, modId:currentNode.modId});
-    })
+    compiler.hook("compile-script", function (currentNode, parentNodeType) {
+      currentNode.output = compiler.amd.amdWrapModule({
+        content: currentNode.source,
+        modId: currentNode.modId
+      });
+    });
 
     /**
      * 编译script节点，比如做模块化
      * currentNode 当前节点
      * parentNodeType 父节点的nodeType
      */
-    compiler.hook('compile-asset', function(currentNode, parentNodeType) {
-      currentNode.output = compiler.amd.amdWrapModule({content:currentNode.source, modId:currentNode.modId});
-    })
+    compiler.hook("compile-asset", function (currentNode, parentNodeType) {
+      currentNode.output = compiler.amd.amdWrapModule({
+        content: currentNode.source,
+        modId: currentNode.modId
+      });
+    });
 
     /**
      * 编译template节点 语法转义
      * currentNode 当前节点
      * parentNodeType 父节点的nodeType
      */
-    compiler.hook('compile-template', function(currentNode, parentNodeType) {
-        currentNode.output = templateParser(currentNode.source)
-    })
+    compiler.hook("compile-template", function (currentNode, parentNodeType) {
+      let {componentFiles} = currentNode.parent.extra;
+      currentNode.output = templateParser(currentNode.source);
+      if(componentFiles) {
+        let components = '';
+        Object.keys(componentFiles).forEach(key=>{
+          let targetEntry = cmlUtils.getPureEntryName(componentFiles[key], self.cmlType, cml.projectRoot);
+          let sourceEntry = cmlUtils.getPureEntryName(currentNode.realPath, self.cmlType, cml.projectRoot);
+          let relativePath = cmlUtils.handleRelativePath(sourceEntry, targetEntry);
+          components += `<import name='${key}' src='${relativePath}'></import>\n`
+        })
+        // 记录引入的组件
+        currentNode.importComponents = components;
+      }
+    });
 
     /**
      * 编译style节点  比如尺寸单位转义
      * currentNode 当前节点
      * parentNodeType 父节点的nodeType
      */
-    compiler.hook('compile-style', function(currentNode, parentNodeType) {
+    compiler.hook("compile-style", function (currentNode, parentNodeType) {
       currentNode.output = styleParser(currentNode.source);
-    })
+    });
 
     /**
      * 编译json节点
      * currentNode 当前节点
      * parentNodeType 父节点的nodeType
      */
-    compiler.hook('compile-json', function(currentNode, parentNodeType) {
+    compiler.hook("compile-json", function (currentNode, parentNodeType) {
       currentNode.output = currentNode.source;
-    })
+    });
 
     /**
      * 编译other类型节点
      * currentNode 当前节点
      */
-    compiler.hook('compile-other', function(currentNode) {
-
-    })
-
-
-
+    compiler.hook("compile-other", function (currentNode) { });
 
     /**
      * 编译结束进入打包阶段
      */
-    compiler.hook('pack', function(projectGraph) {
+    compiler.hook("pack", function (projectGraph) {
+      // 拷贝默认文件        
+      copyDefault(compiler);
+      // 拷贝项目中配置的快应用文件
+      copyProject(compiler);
+      // 修改manifest文件 路由
+      changeManifest(compiler);
+      
       // 遍历编译图的节点，进行各项目的拼接
       let hasCompiledNode = [];
       
 
       let bootstrapCode = compiler.amd.getModuleBootstrap();
-      compiler.writeFile('/static/js/manifest.js', bootstrapCode);
+      compiler.writeFile('/src/js/manifest.js', bootstrapCode);
       let commonjsContent = `var manifest = require('./manifest.js');\n`;
       commonjsContent += `var cmldefine = manifest.cmldefine;\n`;
       // 遍历节点
       outputNode(projectGraph);
-      compiler.writeFile('/static/js/common.js', commonjsContent);
+      compiler.writeFile('/src/js/common.js', commonjsContent);
       function outputNode(currentNode) {
         if (~hasCompiledNode.indexOf(currentNode)) {
           return;
@@ -131,66 +150,70 @@ register(compiler) {
         hasCompiledNode.push(currentNode);
 
         if(currentNode.nodeType === 'app') {
+          let output = '';
+          let filePath = '/src/app.ux';
           currentNode.childrens.forEach(item=>{
-            if(item.moduleType === 'json') {
-              compiler.writeFile('/app.json',item.output, '', 4)
-            } else if(item.moduleType === 'style') {
-              compiler.writeFile('/app.wxss', item.output)
-            } else if(item.moduleType === 'script') {
-              let jsContent = `var manifest = require('./static/js/manifest.js');\n`;
-              jsContent += `var cmldefine = manifest.cmldefine;\n`;
-              jsContent += `var cmlrequire = manifest.cmlrequire;\n`;
-              jsContent += `require('./static/js/common.js');\n`;
-              jsContent += `cmlrequire('${item.modId}')\n`;
-              let jsPath = '/app.js';
-              compiler.writeFile(jsPath, jsContent);
-
+            if(item.moduleType === 'script') {
+              output += `
+              <script>
+                var manifest = require('./js/manifest.js');
+                var cmldefine = manifest.cmldefine;
+                var cmlrequire = manifest.cmlrequire;
+                require('./js/common.js');
+                module.exports = cmlrequire('${item.modId}');
+              </script>
+              `
             }
             outputNode(item);
           })
+          compiler.writeFile(filePath, output);
           
         }
   
         if(~['page','component'].indexOf(currentNode.nodeType)) {
+          let output = '';
+          let entryName = cmlUtils.getPureEntryName(currentNode.realPath, self.cmlType, cml.projectRoot);
+          // 统一加上src
+          entryName = 'src/' + entryName;
+          let filePath = entryName + '.ux';
+          let childrenObj = {};
           currentNode.childrens.forEach(item=>{
-            let entryName = cmlUtils.getPureEntryName(item.realPath, self.cmlType, cml.projectRoot);
-            if(item.moduleType === 'json') {
-
-              compiler.writeFile(`/${entryName}.json`, item.output, '', 4)
-            } else if(item.moduleType === 'style') {
-              compiler.writeFile(`/${entryName}.wxss`, item.output)
-            } else if(item.moduleType === 'template') {
-              compiler.writeFile(`/${entryName}.wxml`, item.output)
-            } else if(item.moduleType === 'script') {
-              let relativePath;
-              let pureResourcePath = cmlUtils.delQueryPath(item.realPath);
-
-              if (~pureResourcePath.indexOf('node_modules')) {
-                relativePath = path.relative(pureResourcePath, path.join(cml.projectRoot, 'node_modules'));
-              } else {
-                relativePath = path.relative(pureResourcePath, path.join(cml.projectRoot, 'src'));
-                if (relativePath == '..' || relativePath == '.') {
-                  relativePath = ''
-                } else {
-                  relativePath = relativePath.slice(3);
-                }
-              }
-              relativePath = cmlUtils.handleWinPath(relativePath);
-
-              let jsFileName = cmlUtils.getEntryPath(pureResourcePath, cml.projectRoot);
-              jsFileName = cmlUtils.handleWinPath(jsFileName);
-              let array = jsFileName.split('/');
-              let basename = array[array.length-1].split('.')[0] + '.js';
-              jsFileName = [].concat(array.slice(0,-1),basename).join('/');
-              let content = `var manifest = require('${relativePath}/static/js/manifest.js');\n`;
-              content += `var cmldefine = manifest.cmldefine;\n`;
-              content += `var cmlrequire = manifest.cmlrequire;\n`;
-              content += `require('${relativePath}/static/js/common.js');\n`;
-              content += `cmlrequire('${item.modId}');\n`;
-              compiler.writeFile(jsFileName, content)
-            }
+            childrenObj[item.moduleType] = item;
             outputNode(item);
           })
+
+          if(childrenObj.template) {
+            if(childrenObj.template.importComponents) {
+              output += childrenObj.template.importComponents + '\n';
+            }
+            output += `
+            <template>
+              ${childrenObj.template.output}
+            </template>
+            `
+          }
+
+          if(childrenObj.script) {
+            output += `
+            <script>
+              var manifest = require('${cmlUtils.handleRelativePath(entryName, 'src/js/manifest.js')}');
+              var cmldefine = manifest.cmldefine;
+              var cmlrequire = manifest.cmlrequire;
+              require('${cmlUtils.handleRelativePath(entryName, 'src/js/common.js')}');
+              module.exports = cmlrequire('${childrenObj.script.modId}');
+            </script>
+            `
+          }
+
+          if(childrenObj.style) {
+            output += `
+            <style>
+              ${childrenObj.style.output}
+            </style>
+            `
+          }
+
+          compiler.writeFile(filePath, output);
         }
 
         if(currentNode.nodeType === 'module' && ~['script','asset'].indexOf(currentNode.moduleType)) {
@@ -201,7 +224,7 @@ register(compiler) {
           outputNode(item);
         })
       }
-    })
 
-}
-}
+    });
+  }
+};
