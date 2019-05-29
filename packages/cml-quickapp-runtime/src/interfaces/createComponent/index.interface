@@ -1,8 +1,10 @@
 <include src="chameleon-runtime/src/interfaces/createComponent/index.interface"></include>
 <script cml-type="quickapp">
+  import {Component} from '../../quickapp'
   class Method implements createComponentInterface {
+
     createComponent(options) {
-      return options;
+      return new Component(options)
     }
   }
 
