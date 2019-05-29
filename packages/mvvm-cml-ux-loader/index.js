@@ -1,5 +1,9 @@
 
+const cmlUtils = require('chameleon-tool-utils');
+const loaderUtils = require('loader-utils');
+const helper = require('./helper.js');
 module.exports = function(content) {
+
   let output = "";
   this._module._nodeType = "component";
   let self = this;
@@ -10,8 +14,16 @@ module.exports = function(content) {
     cmlType,
     media
   }
+  let parts = cmlUtils.splitParts({content});
+
+  if (parts.style && parts.style[0]) {
+    let part = parts.style[0];
+    let lang = part.attrs && part.attrs.lang || 'less';
+    output += `
+    var style = require(${helper.getPartLoaders({loaderContext: self, selectorOptions, partType: 'style', lang, loaders, resourcePath})});
+    `
+  }
   output += `var template = require(${helper.getPartLoaders({loaderContext: self, selectorOptions, partType: 'template', loaders, resourcePath})});\n`
-  output += `var style = require(${helper.getPartLoaders({loaderContext: self, selectorOptions, partType: 'style', lang: 'css', loaders, resourcePath})});\n`
   output += `var script = require(${helper.getPartLoaders({loaderContext: self, selectorOptions, partType: 'script', loaders, resourcePath})});\n`
 
   return output;

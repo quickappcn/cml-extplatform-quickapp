@@ -3,7 +3,6 @@
     <div><text>chameleon</text></div>
     <demo-com></demo-com>
     <div class="class1"></div>
-    
   </div>
 
 </template>
@@ -14,7 +13,6 @@ class Index  {}
 export default new Index();
 
 // cml.alert({message: 'chameleon', confirmTitle:'确定'})
-
 
 </script>
 <style>

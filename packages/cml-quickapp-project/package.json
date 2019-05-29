@@ -16,7 +16,8 @@
     "cml-quickapp-api": "1.0.0",
     "cml-quickapp-plugin": "1.0.0",
     "cml-quickapp-runtime": "1.0.0",
-    "cml-quickapp-ui-builtin": "1.0.0"
+    "cml-quickapp-ui-builtin": "1.0.0",
+    "mvvm-cml-ux-loader": "1.0.0"
   },
   "main": "chameleon.config.js",
   "devDependencies": {}

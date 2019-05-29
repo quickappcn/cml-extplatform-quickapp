@@ -9,7 +9,15 @@ const changeManifest = require('./pack/changeManifest.js');
 module.exports = class QuickAppPlugin {
   constructor(options) {
     let { cmlType, media} = options;
-    this.webpackRules = []; // webpack的rules设置  用于当前端特殊文件处理
+    this.webpackRules = [
+      {
+        test: /\.ux$/,
+        use: [{
+          loader: 'mvvm-cml-ux-loader',
+          needDefaultOptions: true // 是否需要默认options 会添加上css js less stylus等处理loader
+        }]
+      }
+    ]; // webpack的rules设置  用于当前端特殊文件处理
     this.moduleRules = []; // 文件后缀对应的节点moduleType  
     this.logLevel = 3;
     this.originComponentExtList = ['.ux']; // 用于扩展原生组件的文件后缀查找
@@ -82,7 +90,7 @@ module.exports = class QuickAppPlugin {
      * parentNodeType 父节点的nodeType
      */
     compiler.hook("compile-template", function (currentNode, parentNodeType) {
-      let {componentFiles} = currentNode.parent.extra;
+      let {componentFiles} = currentNode.parent.extra || {};
       currentNode.output = templateParser(currentNode.source);
       if(componentFiles) {
         let components = '';
