@@ -1,12 +1,8 @@
 <template>
-  <div class="scroller-wrap">
-    <div><text>chameleon 变色龙</text></div>
-    <demo-com></demo-com>
-    <comA></comA>
-    <comB></comB>
-    <div class="class1"></div>
+  <view class="scroller-wrap">
+    <text>pageA</text>
     
-  </div>
+  </view>
 
 </template>
 
@@ -21,29 +17,11 @@ export default new Index();
 </script>
 <style>
 
-.scroller-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.class1 {
-  width: 500cpx;
-  height: 500cpx;
-  background-image: url('../../assets/images/chameleon.png');
-  background-repeat: no-repeat;
-  background-size: 500cpx 500cpx;
-}
-
 </style>
 <script cml-type="json">
 {
   "base": {
-    "usingComponents": {
-      "demo-com": "/components/demo-com/demo-com",
-      "comA": "/components/comA/comA",
-      "comB": "/components/comB/comB"
-    }
+    "usingComponents": {}
   },
   "wx": {
     "navigationBarTitleText": "index",
