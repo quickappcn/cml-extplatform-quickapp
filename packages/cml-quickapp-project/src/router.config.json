@@ -7,6 +7,12 @@
       "path": "/pages/index/index",
       "name": "首页",
       "mock": "index.php"
+    },
+    {
+      "url": "/cml/h5/pagea",
+      "path": "/pages/pagea/pageb",
+      "name": "首页",
+      "mock": "index.php"
     }
   ]
 }
