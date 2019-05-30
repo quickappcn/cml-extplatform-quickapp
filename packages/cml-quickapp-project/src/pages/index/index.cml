@@ -11,12 +11,41 @@
 </template>
 
 <script>
-// import cml from 'cml-quickapp-api';
-class Index  {}
+import cml from 'cml-quickapp-api';
+cml.alert({message: 'chameleon', confirmTitle:'确定'})
+
+class Index  {
+  
+    beforeCreate() {
+      console.log('================ beforeCreate')
+    }
+
+    created() {
+      console.log('================ created')
+
+    }
+
+    beforeMount() {
+      console.log('================ beforeMount')
+    }
+
+
+    mounted() {
+      console.log('================ mounted')
+
+    }
+
+    beforeDestroy() {
+      console.log('================ beforeDestroy')
+
+    }
+
+    destroyed() {
+      console.log('================ destroyed')
+
+    }
+}
 export default new Index();
-
-// cml.alert({message: 'chameleon', confirmTitle:'确定'})
-
 
 </script>
 <style>

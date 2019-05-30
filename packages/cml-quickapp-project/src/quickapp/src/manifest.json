@@ -8,13 +8,14 @@
   "features": [
     { "name": "system.prompt" },
     { "name": "system.router" },
-    { "name": "system.shortcut" }
+    { "name": "system.shortcut" },
+    { "name": "system.prompt" }
   ],
   "permissions": [
     { "origin": "*" }
   ],
   "config": {
-    "logLevel": "off"
+    "logLevel": "debug"
   },
   "display": {
     "titleBarBackgroundColor": "#f2f2f2",

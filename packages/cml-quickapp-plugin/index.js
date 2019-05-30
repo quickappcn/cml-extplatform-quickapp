@@ -6,6 +6,8 @@ const path = require("path");
 const copyDefault = require('./pack/copyDefault.js');
 const copyProject = require('./pack/copyProject.js');
 const changeManifest = require('./pack/changeManifest.js');
+const fs = require('fs');
+// const apiContent = fs.readFileSync('./api/dialog', 'utf-8');
 module.exports = class QuickAppPlugin {
   constructor(options) {
     let { cmlType, media} = options;
@@ -131,7 +133,18 @@ module.exports = class QuickAppPlugin {
       copyProject(compiler);
       // 修改manifest文件 路由
       changeManifest(compiler);
-      
+      // 导出api
+      compiler.writeFile('/src/js/api.js', `
+      (function() {
+        const prompt = require('@system.prompt')
+    
+        module.exports = {
+            showDialog: prompt.showDialog
+        }
+    })()
+    
+      `);
+            
       // 遍历编译图的节点，进行各项目的拼接
       let hasCompiledNode = [];
       
@@ -139,6 +152,7 @@ module.exports = class QuickAppPlugin {
       let bootstrapCode = compiler.amd.getModuleBootstrap();
       compiler.writeFile('/src/js/manifest.js', bootstrapCode);
       let commonjsContent = `var manifest = require('./manifest.js');\n`;
+      commonjsContent += `var quickapp = require('./api.js');\n`;
       commonjsContent += `var cmldefine = manifest.cmldefine;\n`;
       // 遍历节点
       outputNode(projectGraph);

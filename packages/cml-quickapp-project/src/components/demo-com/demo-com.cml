@@ -1,5 +1,5 @@
 <template>
-  <view><text>用cml文件编写的组件!</text></view>
+  <view><text>Comp: 用cml文件编写的组件!</text></view>
 </template>
 
 <script>
@@ -13,34 +13,6 @@
 
     methods = {}
 
-    beforeCreate() {
-      console.log('================ beforeCreate')
-    }
-
-    created() {
-      console.log('================ created')
-
-    }
-
-    beforeMount() {
-      console.log('================ beforeMount')
-    }
-
-
-    mounted() {
-      console.log('================ mounted')
-
-    }
-
-    beforeDestroy() {
-      console.log('================ beforeDestroy')
-
-    }
-
-    destroyed() {
-      console.log('================ destroyed')
-
-    }
   }
 
   export default new DemoCom();
