@@ -1,5 +1,5 @@
 (function() {
-    const prompt = require('@system.prompt')
+    var prompt = require('@system.prompt')
 
     module.exports = {
         showDialog: prompt.showDialog

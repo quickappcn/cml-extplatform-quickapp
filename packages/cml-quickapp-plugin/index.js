@@ -136,7 +136,7 @@ module.exports = class QuickAppPlugin {
       // 导出api
       compiler.writeFile('/src/js/api.js', `
       (function() {
-        const prompt = require('@system.prompt')
+        var prompt = require('@system.prompt')
     
         module.exports = {
             showDialog: prompt.showDialog
