@@ -1,8 +1,6 @@
-<import src="./comb" name="comb"></import>
 <template>
   <div>
-    <text>我是组件coma</text>
-    <comb></comb>
+    <text>我是组件comb</text>
   </div>
 </template>
 

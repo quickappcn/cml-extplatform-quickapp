@@ -2,8 +2,10 @@
   <div class="scroller-wrap">
     <div><text>chameleon</text></div>
     <demo-com></demo-com>
+    <coma></coma>
     <div class="class1"></div>
   </div>
+
 
 </template>
 
@@ -36,7 +38,8 @@ export default new Index();
 {
   "base": {
     "usingComponents": {
-      "demo-com": "/components/demo-com/demo-com"
+      "demo-com": "/components/demo-com/demo-com",
+      "coma": "./coma"
     }
   },
   "wx": {
