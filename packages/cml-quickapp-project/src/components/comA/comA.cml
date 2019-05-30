@@ -1,9 +1,9 @@
 <template>
-  <view><text>Comp: 用cml文件编写的组件!</text></view>
+  <view><text>用cml文件编写的组件comA!</text></view>
 </template>
 
 <script>
-  class DemoCom {
+  class comA {
 
     data = {}
 
@@ -15,7 +15,7 @@
 
   }
 
-  export default new DemoCom();
+  export default new comA();
 </script>
 <style>
 

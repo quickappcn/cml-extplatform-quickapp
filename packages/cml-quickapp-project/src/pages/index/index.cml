@@ -1,8 +1,10 @@
 <template>
   <div class="scroller-wrap">
-    <div><text>chameleon</text></div>
+    <div><text>chameleon 变色龙</text></div>
     <demo-com></demo-com>
     <coma></coma>
+    <comA></comA>
+    <comB></comB>
     <div class="class1"></div>
   </div>
 
@@ -10,11 +12,41 @@
 </template>
 
 <script>
-// import cml from 'cml-quickapp-api';
-class Index  {}
-export default new Index();
+import cml from 'cml-quickapp-api';
+cml.alert({message: 'chameleon', confirmTitle:'确定'})
 
-// cml.alert({message: 'chameleon', confirmTitle:'确定'})
+class Index  {
+  
+    beforeCreate() {
+      console.log('================ beforeCreate')
+    }
+
+    created() {
+      console.log('================ created')
+
+    }
+
+    beforeMount() {
+      console.log('================ beforeMount')
+    }
+
+
+    mounted() {
+      console.log('================ mounted')
+
+    }
+
+    beforeDestroy() {
+      console.log('================ beforeDestroy')
+
+    }
+
+    destroyed() {
+      console.log('================ destroyed')
+
+    }
+}
+export default new Index();
 
 </script>
 <style>
@@ -39,7 +71,9 @@ export default new Index();
   "base": {
     "usingComponents": {
       "demo-com": "/components/demo-com/demo-com",
-      "coma": "./coma"
+      "coma": "./coma",
+      "comA": "/components/comA/comA",
+      "comB": "/components/comB/comB"
     }
   },
   "wx": {
