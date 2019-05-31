@@ -2,7 +2,7 @@ import index from './index.interface';
 
 export default function chooseImage(
   params = {
-    type: 'choice'
+    type: 'album'
   }
 ) {
   return new Promise((resolve, reject) => {
