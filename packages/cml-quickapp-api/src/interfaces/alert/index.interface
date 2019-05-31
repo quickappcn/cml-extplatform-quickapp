@@ -7,7 +7,7 @@
 class Method implements uiInterface {
   alert(opt, successCallBack, failCallBack) {
     let { message, confirmTitle} = opt;
-    quickapp.showDialog({
+    quickapp.prompt.showDialog({
       title: 'title',
       message: 'message',
       buttons: [
@@ -26,19 +26,6 @@ class Method implements uiInterface {
         console.log(`handling fail, code = ${code}`)
       }
     })
-    /*     
-    wx.showModal({
-      showCancel: false,
-      title: '',
-      content: message,
-      confirmText: confirmTitle,
-      success() {
-        successCallBack(confirmTitle);
-      },
-      fail() {
-        failCallBack(confirmTitle);
-      }
-    }); */
   }
 }
 

@@ -1,0 +1,12 @@
+<include src="chameleon-api/src/interfaces/px2cpx/getWidth.interface"></include>
+
+<script cml-type="quickapp">
+class Method implements getWidthInterface {
+  getWidth() {
+    const { windowWidth } = tt.getSystemInfoSync();
+    return windowWidth;
+  }
+}
+
+export default new Method();
+</script>

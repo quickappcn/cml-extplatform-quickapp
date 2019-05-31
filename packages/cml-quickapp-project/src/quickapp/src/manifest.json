@@ -5,15 +5,158 @@
   "versionCode": "1",
   "minPlatformVersion": "1020",
   "icon": "/common/chameleon.png",
-  "features": [
-    { "name": "system.prompt" },
-    { "name": "system.router" },
-    { "name": "system.shortcut" },
-    { "name": "system.prompt" }
+  "features": [{
+      "name": "system.webview"
+    },
+    {
+      "name": "system.prompt"
+    },
+    {
+      "name": "system.clipboard"
+    },
+    {
+      "name": "system.calendar"
+    },
+    {
+      "name": "system.device"
+    },
+    {
+      "name": "system.fetch"
+    },
+    {
+      "name": "system.file"
+    },
+    {
+      "name": "system.geolocation"
+    },
+    {
+      "name": "system.image"
+    },
+    {
+      "name": "system.media"
+    },
+    {
+      "name": "system.notification"
+    },
+    {
+      "name": "system.barcode"
+    },
+    {
+      "name": "system.sensor"
+    },
+    {
+      "name": "system.share"
+    },
+    {
+      "name": "system.shortcut"
+    },
+    {
+      "name": "system.storage"
+    },
+    {
+      "name": "system.vibrator"
+    },
+    {
+      "name": "system.network"
+    },
+    {
+      "name": "system.request"
+    },
+    {
+      "name": "system.audio"
+    },
+    {
+      "name": "system.volume"
+    },
+    {
+      "name": "system.battery"
+    },
+    {
+      "name": "system.brightness"
+    },
+    {
+      "name": "system.package"
+    },
+    {
+      "name": "system.record"
+    },
+    {
+      "name": "system.sms"
+    },
+    {
+      "name": "system.websocketfactory"
+    },
+    {
+      "name": "system.wifi"
+    },
+    {
+      "name": "service.stats"
+    },
+    {
+      "name": "service.account"
+    },
+    {
+      "name": "system.contact"
+    },
+    {
+      "name": "service.app"
+    },
+    {
+      "name": "service.share",
+      "params": {
+        "appSign": "",
+        "wxKey": ""
+      }
+    },
+    {
+      "name": "service.pay"
+    },
+    {
+      "name": "service.alipay"
+    },
+    {
+      "name": "service.wxpay",
+      "params": {
+        "url": "",
+        "package": "",
+        "sign": ""
+      }
+    },
+    {
+      "name": "service.push",
+      "params": {
+        "appId": "",
+        "appKey": ""
+      }
+    },
+    {
+      "name": "service.wxaccount",
+      "params": {
+        "appId": "",
+        "package": "",
+        "sign": ""
+      }
+    },
+    {
+      "name": "service.qqaccount",
+      "params": {
+        "package": "",
+        "appId": "",
+        "sign": "",
+        "clientId": ""
+      }
+    },
+    {
+      "name": "service.wbaccount",
+      "params": {
+        "sign": "",
+        "appKey": ""
+      }
+    }
   ],
-  "permissions": [
-    { "origin": "*" }
-  ],
+  "permissions": [{
+    "origin": "*"
+  }],
   "config": {
     "logLevel": "debug"
   },
@@ -23,6 +166,6 @@
     "menu": true
   },
   "router": {
-    
+
   }
 }

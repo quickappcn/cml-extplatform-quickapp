@@ -7,7 +7,8 @@ const copyDefault = require('./pack/copyDefault.js');
 const copyProject = require('./pack/copyProject.js');
 const changeManifest = require('./pack/changeManifest.js');
 const fs = require('fs');
-// const apiContent = fs.readFileSync('./api/dialog', 'utf-8');
+const apiContent = fs.readFileSync(path.join(__dirname, '/api/index.js'), 'utf-8');
+
 module.exports = class QuickAppPlugin {
   constructor(options) {
     let { cmlType, media} = options;
@@ -134,16 +135,7 @@ module.exports = class QuickAppPlugin {
       // 修改manifest文件 路由
       changeManifest(compiler);
       // 导出api
-      compiler.writeFile('/src/js/api.js', `
-      (function() {
-        var prompt = require('@system.prompt')
-    
-        module.exports = {
-            showDialog: prompt.showDialog
-        }
-    })()
-    
-      `);
+      compiler.writeFile('/src/js/api.js', apiContent);
             
       // 遍历编译图的节点，进行各项目的拼接
       let hasCompiledNode = [];

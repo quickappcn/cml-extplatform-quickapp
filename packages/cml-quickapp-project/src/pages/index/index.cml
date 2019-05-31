@@ -5,15 +5,15 @@
     <comA></comA>
     <comB></comB>
     <div class="class1"></div>
-    
   </div>
 
 </template>
 
 <script>
 import cml from 'cml-quickapp-api';
-cml.alert({message: 'chameleon', confirmTitle:'确定'})
-
+cml.alert({ message: 'hello' })
+cml.showToast({ message: 'message' })
+cml.canIUse('showToast').then(res => console.log('===================== can use'))
 class Index  {
   
     beforeCreate() {

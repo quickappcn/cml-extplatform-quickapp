@@ -1,0 +1,15 @@
+<include src="chameleon-api/src/interfaces/redirectTo/index.interface"></include>
+
+<script cml-type="quickapp">
+import { buildQueryStringUrl } from 'chameleon-api/src/lib/utils.js';
+  class Method implements UtilsInterface {
+    redirectTo(opt) {
+      let {path, query} = opt;
+      path = buildQueryStringUrl(query, path)
+      tt.redirectTo({
+        url: path
+      });
+    }
+  }
+  export default new Method();
+</script>
