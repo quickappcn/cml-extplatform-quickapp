@@ -1,7 +1,8 @@
+// 引入官方标准interface文件
 <include src="chameleon-api/src/interfaces/showToast/index.interface"></include>
 
+// 扩展实现新端
 <script cml-type="quickapp">
-
 class Method implements uiInterface {
   showToast(opt) {
     let { message, duration } = opt;
