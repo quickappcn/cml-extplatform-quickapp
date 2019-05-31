@@ -1,0 +1,35 @@
+<include src="chameleon-api/src/interfaces/getSystemInfo/index.interface"></include>
+
+<script cml-type="quickapp">
+  class Method implements UserInfoInterface {
+    getSystemInfo(cb) {
+      tt.getSystemInfo({
+        success(res) {
+          let os = res.platform === "iPhone" ? "ios" : "android";
+          let viewportWidth = res.windowWidth;
+          let viewportHeight = res.windowHeight;
+          let systemInfo = {
+            os,
+            env: 'alipay',
+            viewportWidth,
+            viewportHeight,
+            extraParams: res || {}
+          };
+          cb(systemInfo);
+        },
+        fail(err) {
+          let systemInfo = {
+            os: '',
+            env: 'alipay',
+            viewportWidth: 0,
+            viewportHeight: 0,
+            extraParams: {}
+          };
+          cb(systemInfo);
+        }
+      });
+    }
+  }
+
+  export default new Method();
+</script>
