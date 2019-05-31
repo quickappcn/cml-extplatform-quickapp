@@ -2,10 +2,31 @@
 <include src="chameleon-api/src/interfaces/alert/index.interface"></include>
 
 // 扩展实现新端
-<script cml-type="demo">
+<script cml-type="quickapp">
+
 class Method implements uiInterface {
   alert(opt, successCallBack, failCallBack) {
     let { message, confirmTitle} = opt;
+    quickapp.prompt.showDialog({
+      title: 'title',
+      message: 'message',
+      buttons: [
+        {
+          text: 'btn',
+          color: '#33dd44'
+        }
+      ],
+      success: function(data) {
+        console.log('handling callback')
+      },
+      cancel: function() {
+        console.log('handling cancel')
+      },
+      fail: function(data, code) {
+        console.log(`handling fail, code = ${code}`)
+      }
+    })
+    /*     
     wx.showModal({
       showCancel: false,
       title: '',
@@ -17,7 +38,7 @@ class Method implements uiInterface {
       fail() {
         failCallBack(confirmTitle);
       }
-    });
+    }); */
   }
 }
 
