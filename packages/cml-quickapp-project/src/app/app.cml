@@ -21,14 +21,6 @@ export default new App();
       "navigationBarTextStyle":"black"
     }
   },
-  "quickapp": {
-    "window": {
-      "backgroundTextStyle":"light",
-      "navigationBarBackgroundColor": "#fff",
-      "navigationBarTitleText": "Chameleon",
-      "navigationBarTextStyle":"black"
-    }
-  },
   "baidu": {
     "window": {
       "backgroundTextStyle": "light",
@@ -50,9 +42,36 @@ export default new App();
     "minPlatformVersion": "1020",
     "icon": "../assets/images/chameleon.png",
     "features": [
-      { "name": "system.prompt" },
       { "name": "system.router" },
-      { "name": "system.shortcut" }
+      { "name": "system.webview"},
+      { "name": "system.prompt"},
+      { "name": "system.clipboard"},
+      { "name": "system.calendar"},
+      { "name": "system.device"},
+      { "name": "system.fetch"},
+      { "name": "system.file"},
+      { "name": "system.geolocation"},
+      { "name": "system.image"},
+      { "name": "system.media"},
+      { "name": "system.notification"},
+      { "name": "system.barcode"},
+      { "name": "system.sensor"},
+      { "name": "system.share"},
+      { "name": "system.shortcut"},
+      { "name": "system.storage"},
+      { "name": "system.vibrator"},
+      { "name": "system.network"},
+      { "name": "system.request"},
+      { "name": "system.audio"},
+      { "name": "system.volume"},
+      { "name": "system.battery"},
+      { "name": "system.brightness"},
+      { "name": "system.package"},
+      { "name": "system.record"},
+      { "name": "system.sms"},
+      { "name": "system.websocketfactory"},
+      { "name": "system.wifi"},
+      { "name": "system.contact"}
     ],
     "permissions": [
       { "origin": "*" }
