@@ -1,0 +1,17 @@
+<include src="chameleon-api/src/interfaces/requestAnimationFrame/index.interface"></include>
+
+<script cml-type="quickapp">
+
+  import { requestAnimationFrame } from 'chameleon-api/src/interfaces/requestAnimationFrame/animationShim.js';
+  class Method implements RequestAnimationInterface {
+    init() {
+      return class AnimationFrameFactory {
+        requestAnimationFrame() {
+          return requestAnimationFrame;
+        }
+      };
+    }
+  }
+
+  export default new Method();
+</script>

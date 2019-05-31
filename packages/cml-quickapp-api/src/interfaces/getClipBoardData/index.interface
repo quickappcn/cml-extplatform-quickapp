@@ -1,0 +1,45 @@
+<include src="chameleon-api/src/interfaces/getClipBoardData/index.interface"></include>
+
+<script cml-type="quickapp">
+    class Method implements ClipBoardDataInterface {
+      getClipBoardData(cb) {
+        tt.getClipboardData({
+          success : res => {
+            cb({
+              errno: 0,
+              errMsg: '',
+              data: res.data
+            });
+          },
+          fail:res => {
+            cb({
+              errno: -1,
+              errMsg : 'tt.getClipboardData fail',
+              data: ''
+            });
+          }
+        });
+      }
+      setClipBoardData(text, cb) {
+        tt.setClipboardData({
+          data: text,
+          success: res => {
+            cb({
+              errno: 0,
+              errMsg: '',
+              data : text
+            });
+          },
+          fail:res => {
+            cb({
+              errno: -1,
+              data: '',
+              errMsg : 'tt.setClipboardData fail'
+            });
+          }
+        });
+      }
+    }
+
+    export default new Method();
+</script>

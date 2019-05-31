@@ -13,8 +13,10 @@
 
 <script>
 import cml from 'cml-quickapp-api';
-cml.alert({message: 'chameleon', confirmTitle:'确定'})
-
+cml.alert({ message: 'hello' }).then(() => {
+  cml.showToast({ message: 'message' })
+})
+cml.canIUse('showToast').then(res => console.log('===================== can use'))
 class Index  {
   
     beforeCreate() {

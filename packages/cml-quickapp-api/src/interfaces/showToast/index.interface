@@ -1,0 +1,17 @@
+<include src="chameleon-api/src/interfaces/showToast/index.interface"></include>
+
+<script cml-type="quickapp">
+
+class Method implements uiInterface {
+  showToast(opt) {
+    let { message, duration } = opt;
+    quickapp.prompt.showToast({
+      message,
+      duration
+    });
+  }
+}
+
+export default new Method();
+
+</script>
