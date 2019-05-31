@@ -21,14 +21,6 @@ export default new App();
       "navigationBarTextStyle":"black"
     }
   },
-  "quickapp": {
-    "window": {
-      "backgroundTextStyle":"light",
-      "navigationBarBackgroundColor": "#fff",
-      "navigationBarTitleText": "Chameleon",
-      "navigationBarTextStyle":"black"
-    }
-  },
   "baidu": {
     "window": {
       "backgroundTextStyle": "light",
