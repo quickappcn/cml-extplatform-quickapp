@@ -60,6 +60,7 @@ module.exports = function(jsonNode, compiler) {
     }
     if(cmlUtils.isFile(filePath)) {
       let relativePath = path.relative(path.join(cml.projectRoot,'src'), filePath);
+      relativePath = cmlUtils.handleWinPath(relativePath);
       if(relativePath[0] !== '/') {
         relativePath = '/'+ relativePath;
       }
