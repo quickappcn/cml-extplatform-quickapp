@@ -6,7 +6,7 @@
 - 首先全局安装支持扩展新端的脚手架`npm i chameleon-tool@0.4.0-mvvm.12 -g`。
 - 全局安装`lerna` 对本项目进行管理 `npm i lerna -g`。
 - 在本仓库根目录执行`lerna bootstrap`，安装外部依赖与建立本仓库npm包之间的依赖。
-- 在`cml-quickapp-project`目录执行`cml quickapp dev`, 将会生成`cml-tt-project/dist/quickapp`目录。
+- 在`cml-quickapp-project`目录执行`cml quickapp dev`, 将会生成`cml-quickapp-project/dist/quickapp`目录。
 
 ### 如何开发测试
 
