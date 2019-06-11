@@ -2,7 +2,6 @@
   <div class="scroller-wrap">
     <div><text>chameleon 变色龙</text></div>
     <demo-com></demo-com>
-    <coma></coma>
     <comA></comA>
     <comB></comB>
     <div class="class1"></div>
@@ -73,7 +72,6 @@ export default new Index();
   "base": {
     "usingComponents": {
       "demo-com": "/components/demo-com/demo-com",
-      "coma": "./coma",
       "comA": "/components/comA/comA",
       "comB": "/components/comB/comB"
     }
