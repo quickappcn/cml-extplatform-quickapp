@@ -2,7 +2,7 @@
 
 <script cml-type="quickapp">
 
-import Socket from './ttSocket.js';
+import Socket from './quickappSocket.js';
 
 class Method implements socketInterface {
   initSocket(url) {
