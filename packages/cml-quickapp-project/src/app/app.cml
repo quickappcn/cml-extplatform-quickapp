@@ -82,6 +82,7 @@ export default new App();
     "display": {
       "titleBarBackgroundColor": "#f2f2f2",
       "titleBarTextColor": "#414141",
+      "titleBarText": "",
       "menu": true
     }
   }

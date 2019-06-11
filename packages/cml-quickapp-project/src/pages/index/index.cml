@@ -1,8 +1,7 @@
 <template>
   <div class="scroller-wrap">
-    <div><text>chameleon 变色龙</text></div>
+    <div><text>chameleon -- 变色龙</text></div>
     <demo-com></demo-com>
-    <coma></coma>
     <comA></comA>
     <comB></comB>
     <div class="class1"></div>
@@ -13,10 +12,16 @@
 
 <script>
 import cml from 'cml-quickapp-api';
-cml.alert({ message: 'hello' }).then(() => {
-  cml.showToast({ message: 'message' })
-})
-cml.canIUse('showToast').then(res => console.log('===================== can use'))
+// cml.alert({ message: 'hello world' })
+// cml.alert({ message: 'hello' }).then(() => {
+//   // cml.showToast({ message: 'message' })
+// })
+// cml.canIUse('showToast').then(res => console.log('===================== can use'))
+// cml.chooseImage({ type: 'album' })
+// cml.confirm({ message: 'ok?' })
+// console.log('px2cpx ========================= ', cml.px2cpx(100));
+cml.setTitle('hello world')
+
 class Index  {
   
     beforeCreate() {
@@ -73,7 +78,6 @@ export default new Index();
   "base": {
     "usingComponents": {
       "demo-com": "/components/demo-com/demo-com",
-      "coma": "./coma",
       "comA": "/components/comA/comA",
       "comB": "/components/comB/comB"
     }
