@@ -3,9 +3,8 @@
 <script cml-type="quickapp">
   class Method implements UtilsInterface {
     getLocationInfo(cb) {
-      tt.getLocation({
-        type: 'wgs84',
-        success: function (res) {
+      quickapp.geolocation.getLocation({
+        success: (res) => {
           const latitude = +res.latitude;
           const longitude = +res.longitude;
           cb({
@@ -17,7 +16,7 @@
             }
           });
         },
-        fail() {
+        fail: () => {
           cb({
             errno: -1,
             errMsg: 'getLocation failed',
@@ -27,7 +26,7 @@
             }
           });
         }
-      });
+      })
     }
   }
   export default new Method();

@@ -5,10 +5,15 @@ import { buildQueryStringUrl } from 'chameleon-api/src/lib/utils.js';
   class Method implements UtilsInterface {
     navigateTo(opt) {
       let {path, query} = opt;
-      path = buildQueryStringUrl(query, path);
-      tt.navigateTo({
-        url: path
-      });
+      console.log('path:',path)
+      quickapp.router.push({
+        uri: path,
+        params: query
+      })
+      // path = buildQueryStringUrl(query, path);
+      // tt.navigateTo({
+      //   url: path
+      // });
     }
   }
   export default new Method();

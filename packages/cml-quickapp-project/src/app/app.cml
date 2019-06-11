@@ -77,7 +77,7 @@ export default new App();
       { "origin": "*" }
     ],
     "config": {
-      "logLevel": "off"
+      "logLevel": "debug"
     },
     "display": {
       "titleBarBackgroundColor": "#f2f2f2",

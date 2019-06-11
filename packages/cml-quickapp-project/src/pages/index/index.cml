@@ -12,15 +12,10 @@
 
 <script>
 import cml from 'cml-quickapp-api';
-// cml.alert({ message: 'hello world' })
-// cml.alert({ message: 'hello' }).then(() => {
-//   // cml.showToast({ message: 'message' })
-// })
-// cml.canIUse('showToast').then(res => console.log('===================== can use'))
-// cml.chooseImage({ type: 'album' })
-// cml.confirm({ message: 'ok?' })
-// console.log('px2cpx ========================= ', cml.px2cpx(100));
-cml.setTitle('hello world')
+cml.navigateTo({
+  path: '/pages/pagea/pageb'
+})
+
 
 class Index  {
   

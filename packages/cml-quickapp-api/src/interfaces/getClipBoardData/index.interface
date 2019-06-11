@@ -3,26 +3,26 @@
 <script cml-type="quickapp">
     class Method implements ClipBoardDataInterface {
       getClipBoardData(cb) {
-        tt.getClipboardData({
+        quickapp.clipboard.get({
           success : res => {
             cb({
               errno: 0,
               errMsg: '',
-              data: res.data
+              data: res.text
             });
           },
           fail:res => {
             cb({
               errno: -1,
-              errMsg : 'tt.getClipboardData fail',
+              errMsg : 'quickapp.clipboard.get fail',
               data: ''
             });
           }
         });
       }
       setClipBoardData(text, cb) {
-        tt.setClipboardData({
-          data: text,
+        quickapp.clipboard.set({
+          text: text,
           success: res => {
             cb({
               errno: 0,
@@ -34,7 +34,7 @@
             cb({
               errno: -1,
               data: '',
-              errMsg : 'tt.setClipboardData fail'
+              errMsg : 'quickapp.clipboard.set fail'
             });
           }
         });

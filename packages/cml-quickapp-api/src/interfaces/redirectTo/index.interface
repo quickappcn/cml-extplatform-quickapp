@@ -5,10 +5,15 @@ import { buildQueryStringUrl } from 'chameleon-api/src/lib/utils.js';
   class Method implements UtilsInterface {
     redirectTo(opt) {
       let {path, query} = opt;
-      path = buildQueryStringUrl(query, path)
-      tt.redirectTo({
-        url: path
-      });
+      console.log('path:',path)
+      quickapp.router.replace({
+        uri: path,
+        params: query
+      })
+      // path = buildQueryStringUrl(query, path)
+      // tt.redirectTo({
+      //   url: path
+      // });
     }
   }
   export default new Method();

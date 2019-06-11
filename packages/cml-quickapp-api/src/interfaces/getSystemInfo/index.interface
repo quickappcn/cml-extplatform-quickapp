@@ -3,31 +3,30 @@
 <script cml-type="quickapp">
   class Method implements UserInfoInterface {
     getSystemInfo(cb) {
-      tt.getSystemInfo({
-        success(res) {
-          let os = res.platform === "iPhone" ? "ios" : "android";
+      quickapp.device.getInfo({
+        success: (res) => {
           let viewportWidth = res.windowWidth;
           let viewportHeight = res.windowHeight;
           let systemInfo = {
-            os,
-            env: 'alipay',
+            os: res.osType,
+            env: 'quickapp',
             viewportWidth,
             viewportHeight,
             extraParams: res || {}
           };
           cb(systemInfo);
         },
-        fail(err) {
+        fail: (err) => {
           let systemInfo = {
             os: '',
-            env: 'alipay',
+            env: 'quickapp',
             viewportWidth: 0,
             viewportHeight: 0,
             extraParams: {}
           };
           cb(systemInfo);
         }
-      });
+      })
     }
   }
 
