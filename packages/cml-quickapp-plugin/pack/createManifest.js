@@ -23,7 +23,8 @@ module.exports = function(jsonNode, compiler) {
         }
         if(!resultRouter.pages[key]) {
           resultRouter.pages[key] = {
-            component: value
+            component: value,
+            path: key + '/' + value
           };
         }
       }
@@ -41,7 +42,8 @@ module.exports = function(jsonNode, compiler) {
             let value = matches[2];
             if(!resultRouter.pages[key]) {
               resultRouter.pages[key] = {
-                component: value
+                component: value,
+                path: key + '/' + value
               };
             }
           }
