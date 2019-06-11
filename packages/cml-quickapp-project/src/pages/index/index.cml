@@ -49,6 +49,9 @@ ws.onclose(() => {
 setTimeout(() => {
   ws.close();
 }, 20000);
+cml.navigateTo({
+  path: '/pages/pagea/pageb'
+})
 class Index  {
   
     beforeCreate() {

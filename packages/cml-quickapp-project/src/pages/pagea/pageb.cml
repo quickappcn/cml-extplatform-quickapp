@@ -3,7 +3,8 @@
 </template>
 
 <script>
-
+import cml from 'cml-quickapp-api';
+cml.navigateBack()
 class Pagea   {
 
   data = {
