@@ -1,6 +1,6 @@
 <template>
   <div class="scroller-wrap">
-    <div><text>chameleon -- 变色龙</text></div>
+    <div><text>pageCCCCCCCCCCCCCCCCCC</text></div>
     <demo-com></demo-com>
     <comA></comA>
     <comB></comB>
@@ -49,9 +49,14 @@ setTimeout(() => {
   ws.close();
 }, 20000);
 
-cml.navigateTo({
-  path: '/pages/pageA/index'
-})
+setTimeout(() => {
+  // cml.alert({ message: 'ok'})
+  cml.navigateBack(-2)
+}, 2000);
+
+// cml.navigateTo({
+//   path: '/pages/index/index'
+// })
 
 // cml.open('http://baidu.com')
 // cml.navigateBack(-2);

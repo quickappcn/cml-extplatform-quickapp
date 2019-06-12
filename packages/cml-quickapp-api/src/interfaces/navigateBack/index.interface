@@ -3,10 +3,8 @@
 <script cml-type="quickapp">
   class Method implements UtilsInterface {
     navigateBack(backPageNum) {
-      quickapp.router.back();
-      // tt.navigateBack({
-      //   delta: Math.abs(backPageNum)
-      // });
+      for(let i = 0; i < backPageNum * -1; i++)
+        quickapp.router.back();
     }
   }
   export default new Method();
