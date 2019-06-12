@@ -1,6 +1,6 @@
 <template>
   <div class="scroller-wrap">
-    <div><text>chameleon -- 变色龙</text></div>
+    <div><text>pageBBBBBBBBBBBBBBBBBBBBB</text></div>
     <demo-com></demo-com>
     <comA></comA>
     <comB></comB>
@@ -9,13 +9,14 @@
 
 
 </template>
+
 <script>
 import cml from 'cml-quickapp-api';
 // cml.alert({ message: 'hello' }).then(() => {
 //   cml.showToast({ message: 'message' })
 // })
 // cml.canIUse('showToast').then(res => console.log('===================== can use'))
-cml.chooseImage({ type: 'camera' })
+// cml.chooseImage({ type: 'album' })
 // cml.confirm({ message: 'ok?' })
 // console.log('px2cpx ========================= ', cml.px2cpx(100));
 // cml.setTitle('hello world')
@@ -37,7 +38,7 @@ ws.onmessage(res => {
 });
 
 ws.onerror(err => {
-    console.error('ws on error', JSON.stringify(err))
+    console.error('ws on error', JSON.stringify(err.data))
 });
 
 ws.onclose(() => {
@@ -48,20 +49,11 @@ setTimeout(() => {
   ws.close();
 }, 20000);
 
+cml.navigateTo({
+  path: '/pages/pageC/index'
+})
 // cml.navigateTo({
-//   path: '/pages/pagea/pageb'
-// })
-
-// requestAnimationFrame cancelAnimationFrame
-// const id = requestAnimationFrame(function(){
-//   console.log(`requestAnimationFrame callback`)
-// })
-
-// console.log(`requestAnimationFrame id :${id}`)
-// cancelAnimationFrame(id)
-
-// cml.navigateTo({
-//   path: '/pages/pageA/index'
+//   path: '/pages/index/index'
 // })
 
 // cml.open('http://baidu.com')
@@ -80,31 +72,14 @@ async function f() {
 f() */
 
 class Index  {
-    data: {
-      lAnimate: null,
-      rAnimate: null
-    }
+  
     beforeCreate() {
       console.log('================ beforeCreate')
     }
 
     created() {
       console.log('================ created')
-      let option = {
-        duration: 100, // 动画执行时间
-        timingFunction: 'ease-in' // 动画执行效果
-      };
-      var lanimation = cml.createAnimation(option); // 创建动画
-      var ranimation = cml.createAnimation(option);
-      // 起点
-      lanimation.translateX(100);
-      lanimation.opacity(0.1).step();
-      // 终点
-      ranimation.translateX(-100);
-      ranimation.opacity(0.1).step();
 
-      this.lAnimate = lanimation.export()
-      this.rAnimate = ranimation.export()
     }
 
     beforeMount() {
@@ -146,25 +121,6 @@ export default new Index();
   background-size: 500cpx 500cpx;
 }
 
-.animation{
-  margin-top: 20rpx;
-  padding: 10rpx 30rpx;
-}
-.dis-flex{
-    display: flex;
-}
-
-.flex1{
-    flex: 1;
-    text-align: center;
-}
-.flex3{
-    flex: 3;
-    text-align: center;
-}
-.switch-icon:before { 
-  content: "\e8c8"; 
-}
 </style>
 <script cml-type="json">
 {

@@ -3,7 +3,14 @@
 <script cml-type="quickapp">
 class Method implements launchOptionsInterface {
   getLaunchOptionsSync() {
-    return tt.getLaunchOptionsSync();
+    const appInfo = quickapp.app.getInfo();
+    const option = {
+      query: {},
+      path: `hap://app/${appInfo.source.packageName}`,
+      scene: 0,
+      ...appInfo
+    }
+    return option;
   }
 }
 

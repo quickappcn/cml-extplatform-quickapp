@@ -28,27 +28,7 @@
           });
         }
       });
-      // tt.request({
-      //   url,
-      //   data:body,
-      //   dataType: 'text',
-      //   method,
-      //   header: headers,
-      //   success: function(res) {
-      //     cb({
-      //       status: res.statusCode,
-      //       data: res.data,
-      //       headers: parseHeader(res.header)
-      //     });
-      //   },
-      //   fail: function(e) {
-      //     cb({
-      //       status: -1,
-      //       data: 'request failed',
-      //       headers: '{}'
-      //     });
-      //   }
-      // });
+      
     }
   }
 

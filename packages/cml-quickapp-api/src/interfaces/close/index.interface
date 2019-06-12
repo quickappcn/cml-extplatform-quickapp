@@ -5,7 +5,7 @@
 
 class Method implements closeInterface {
   close() {
-    quickapp.back()
+    quickapp.router.back()
   }
 }
 
