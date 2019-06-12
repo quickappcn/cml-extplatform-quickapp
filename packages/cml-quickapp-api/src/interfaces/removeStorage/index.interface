@@ -3,7 +3,7 @@
 
 // 扩展实现新端
 <script cml-type="quickapp">
-class Method implements uiInterface {
+class Method implements UtilsInterface {
   removeStorage(key, cb) {
     try {
       quickapp.storage.delete({
