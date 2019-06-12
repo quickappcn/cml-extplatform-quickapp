@@ -5,7 +5,6 @@ import { buildQueryStringUrl } from 'chameleon-api/src/lib/utils.js';
   class Method implements UtilsInterface {
     navigateTo(opt) {
       let {path, query} = opt;
-      console.log('path:',path)
       quickapp.router.push({
         uri: path,
         params: query

@@ -16,7 +16,7 @@ import cml from 'cml-quickapp-api';
 //   cml.showToast({ message: 'message' })
 // })
 // cml.canIUse('showToast').then(res => console.log('===================== can use'))
-// cml.chooseImage({ type: 'album' })
+cml.chooseImage({ type: 'camera' })
 // cml.confirm({ message: 'ok?' })
 // console.log('px2cpx ========================= ', cml.px2cpx(100));
 // cml.setTitle('hello world')
@@ -49,9 +49,9 @@ setTimeout(() => {
   ws.close();
 }, 20000);
 
-cml.navigateTo({
-  path: '/pages/pageA/index'
-})
+// cml.navigateTo({
+//   path: '/pages/pageA/index'
+// })
 
 // cml.open('http://baidu.com')
 // cml.navigateBack(-2);
