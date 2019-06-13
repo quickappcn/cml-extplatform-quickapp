@@ -47,6 +47,7 @@ ws.onclose(() => {
 setTimeout(() => {
   ws.close();
 }, 20000);
+
 // cml.navigateTo({
 //   path: '/pages/pagea/pageb'
 // })
@@ -64,7 +65,6 @@ setTimeout(() => {
 // })
 
 // cml.open('http://baidu.com')
-// cml.navigateBack(-2);
 // cml.close()
 
 /* function promise() {
@@ -77,6 +77,12 @@ async function f() {
   console.log('------------------ result = ', result)
 }
 f() */
+
+// setTimeout(() => {
+//   cml.navigateBack('hello')
+// cml.navigateBack(-2);
+
+// }, 2000);
 
 class Index  {
     data: {
