@@ -15,12 +15,14 @@ import cml from 'cml-quickapp-api';
 // cml.alert({ message: 'hello' }).then(() => {
 //   cml.showToast({ message: 'message' })
 // })
+
 // cml.canIUse('showToast').then(res => console.log('===================== can use'))
 // cml.chooseImage({ type: 'camera' })
 // cml.confirm({ message: 'ok?' })
 // console.log('px2cpx ========================= ', cml.px2cpx(100));
 // cml.setTitle('hello world')
-const ws = cml.initSocket('wss://echo.websocket.org')
+
+/* const ws = cml.initSocket('wss://echo.websocket.org')
 ws.onopen(() => {
   console.log('ws on open')
   setTimeout(() => {
@@ -47,7 +49,7 @@ ws.onclose(() => {
 
 setTimeout(() => {
   ws.close();
-}, 20000);
+}, 20000); */
 
 // cml.navigateTo({
 //   path: '/pages/pageA/index'
@@ -66,15 +68,15 @@ async function f() {
   console.log('------------------ result = ', result)
 }
 f() */
-// setTimeout(() => {
-//   cml.navigateBack('hello')
-// cml.navigateBack(-2);
 
+// setTimeout(() => {
+//   cml.navigateBack('hello');
+//   cml.navigateBack(-2);
 // }, 2000);
 
 class Index  {
   
-    beforeCreate() {
+    /* beforeCreate() {
       console.log('================ beforeCreate')
     }
 
@@ -101,7 +103,7 @@ class Index  {
     destroyed() {
       console.log('================ destroyed')
 
-    }
+    } */
 }
 export default new Index();
 

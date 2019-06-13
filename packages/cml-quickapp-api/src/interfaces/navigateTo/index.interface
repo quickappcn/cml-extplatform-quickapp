@@ -9,10 +9,6 @@ import { buildQueryStringUrl } from 'chameleon-api/src/lib/utils.js';
         uri: path,
         params: query
       })
-      // path = buildQueryStringUrl(query, path);
-      // tt.navigateTo({
-      //   url: path
-      // });
     }
   }
   export default new Method();

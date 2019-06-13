@@ -46,21 +46,6 @@ class Method implements chooseImageInterface {
     default:
       sourceType = ['album', 'camera'];
     }
-
-    // wx.chooseImage({
-    //   count: 1,
-    //   sizeType: ['original'],
-    //   sourceType: sourceType,
-    //   success(res) {
-    //     callbackSuccess({
-    //       base64: '',
-    //       tempFilePaths: res.tempFilePaths
-    //     });
-    //   },
-    //   fail(err) {
-    //     callbackFail(err);
-    //   }
-    // });
   }
 }
 

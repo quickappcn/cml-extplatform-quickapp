@@ -10,8 +10,22 @@ import Config from "../config";
  */
 const LIFECYCLE = {
   quickapp: {
-      // https://developer.toutiao.com/docs/framework/startupApp.html#app
+    // https://developer.toutiao.com/docs/framework/startupApp.html#app
     app: {
+      hooks: ["onCreate", "onDestroy"],
+      hooksMap: {
+        beforeCreate: "onCreate",
+        created: "onCreate",
+        beforeMount: "onCreate",
+        mounted: "onCreate",
+        beforeDestroy: "onCreate",
+        destroyed: "onDestroy"
+      },
+      usedHooks: ["onCreate", "onDestroy"],
+      polyHooks: []
+    },
+    // https://developer.toutiao.com/docs/framework/startupPage.html#%E5%90%AF%E5%8A%A8%E9%A1%B5%E9%9D%A2
+    page: {
       hooks: ["onInit", "onReady", "onShow", "onHide", "onDestroy", "onBackPress", "onMenuPress"],
       hooksMap: {
         beforeCreate: "onInit",
@@ -24,53 +38,20 @@ const LIFECYCLE = {
       usedHooks: ["onInit", "onReady", "onShow", "onHide", "onDestroy"],
       polyHooks: ["onBackPress", "onMenuPress"]
     },
-    // https://developer.toutiao.com/docs/framework/startupPage.html#%E5%90%AF%E5%8A%A8%E9%A1%B5%E9%9D%A2
-    page: {
-      hooks: [
-        "onLoad",
-        "onShow",
-        "onReady",
-        "onHide",
-        "onUnload",
-        "onPullDownRefresh",
-        "onReachBottom",
-        "onShareAppMessage",
-        "onPageScroll",
-        "onTabItemTap"
-      ],
-      hooksMap: {
-        beforeCreate: "onLoad",
-        created: "onLoad",
-        beforeMount: "onLoad",
-        mounted: "onReady",
-        beforeDestroy: "onUnload",
-        destroyed: "onUnload",
-        onShow: "onShow",
-        onHide: "onHide"
-      },
-      usedHooks: ["onLoad", "onReady", "onShow", "onHide", "onUnload"],
-      polyHooks: [
-        "onPullDownRefresh",
-        "onReachBottom",
-        "onShareAppMessage",
-        "onPageScroll",
-        "onTabItemTap"
-      ]
-    },
     // https://developer.toutiao.com/docs/framework/custom_component_constructor.html
     component: {
-      hooks: ["created", "attached", "ready", "detached", "moved"],
+      hooks: ["onCreate", "onInit", "onReady", "onDestroy"],
       hooksMap: {
-        beforeCreate: "created",
-        created: "attached",
-        beforeMount: "attached",
-        mounted: "ready",
-        beforeDestroy: "detached",
-        destroyed: "detached"
+        beforeCreate: "onCreate",
+        created: "onCreate",
+        beforeMount: "onCreate",
+        mounted: "onReady",
+        beforeDestroy: "onInit",
+        destroyed: "onDestroy"
       },
-      usedHooks: ["created", "attached", "ready", "detached"],
-      polyHooks: ["moved"]
-    }
+      usedHooks: ["onInit", "onReady", "onCreate", "onDestroy"],
+      polyHooks: []
+    }   
   },
   cml: {
     hooks: [
