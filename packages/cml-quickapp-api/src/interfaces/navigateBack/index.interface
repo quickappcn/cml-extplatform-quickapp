@@ -2,7 +2,7 @@
 
 <script cml-type="quickapp">
   class Method implements UtilsInterface {
-    navigateBack(backPageNum) {
+    navigateBack(backPageNum = -1) {
       for(let i = 0; i < backPageNum * -1; i++)
         quickapp.router.back();
     }
