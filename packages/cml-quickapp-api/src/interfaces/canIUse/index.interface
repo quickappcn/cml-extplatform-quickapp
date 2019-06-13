@@ -1,0 +1,45 @@
+
+<include src="chameleon-api/src/interfaces/canIUse/index.interface"></include>
+
+<script cml-type="quickapp">
+const method_set = [
+  'alert',
+  'confirm',
+  'showToast',
+  'setTitle',
+  'requestAnimationFrame',
+  'cancelAnimationFrame',
+  'inSDK',
+  'chooseImage',
+  'close',
+  'open',
+  'setStorage',
+  'getStorage',
+  'removeStorage',
+  'getClipBoardData',
+  'setClipBoardData',
+  'reload',
+  'redirectTo',
+  'navigateTo',
+  'navigateBack',
+  'getSystemInfo',
+  'getLaunchOptionsSync',
+  'getRect',
+  'px2cpx',
+  'cpx2px',
+  'initSocket',
+  'canIUse',
+  'getLocationInfo',
+  'request',
+  'get',
+  'post',
+  'createAnimation'
+]
+class Method implements canIUseInterface {
+  canIUse(metName, cb) {
+    cb(method_set.indexOf(metName) > -1)
+  }
+}
+
+export default new Method();
+</script>
