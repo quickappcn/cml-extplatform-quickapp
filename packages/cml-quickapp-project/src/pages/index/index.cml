@@ -16,7 +16,7 @@ import cml from 'cml-quickapp-api';
 //   cml.showToast({ message: 'message' })
 // })
 // cml.canIUse('showToast').then(res => console.log('===================== can use'))
-cml.chooseImage({ type: 'camera' })
+// cml.chooseImage({ type: 'camera' })
 // cml.confirm({ message: 'ok?' })
 // console.log('px2cpx ========================= ', cml.px2cpx(100));
 // cml.setTitle('hello world')
@@ -54,7 +54,6 @@ setTimeout(() => {
 // })
 
 // cml.open('http://baidu.com')
-// cml.navigateBack(-2);
 // cml.close()
 
 /* function promise() {
@@ -67,6 +66,11 @@ async function f() {
   console.log('------------------ result = ', result)
 }
 f() */
+// setTimeout(() => {
+//   cml.navigateBack('hello')
+// cml.navigateBack(-2);
+
+// }, 2000);
 
 class Index  {
   
