@@ -5,14 +5,11 @@
 <script cml-type="quickapp">
 class Method implements chooseImageInterface {
   chooseImage(params, callbackSuccess, callbackFail) {
-    console.log('进来了11111==================', params)
     let sourceType = [];
     switch (params.type) {
     case 'camera':
-      console.log('进来了2222==================')
       quickapp.media.takePhoto({
         success: function(data) {
-          console.log(`handling success: ${data.uri}`)
           quickapp.image.getImageInfo({
             uri: data.uri,
             success: function(msg) {
@@ -29,15 +26,11 @@ class Method implements chooseImageInterface {
       })
       break;
     case 'album':
-      console.log('进来了3331==================', params)
-      console.log(quickapp)
       quickapp.media.pickImage({
         success: function(data) {
-          console.log(`handling success: ${data.uri}`)
           quickapp.image.getImageInfo({
             uri: data.uri,
             success: function(msg) {
-              console.log('success111111',msg)
               callbackSuccess({
                 base64:'',
                 tempFilePaths: [msg.uri]
@@ -46,7 +39,6 @@ class Method implements chooseImageInterface {
           })
         },
         fail: function (data, code) {
-          console.log('handing fail', data)
           callbackFail({data,code})
         }
       })
@@ -54,21 +46,6 @@ class Method implements chooseImageInterface {
     default:
       sourceType = ['album', 'camera'];
     }
-
-    // wx.chooseImage({
-    //   count: 1,
-    //   sizeType: ['original'],
-    //   sourceType: sourceType,
-    //   success(res) {
-    //     callbackSuccess({
-    //       base64: '',
-    //       tempFilePaths: res.tempFilePaths
-    //     });
-    //   },
-    //   fail(err) {
-    //     callbackFail(err);
-    //   }
-    // });
   }
 }
 

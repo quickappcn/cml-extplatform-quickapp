@@ -18,7 +18,6 @@ class Method implements uiInterface {
         }
       ],
       success: (data) => {
-        console.log('成功index:',data)
         if (data.index === 0) {
           successCallBack(cancelTitle);
         } else if(data.index === 1){

@@ -3,7 +3,11 @@
 <script cml-type="quickapp">
 
 class Method implements openPageInterface {
-  open() {
+  open(url, commonPatchParams = {}, extraOptions = {}) {
+    quickapp.router.push({
+      uri: url,
+      params: commonPatchParams
+    })
   }
 }
 

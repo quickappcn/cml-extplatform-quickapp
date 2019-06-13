@@ -10,8 +10,20 @@
     },
     {
       "url": "/cml/h5/pagea",
-      "path": "/pages/pagea/pageb",
-      "name": "首页",
+      "path": "/pages/pageA/index",
+      "name": "pageAAAAAAAAAAAA",
+      "mock": "index.php"
+    },
+    {
+      "url": "/cml/h5/pageb",
+      "path": "/pages/pageB/index",
+      "name": "pageBBBBBBBBBBBBBBBB",
+      "mock": "index.php"
+    },
+    {
+      "url": "/cml/h5/pagec",
+      "path": "/pages/pageC/index",
+      "name": "pageCCCCCCCCCCCCCCCC",
       "mock": "index.php"
     }
   ]

@@ -5,19 +5,17 @@
     getSystemInfo(cb) {
       quickapp.device.getInfo({
         success: (res) => {
-          let viewportWidth = res.windowWidth;
-          let viewportHeight = res.windowHeight;
-          let systemInfo = {
+          const systemInfo = {
             os: res.osType,
             env: 'quickapp',
-            viewportWidth,
-            viewportHeight,
+            viewportWidth: res.windowWidth,
+            viewportHeight: res.windowHeight,
             extraParams: res || {}
           };
           cb(systemInfo);
         },
         fail: (err) => {
-          let systemInfo = {
+          const systemInfo = {
             os: '',
             env: 'quickapp',
             viewportWidth: 0,

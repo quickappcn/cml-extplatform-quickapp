@@ -3,12 +3,7 @@
 <script cml-type="quickapp">
 class Method implements getWidthInterface {
   getWidth() {
-    return new Promise((resolve, reject) => {
-      quickapp.device.getInfo({
-        success: res => resolve(res.screenWidth),
-        fail: err => reject(err)
-      })
-    })
+    return quickapp.device.getInfo
   }
 }
 
