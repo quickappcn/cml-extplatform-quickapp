@@ -3,21 +3,23 @@
 
 // 扩展实现新端
 <script cml-type="quickapp">
+
 class Method implements uiInterface {
   alert(opt, successCallBack, failCallBack) {
     let { message, confirmTitle} = opt;
-    wx.showModal({
-      showCancel: false,
+    quickapp.prompt.showDialog({
       title: '',
-      content: message,
-      confirmText: confirmTitle,
-      success() {
-        successCallBack(confirmTitle);
-      },
-      fail() {
-        failCallBack(confirmTitle);
-      }
-    });
+      message,
+      buttons: [
+        {
+          text: confirmTitle,
+          color: '#33dd44'
+        }
+      ],
+      success: successCallBack,
+      cancel: failCallBack,
+      fail: failCallBack
+    })
   }
 }
 

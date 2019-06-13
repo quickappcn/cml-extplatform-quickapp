@@ -1,0 +1,54 @@
+// 引入官方标准interface文件
+<include src="chameleon-api/src/interfaces/chooseImage/index.interface"></include>
+
+// 扩展实现新端
+<script cml-type="quickapp">
+class Method implements chooseImageInterface {
+  chooseImage(params, callbackSuccess, callbackFail) {
+    let sourceType = [];
+    switch (params.type) {
+    case 'camera':
+      quickapp.media.takePhoto({
+        success: function(data) {
+          quickapp.image.getImageInfo({
+            uri: data.uri,
+            success: function(msg) {
+              callbackSuccess({
+                base64:'',
+                tempFilePaths: [msg.uri]
+              })
+            }
+          })
+        },
+        fail: function (data, code) {
+          callbackFail({data,code})
+        }
+      })
+      break;
+    case 'album':
+      quickapp.media.pickImage({
+        success: function(data) {
+          quickapp.image.getImageInfo({
+            uri: data.uri,
+            success: function(msg) {
+              callbackSuccess({
+                base64:'',
+                tempFilePaths: [msg.uri]
+              })
+            }
+          })
+        },
+        fail: function (data, code) {
+          callbackFail({data,code})
+        }
+      })
+      break;
+    default:
+      sourceType = ['album', 'camera'];
+    }
+  }
+}
+
+export default new Method();
+
+</script>

@@ -4,12 +4,23 @@ const pkg = require("./package.json");
 const cmlUtils = require("chameleon-tool-utils");
 const path = require("path");
 const copyDefault = require('./pack/copyDefault.js');
-const copyProject = require('./pack/copyProject.js');
-const changeManifest = require('./pack/changeManifest.js');
+const createManifest = require('./pack/createManifest.js');
+const resolve = require('resolve');
+const fs = require('fs');
+const apiContent = fs.readFileSync(path.join(__dirname, '/api/index.js'), 'utf-8');
+
 module.exports = class QuickAppPlugin {
   constructor(options) {
     let { cmlType, media} = options;
-    this.webpackRules = []; // webpack的rules设置  用于当前端特殊文件处理
+    this.webpackRules = [
+      {
+        test: /\.ux$/,
+        use: [{
+          loader: resolve.sync('mvvm-cml-ux-loader', { basedir: __dirname}),
+          needDefaultOptions: true // 是否需要默认options 会添加上css js less stylus等处理loader
+        }]
+      }
+    ]; // webpack的rules设置  用于当前端特殊文件处理
     this.moduleRules = []; // 文件后缀对应的节点moduleType  
     this.logLevel = 3;
     this.originComponentExtList = ['.ux']; // 用于扩展原生组件的文件后缀查找
@@ -82,15 +93,21 @@ module.exports = class QuickAppPlugin {
      * parentNodeType 父节点的nodeType
      */
     compiler.hook("compile-template", function (currentNode, parentNodeType) {
-      let {componentFiles} = currentNode.parent.extra;
+      let {componentFiles, uximports} = currentNode.parent.extra || {};
       currentNode.output = templateParser(currentNode.source);
+      let components = '';
       if(componentFiles) {
-        let components = '';
         Object.keys(componentFiles).forEach(key=>{
           let targetEntry = cmlUtils.getPureEntryName(componentFiles[key], self.cmlType, cml.projectRoot);
           let sourceEntry = cmlUtils.getPureEntryName(currentNode.realPath, self.cmlType, cml.projectRoot);
           let relativePath = cmlUtils.handleRelativePath(sourceEntry, targetEntry);
           components += `<import name='${key}' src='${relativePath}'></import>\n`
+        })
+        // 记录引入的组件
+        currentNode.importComponents = components;
+      } else if(uximports) {
+        uximports.forEach(item=>{
+          components += `<import name='${item.name}' src='${item.src}'></import>\n`
         })
         // 记录引入的组件
         currentNode.importComponents = components;
@@ -127,18 +144,16 @@ module.exports = class QuickAppPlugin {
     compiler.hook("pack", function (projectGraph) {
       // 拷贝默认文件        
       copyDefault(compiler);
-      // 拷贝项目中配置的快应用文件
-      copyProject(compiler);
-      // 修改manifest文件 路由
-      changeManifest(compiler);
-      
+      // 导出api
+      compiler.writeFile('/src/js/api.js', apiContent);
+            
       // 遍历编译图的节点，进行各项目的拼接
       let hasCompiledNode = [];
       
-
       let bootstrapCode = compiler.amd.getModuleBootstrap();
       compiler.writeFile('/src/js/manifest.js', bootstrapCode);
       let commonjsContent = `var manifest = require('./manifest.js');\n`;
+      commonjsContent += `var quickapp = require('./api.js');\n`;
       commonjsContent += `var cmldefine = manifest.cmldefine;\n`;
       // 遍历节点
       outputNode(projectGraph);
@@ -165,6 +180,10 @@ module.exports = class QuickAppPlugin {
               `
             }
             outputNode(item);
+            // 创建manifest.json
+            if(item.moduleType === 'json') {
+              createManifest(item, compiler);
+            }
           })
           compiler.writeFile(filePath, output);
           

@@ -1,27 +1,135 @@
 <template>
-  <view class="scroller-wrap">
-    <text>pageB</text>
-    
-  </view>
+  <div class="scroller-wrap">
+    <div><text>pageBBBBBBBBBBBBBBBBBBBBB</text></div>
+    <demo-com></demo-com>
+    <comA></comA>
+    <comB></comB>
+    <div class="class1"></div>
+  </div>
+
 
 </template>
 
 <script>
-// import cml from 'cml-quickapp-api';
-class Index  {}
+import cml from 'cml-quickapp-api';
+// cml.alert({ message: 'hello' }).then(() => {
+//   cml.showToast({ message: 'message' })
+// })
+// cml.canIUse('showToast').then(res => console.log('===================== can use'))
+// cml.chooseImage({ type: 'album' })
+// cml.confirm({ message: 'ok?' })
+// console.log('px2cpx ========================= ', cml.px2cpx(100));
+// cml.setTitle('hello world')
+const ws = cml.initSocket('wss://echo.websocket.org')
+ws.onopen(() => {
+  console.log('ws on open')
+  setTimeout(() => {
+    ws.send('hello cml socket');
+  }, 2000);
+});
+
+ws.onmessage(res => {
+  console.log(`ws on message ${JSON.stringify(res)}`)
+  ws.send({
+    keyword:'socket传递复杂类型',
+    content: 'hello cml socket',
+    arr: ['test1', 12, {}]
+  })
+});
+
+ws.onerror(err => {
+    console.error('ws on error', JSON.stringify(err.data))
+});
+
+ws.onclose(() => {
+  console.log('ws closed')
+});
+
+setTimeout(() => {
+  ws.close();
+}, 20000);
+
+cml.navigateTo({
+  path: '/pages/pageC/index'
+})
+// cml.navigateTo({
+//   path: '/pages/index/index'
+// })
+
+// cml.open('http://baidu.com')
+// cml.navigateBack(-2);
+// cml.close()
+
+/* function promise() {
+  return new Promise((res, rej) => {
+    setTimeout(() => res('ok'), 1000)
+  })
+}
+async function f() {
+  const result = await promise()
+  console.log('------------------ result = ', result)
+}
+f() */
+
+class Index  {
+  
+    beforeCreate() {
+      console.log('================ beforeCreate')
+    }
+
+    created() {
+      console.log('================ created')
+
+    }
+
+    beforeMount() {
+      console.log('================ beforeMount')
+    }
+
+
+    mounted() {
+      console.log('================ mounted')
+
+    }
+
+    beforeDestroy() {
+      console.log('================ beforeDestroy')
+
+    }
+
+    destroyed() {
+      console.log('================ destroyed')
+
+    }
+}
 export default new Index();
-
-// cml.alert({message: 'chameleon', confirmTitle:'确定'})
-
 
 </script>
 <style>
+
+.scroller-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.class1 {
+  width: 500cpx;
+  height: 500cpx;
+  background-image: url('../../assets/images/chameleon.png');
+  background-repeat: no-repeat;
+  background-size: 500cpx 500cpx;
+}
 
 </style>
 <script cml-type="json">
 {
   "base": {
-    "usingComponents": {}
+    "usingComponents": {
+      "demo-com": "/components/demo-com/demo-com",
+      "comA": "/components/comA/comA",
+      "comB": "/components/comB/comB"
+    }
   },
   "wx": {
     "navigationBarTitleText": "index",
