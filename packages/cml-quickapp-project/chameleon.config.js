@@ -18,6 +18,7 @@ cml.config.merge({
     path.join(__dirname,'node_modules/cml-quickapp-api'),
     path.join(__dirname,'node_modules/cml-quickapp-ui'),
     path.join(__dirname,'node_modules/cml-quickapp-store'),
+    path.join(__dirname,'node_modules/mobx'),
   ],
   platforms: ["web","weex","wx","alipay","baidu", "quickapp"],
   buildInfo: {
@@ -25,6 +26,7 @@ cml.config.merge({
   },
   quickapp: {
     dev: {
+      moduleIdType: 'name',
       minimize: false,
       increase: true
     },
