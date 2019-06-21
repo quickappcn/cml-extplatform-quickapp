@@ -51,6 +51,8 @@ export class CmlComponent extends BaseCtor {
     this.options['options'] = {
       multipleSlots: true // 在组件定义时的选项中启用多slot支持
     }
-      Component(this.options)
+    console.log(`=========Component options = `, options)
+
+      // Component(this.options)
   }
 }

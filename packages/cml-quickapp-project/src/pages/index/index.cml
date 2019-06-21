@@ -75,8 +75,7 @@ f() */
 // }, 2000);
 
 class Index  {
-  
-    /* beforeCreate() {
+    beforeCreate() {
       console.log('================ beforeCreate')
     }
 
@@ -103,7 +102,7 @@ class Index  {
     destroyed() {
       console.log('================ destroyed')
 
-    } */
+    }
 }
 export default new Index();
 
