@@ -3,8 +3,17 @@
 </template>
 
 <script>
-
-class App {}
+class App {
+  beforeCreate() {
+    console.log('-------------------- App beforeCreate');
+  }
+  mounted() {
+    console.log('===================== App mounted');
+  }
+  destroyed() {
+    console.log('=============== App destroyed')
+  }
+}
 export default new App();
 </script>
 

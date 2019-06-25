@@ -35,7 +35,6 @@ export class CmlApp extends BaseCtor {
       polyHooks: lifecycle.get('quickapp.app.polyHooks'),
       usedHooks: lifecycle.get('quickapp.app.usedHooks')
     })
-    console.log(`========= App options = `, options)
       // App(this.options)
   }
 }

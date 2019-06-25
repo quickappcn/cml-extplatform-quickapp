@@ -45,7 +45,7 @@ export function transferLifecycle (options, hooksMap) {
       options[uniKey] = options[key]
       delete options[key]
     }
-  })
+  })  
 
   _hooksTemp.forEach(function(uniKey) {
     const mapKey = _mapTemp[uniKey]
@@ -63,6 +63,7 @@ export function transferLifecycle (options, hooksMap) {
       delete options[uniKey]
     }
   })
+
 }
 
 /**
@@ -257,5 +258,3 @@ export function flatten(obj = {}) {
 
   return ret
 }
-
-

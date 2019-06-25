@@ -175,7 +175,8 @@ module.exports = class QuickAppPlugin {
                 var cmldefine = manifest.cmldefine;
                 var cmlrequire = manifest.cmlrequire;
                 require('./js/common.js');
-                module.exports = cmlrequire('${item.modId}');
+                var _ = cmlrequire('${item.modId}');
+                module.exports = _.default
               </script>
               `
             }
