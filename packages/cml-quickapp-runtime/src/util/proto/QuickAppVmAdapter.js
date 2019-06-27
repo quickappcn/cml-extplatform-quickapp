@@ -1,7 +1,15 @@
 import BaseVmAdapter from './BaseVmAdapter'
-import { type, isObject } from '../util/type'
-import { propToFn, transferLifecycle } from '../util/util'
-import { mergeHooks } from '../util/resolve'
+import {
+  type,
+  isObject
+} from '../util/type'
+import {
+  propToFn,
+  transferLifecycle
+} from '../util/util'
+import {
+  mergeHooks
+} from '../util/resolve'
 
 // web&&weex options transform 基类
 class QuickAppVmAdapter extends BaseVmAdapter {
@@ -10,12 +18,8 @@ class QuickAppVmAdapter extends BaseVmAdapter {
     this.needAddHookMixin = config.needAddHookMixin
   }
 
-  init () {
-    console.log('---------- before init ', this.options);
-    
+  init() {
     this.initOptions(this.options)
-    console.log('=============== after init ', this.options);
-    
     // 处理 mixins 
     this.initMixins(this.options)
     // 处理 生命周期多态
@@ -44,17 +48,17 @@ class QuickAppVmAdapter extends BaseVmAdapter {
    * @param  {Object} options 组件options
    * @return {[type]}     [description]
    */
-  handleProps (options) {
+  handleProps(options) {
     if (!options['props']) return
-    
+
     Object.getOwnPropertyNames(options['props']).forEach((name) => {
       let prop = options['props'][name]
-      
+
       propToFn(prop, 'default')
     })
   }
 
-  initMixins (options) {
+  initMixins(options) {
     if (!options.mixins) return
 
     const mixins = options.mixins
@@ -73,34 +77,34 @@ class QuickAppVmAdapter extends BaseVmAdapter {
     if (!methods || !this.polyHooks) {
       return
     }
-    
+
     this.polyHooks.forEach((hook) => {
       // 目前是 给web的beforeRouteEnter|beforeRouteLeave 自定义生命钩子开一个口子
       if (type(methods[hook]) === 'Function') {
         this.options[hook] = methods[hook]
       }
     })
-  } 
+  }
 
-  mergeBuiltinMixins () {
+  mergeBuiltinMixins() {
     const btMixin = [
       this.baseMixins,
       this.runtimeMixins
     ].filter(item => item)
-  
-    this.options.mixins = this.options.mixins
-      ? btMixin.concat(this.options.mixins)
-      : btMixin
+
+    this.options.mixins = this.options.mixins ?
+      btMixin.concat(this.options.mixins) :
+      btMixin
   }
-  
-  
-  resolveOptions () {
+
+
+  resolveOptions() {
 
   }
 
-  addHookMixin () {
+  addHookMixin() {
     if (!this.hooks || !this.hooks.length) return
-    
+
     let self = this
     this.hooks.forEach(key => {
       const hook = this.options[key]
@@ -111,7 +115,7 @@ class QuickAppVmAdapter extends BaseVmAdapter {
           const proxyHook = self.proxyLifecycle(key, hook, this)
           result = proxyHook.apply(this, args)
         }
-  
+
         return result
       })
     })

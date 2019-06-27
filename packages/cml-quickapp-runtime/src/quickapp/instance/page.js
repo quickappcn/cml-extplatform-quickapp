@@ -53,7 +53,6 @@ export class CmlPage extends BaseCtor {
       polyHooks: lifecycle.get('quickapp.page.polyHooks'),
       usedHooks: lifecycle.get('quickapp.page.usedHooks')
     })
-    console.log('=============== page options = ', options)
     // Page(this.options)
   }
 }
