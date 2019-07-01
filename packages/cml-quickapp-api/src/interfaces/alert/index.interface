@@ -6,14 +6,13 @@
 
 class Method implements uiInterface {
   alert(opt, successCallBack, failCallBack) {
-    let { message, confirmTitle} = opt;
+    const { message, confirmTitle} = opt;
     quickapp.prompt.showDialog({
       title: '',
       message,
       buttons: [
         {
-          text: confirmTitle,
-          color: '#33dd44'
+          text: confirmTitle
         }
       ],
       success: successCallBack,

@@ -5,7 +5,7 @@
 <script cml-type="quickapp">
 class Method implements uiInterface {
   showToast(opt) {
-    let { message, duration } = opt;
+    const { message, duration } = opt;
     quickapp.prompt.showToast({
       message,
       duration
