@@ -35,6 +35,7 @@ export function transferLifecycle (options, hooksMap) {
 
   let _hooksTemp = []
   let _mapTemp = {}
+  let tempObj = {}
   // 将生命周期 键名 处理成 [`$_${key}`]
   Object.keys(hooksMap).forEach(key => {
     const uniKey = `$_${key}`
@@ -45,7 +46,7 @@ export function transferLifecycle (options, hooksMap) {
       options[uniKey] = options[key]
       delete options[key]
     }
-  })
+  })  
 
   _hooksTemp.forEach(function(uniKey) {
     const mapKey = _mapTemp[uniKey]
@@ -60,7 +61,14 @@ export function transferLifecycle (options, hooksMap) {
       } else {
         options[mapKey] = hook
       }
+      tempObj[mapKey] = [].concat(options[mapKey]);
       delete options[uniKey]
+    }
+  })
+  Object.keys(tempObj).forEach(lifeFunc => {
+    options[lifeFunc] = () => {
+      // Todo when func has context such as This
+      tempObj[lifeFunc].forEach(func => func())
     }
   })
 }
@@ -257,5 +265,3 @@ export function flatten(obj = {}) {
 
   return ret
 }
-
-
