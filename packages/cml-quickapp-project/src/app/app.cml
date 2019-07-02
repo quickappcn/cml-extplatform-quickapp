@@ -9,23 +9,23 @@
     computed = {}
     watch = {}
     beforeCreate() {
-      console.log('================ beforeCreate')
+      console.log('APP ================ beforeCreate')
     }
 
     created() {
-      console.log('================ created')
+      console.log('APP ================ created')
     }
 
     beforeMount() {
-      console.log('================ beforeMount')
+      console.log('APP ================ beforeMount')
     }
 
     mounted() {
-      console.log('================ mounted')
+      console.log('APP ================ mounted')
     }
 
     beforeDestroy() {
-      console.log('================ beforeDestroy')
+      console.log('APP ================ beforeDestroy')
     }
 
     destroyed() {

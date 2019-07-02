@@ -76,27 +76,30 @@
 
   class Index {
     beforeCreate() {
-      console.log('================ beforeCreate')
+      console.log('Page ================ beforeCreate')
+      cml.alert({ message: 'hello' }).then(() => {
+        cml.showToast({ message: 'message' })
+      })
     }
 
     created() {
-      console.log('================ created')
+      console.log('Page ================ created')
     }
 
     beforeMount() {
-      console.log('================ beforeMount')
+      console.log('Page ================ beforeMount')
     }
 
     mounted() {
-      console.log('================ mounted')
+      console.log('Page ================ mounted')
     }
 
     beforeDestroy() {
-      console.log('================ beforeDestroy')
+      console.log('Page ================ beforeDestroy')
     }
 
     destroyed() {
-      console.log('================ destroyed')
+      console.log('Page ================ destroyed')
     }
   }
   export default new Index();

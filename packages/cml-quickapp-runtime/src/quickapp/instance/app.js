@@ -2,17 +2,19 @@
 // import lifecycle from 'chameleon-runtime/src/platform/common/util/lifecycle'
 import VmAdapter from '../core/VmAdapter'
 // import MiniRuntimeCore from 'chameleon-runtime/src/platform/common/proto/MiniRuntimeCore'
-import MiniRuntimeCore from '../../util/proto/MiniRuntimeCore'
+import QuickAppRuntimeCore from '../../util/proto/QuickAppRuntimeCore'
 import BaseCtor from '../../util/proto/BaseCtor'
 import lifecycle from '../../util/util/lifecycle'
 
 export class CmlApp extends BaseCtor {
   constructor (options) {
+    
     super(options)
-
+    
+    
     this.cmlType = 'quickapp'
 
-    const runtimeCore = new MiniRuntimeCore({
+    const runtimeCore = new QuickAppRuntimeCore({
       polyHooks: lifecycle.get('quickapp.app.polyHooks'),
       platform: this.cmlType,
       options: this.options
