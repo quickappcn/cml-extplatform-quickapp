@@ -1,85 +1,98 @@
 <template>
-  <div class="scroller-wrap">
-    <div><text>chameleon -- 变色龙</text></div>
-    <demo-com></demo-com>
-    <comA></comA>
-    <comB></comB>
-    <div class="class1"></div>
-  </div>
+  <view class="scroller-wrap">
+    <!-- c-show -->
+    <text c-show="{{5 > 3}}">{{message}}</text>
+    <!-- c-if c-else -->
+    <text c-if="{{type === 'A'}}">
+      c-if => A
+    </text>
+    <text c-else-if="{{type === 'B'}}">
+      c-else-if => B
+    </text>
+    <text c-else-if="{{type === 'C'}}">
+      C-else-if => C
+    </text>
+    <text c-else>
+      c-else => Not A/B/C
+    </text>
+    <!-- c-text -->
+    <view c-text="c-text"></view>
+    <!-- c-for -->
+    <!-- <view class="sample-class" c-for="{{array}}">
+      <text> only c-for => {{index}}: {{item.city}}</text>
+    </view>
+    <view class="sample-class" c-for="{{array}}" c-for-index="idx">
+      <text> c-for & c-for-index => {{idx}}: {{item.city}}</text>
+    </view>
+    <view class="sample-class" c-for="{{array}}" c-for-index="idx" c-for-item="itemName">
+      <text> c-for & c-for-index & c-for-item => {{idx}}: {{itemName.city}}</text>
+    </view> -->
+    <!-- more than one c-for -->
+    <view class="sample-class" c-for-index="index" c-for-item="item" c-for="{{list}}">
+      <text> c-for => {{index}}: {{item.name}}</text>
+    </view>
+    <!-- <view c-for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" c-for-item="i">
+      <view c-for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" c-for-item="j">
+        <view c-if="{{i <= j}}">
+          <text> {{i}} * {{j}} = {{i * j}}</text>
+        </view>
+      </view>
+    </view> -->
+    
+    <!-- <demo-com></demo-com> -->
 
+    <!-- <view class="class1" c-bind:click="handleClick"></view> -->
+  </view>
 
 </template>
 
 <script>
   import cml from 'cml-quickapp-api';
-  // cml.alert({ message: 'hello' }).then(() => {
-  //   cml.showToast({ message: 'message' })
-  // })
-
-  // cml.canIUse('showToast').then(res => console.log('===================== can use'))
-  // cml.chooseImage({ type: 'camera' })
-  // cml.confirm({ message: 'ok?' })
-  // console.log('px2cpx ========================= ', cml.px2cpx(100));
-  // cml.setTitle('hello world')
-
-  /* const ws = cml.initSocket('wss://echo.websocket.org')
-  ws.onopen(() => {
-    console.log('ws on open')
-    setTimeout(() => {
-      ws.send('hello cml socket');
-    }, 2000);
-  });
-
-  ws.onmessage(res => {
-    console.log(`ws on message ${JSON.stringify(res)}`)
-    ws.send({
-      keyword:'socket传递复杂类型',
-      content: 'hello cml socket',
-      arr: ['test1', 12, {}]
-    })
-  });
-
-  ws.onerror(err => {
-      console.error('ws on error', JSON.stringify(err.data))
-  });
-
-  ws.onclose(() => {
-    console.log('ws closed')
-  });
-
-  setTimeout(() => {
-    ws.close();
-  }, 20000); */
-
-  // cml.navigateTo({
-  //   path: '/pages/pageA/index'
-  // })
-
-  // cml.open('http://baidu.com')
-  // cml.close()
-
-  /* function promise() {
-    return new Promise((res, rej) => {
-      setTimeout(() => res('ok'), 1000)
-    })
-  }
-  async function f() {
-    const result = await promise()
-    console.log('------------------ result = ', result)
-  }
-  f() */
-
-  // setTimeout(() => {
-  //   cml.navigateBack('hello');
-  //   cml.navigateBack(-2);
-  // }, 2000);
-
   class Index {
-    beforeCreate() {
+    data = {
+      message: "Hello Chameleon!",
+      show: true,
+      type: 'BC',
+      list: [{
+        name: 'lucida'
+      }, {
+        name: 'chenlei'
+      }, {
+        name: 'leilei'
+      }],
+      array: [{
+          city: "北京"
+        },
+        {
+          city: "上海"
+        },
+        {
+          city: "广州"
+        }
+      ],
+      showlist: true
+    };
+
+    computed = {
+      message2: function () {
+        return "computed => " + this.message;
+      }
+    };
+
+    // watch = {
+    //   showlist(newVal, oldVal) {
+    //     console.log(`showlist changed:` + newVal);
+    //   }
+    // };
+
+    methods = {
+      handleClick() {
+        console.log('------------------ clicked')
+      }
+    };
+
+    /* beforeCreate() {
       console.log('Page ================ beforeCreate')
-      cml.alert({ message: 'hello' }).then(() => {
-        cml.showToast({ message: 'message' })
-      })
     }
 
     created() {
@@ -100,7 +113,7 @@
 
     destroyed() {
       console.log('Page ================ destroyed')
-    }
+    } */
   }
   export default new Index();
 </script>
@@ -123,9 +136,7 @@
   {
     "base": {
       "usingComponents": {
-        "demo-com": "/components/demo-com/demo-com",
-        "comA": "/components/comA/comA",
-        "comB": "/components/comB/comB"
+        "demo-com": "/components/demo-com/demo-com"
       }
     },
     "wx": {

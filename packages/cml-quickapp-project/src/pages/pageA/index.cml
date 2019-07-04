@@ -11,6 +11,71 @@
 </template>
 
 <script>
+  // cml.alert({ message: 'hello' }).then(() => {
+  //   cml.showToast({ message: 'message' })
+  // })
+  // cml.alert({ message: 'hello' }).then(() => {
+  //   cml.showToast({ message: 'message' })
+  // })
+
+  // cml.canIUse('showToast').then(res => console.log('===================== can use'))
+  // cml.chooseImage({ type: 'camera' })
+  // cml.confirm({ message: 'ok?' })
+  // console.log('px2cpx ========================= ', cml.px2cpx(100));
+  // cml.setTitle('hello world')
+
+  /* const ws = cml.initSocket('wss://echo.websocket.org')
+  ws.onopen(() => {
+    console.log('ws on open')
+    setTimeout(() => {
+      ws.send('hello cml socket');
+    }, 2000);
+  });
+
+  ws.onmessage(res => {
+    console.log(`ws on message ${JSON.stringify(res)}`)
+    ws.send({
+      keyword:'socket传递复杂类型',
+      content: 'hello cml socket',
+      arr: ['test1', 12, {}]
+    })
+  });
+
+  ws.onerror(err => {
+      console.error('ws on error', JSON.stringify(err.data))
+  });
+
+  ws.onclose(() => {
+    console.log('ws closed')
+  });
+
+  setTimeout(() => {
+    ws.close();
+  }, 20000); */
+
+  // cml.navigateTo({
+  //   path: '/pages/pageA/index'
+  // })
+
+  // cml.open('http://baidu.com')
+  // cml.close()
+
+  /* function promise() {
+    return new Promise((res, rej) => {
+      setTimeout(() => res('ok'), 1000)
+    })
+  }
+  async function f() {
+    const result = await promise()
+    console.log('------------------ result = ', result)
+  }
+  f() */
+
+  // setTimeout(() => {
+  //   cml.navigateBack('hello');
+  //   cml.navigateBack(-2);
+  // }, 2000);
+
 class Index  {
 }
 export default new Index();

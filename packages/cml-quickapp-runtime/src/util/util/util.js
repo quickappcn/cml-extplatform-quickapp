@@ -13,12 +13,11 @@ export function noop () {}
 
   // transfer 对象的`${name}`属性值 to function
 export function propToFn (obj, name) {
+  
   if (obj && isObject(obj[name])) {
     var _temp = obj[name]
 
-    obj[name] = function() {
-      return deepClone(_temp)
-    }
+    obj[name] = deepClone(_temp)
   }
 }
 
@@ -66,6 +65,7 @@ export function transferLifecycle (options, hooksMap) {
     }
   })
   Object.keys(tempObj).forEach(lifeFunc => {
+    
     options[lifeFunc] = () => {
       // Todo when func has context such as This
       tempObj[lifeFunc].forEach(func => func())

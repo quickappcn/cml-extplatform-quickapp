@@ -1,5 +1,5 @@
-const templateParser = require("./templateParser.js");
-const styleParser = require("./styleParser.js");
+const templateParser = require("./parser/templateParser.js");
+const styleParser = require("./parser/styleParser.js");
 const pkg = require("./package.json");
 const cmlUtils = require("chameleon-tool-utils");
 const path = require("path");
@@ -221,6 +221,7 @@ module.exports = class QuickAppPlugin {
               var cmlrequire = manifest.cmlrequire;
               require('${cmlUtils.handleRelativePath(entryName, 'src/js/common.js')}');
               var _ = cmlrequire('${childrenObj.script.modId}');
+              console.log(_.default);
               module.exports = _.default
             </script>
             `

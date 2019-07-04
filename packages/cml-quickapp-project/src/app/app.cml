@@ -8,7 +8,7 @@
     methods = {}
     computed = {}
     watch = {}
-    beforeCreate() {
+    /* beforeCreate() {
       console.log('APP ================ beforeCreate')
     }
 
@@ -30,12 +30,10 @@
 
     destroyed() {
       console.log('================ destroyed')
-    }
+    } */
   }
   export default new App();
 </script>
-
-
 <style>
 </style>
 <script cml-type="json">
