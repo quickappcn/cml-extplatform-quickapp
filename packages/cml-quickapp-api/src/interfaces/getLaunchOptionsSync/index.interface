@@ -1,0 +1,19 @@
+<include src="chameleon-api/src/interfaces/getLaunchOptionsSync/index.interface"></include>
+
+<script cml-type="quickapp">
+class Method implements launchOptionsInterface {
+  getLaunchOptionsSync() {
+    const appInfo = quickapp.app.getInfo();
+    const option = {
+      query: {},
+      path: `hap://app/${appInfo.source.packageName}`,
+      scene: 0,
+      ...appInfo
+    }
+    return option;
+  }
+}
+
+export default new Method();
+
+</script>

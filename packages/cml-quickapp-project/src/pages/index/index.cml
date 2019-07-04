@@ -1,62 +1,163 @@
 <template>
-  <view c-if="{{true}}" class="scroller-wrap">
-    <view class="class1"><text>chameleon</text></view>
-    <demo-com></demo-com>
+  <view class="scroller-wrap">
+    <!-- c-show -->
+    <text c-show="{{5 > 3}}">{{message}}</text>
+    <!-- c-if c-else -->
+    <text c-if="{{type === 'A'}}">
+      c-if => A
+    </text>
+    <text c-else-if="{{type === 'B'}}">
+      c-else-if => B
+    </text>
+    <text c-else-if="{{type === 'C'}}">
+      C-else-if => C
+    </text>
+    <text c-else>
+      c-else => Not A/B/C
+    </text>
+    <!-- c-text -->
+    <view c-text="c-text"></view>
+    <!-- c-for -->
+    <!-- <view class="sample-class" c-for="{{array}}">
+      <text> only c-for => {{index}}: {{item.city}}</text>
+    </view>
+    <view class="sample-class" c-for="{{array}}" c-for-index="idx">
+      <text> c-for & c-for-index => {{idx}}: {{item.city}}</text>
+    </view>
+    <view class="sample-class" c-for="{{array}}" c-for-index="idx" c-for-item="itemName">
+      <text> c-for & c-for-index & c-for-item => {{idx}}: {{itemName.city}}</text>
+    </view> -->
+    <!-- more than one c-for -->
+    <view class="sample-class" c-for-index="index" c-for-item="item" c-for="{{list}}">
+      <text> c-for => {{index}}: {{item.name}}</text>
+    </view>
+    <!-- <view c-for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" c-for-item="i">
+      <view c-for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" c-for-item="j">
+        <view c-if="{{i <= j}}">
+          <text> {{i}} * {{j}} = {{i * j}}</text>
+        </view>
+      </view>
+    </view> -->
+    
+    <!-- <demo-com></demo-com> -->
+
+    <!-- <view class="class1" c-bind:click="handleClick"></view> -->
   </view>
 
 </template>
 
 <script>
-import cml from 'cml-quickapp-api';
-class Index  {}
+  import cml from 'cml-quickapp-api';
+  class Index {
+    data = {
+      message: "Hello Chameleon!",
+      show: true,
+      type: 'BC',
+      list: [{
+        name: 'lucida'
+      }, {
+        name: 'chenlei'
+      }, {
+        name: 'leilei'
+      }],
+      array: [{
+          city: "北京"
+        },
+        {
+          city: "上海"
+        },
+        {
+          city: "广州"
+        }
+      ],
+      showlist: true
+    };
 
-export default new Index();
+    computed = {
+      message2: function () {
+        return "computed => " + this.message;
+      }
+    };
 
-cml.alert({message: 'chameleon', confirmTitle:'确定'})
+    // watch = {
+    //   showlist(newVal, oldVal) {
+    //     console.log(`showlist changed:` + newVal);
+    //   }
+    // };
 
+    methods = {
+      handleClick() {
+        console.log('------------------ clicked')
+      }
+    };
+
+    /* beforeCreate() {
+      console.log('Page ================ beforeCreate')
+    }
+
+    created() {
+      console.log('Page ================ created')
+    }
+
+    beforeMount() {
+      console.log('Page ================ beforeMount')
+    }
+
+    mounted() {
+      console.log('Page ================ mounted')
+    }
+
+    beforeDestroy() {
+      console.log('Page ================ beforeDestroy')
+    }
+
+    destroyed() {
+      console.log('Page ================ destroyed')
+    } */
+  }
+  export default new Index();
 </script>
 <style>
+  .scroller-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.scroller-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.class1 {
-  width: 100cpx;
-  height: 100cpx;
-  background: url('../../assets/images/chameleon.png') no-repeat;
-  background-size: 100cpx 100cpx;
-}
-
+  .class1 {
+    width: 500cpx;
+    height: 500cpx;
+    background-image: url('../../assets/images/chameleon.png');
+    background-repeat: no-repeat;
+    background-size: 500cpx 500cpx;
+  }
 </style>
 <script cml-type="json">
-{
-  "base": {
-    "usingComponents": {
-      "demo-com": "/components/demo-com/demo-com"
+  {
+    "base": {
+      "usingComponents": {
+        "demo-com": "/components/demo-com/demo-com"
+      }
+    },
+    "wx": {
+      "navigationBarTitleText": "index",
+      "backgroundTextStyle": "dark",
+      "backgroundColor": "#E2E2E2"
+    },
+    "alipay": {
+      "defaultTitle": "index",
+      "pullRefresh": false,
+      "allowsBounceVertical": "YES",
+      "titleBarColor": "#ffffff"
+    },
+    "baidu": {
+      "navigationBarBackgroundColor": "#ffffff",
+      "navigationBarTextStyle": "white",
+      "navigationBarTitleText": "index",
+      "backgroundColor": "#ffffff",
+      "backgroundTextStyle": "dark",
+      "enablePullDownRefresh": false,
+      "onReachBottomDistance": 50
     }
-  },
-  "wx": {
-    "navigationBarTitleText": "index",
-    "backgroundTextStyle": "dark",
-    "backgroundColor": "#E2E2E2"
-  },
-  "alipay": {
-    "defaultTitle": "index",
-    "pullRefresh": false,
-    "allowsBounceVertical": "YES",
-    "titleBarColor": "#ffffff"
-  },
-  "baidu": {
-    "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "index",
-    "backgroundColor": "#ffffff",
-    "backgroundTextStyle": "dark",
-    "enablePullDownRefresh": false,
-    "onReachBottomDistance": 50
   }
-}
 </script>

@@ -1,0 +1,21 @@
+<template>
+  <view><text>用cml文件编写的组件comB!</text></view>
+</template>
+
+<script>
+  class comB {
+
+  }
+
+  export default new comB();
+</script>
+<style>
+
+</style>
+<script cml-type="json">
+  {
+    "base": {
+      "usingComponents": {}
+    }
+  }
+</script>

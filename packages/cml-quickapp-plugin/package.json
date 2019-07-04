@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "chameleon-css-loader": "0.4.0-mvvm.6",
+    "chameleon-css-loader": "^0.2.0",
     "chameleon-tool-utils": "0.4.0-mvvm.6",
     "loader-utils": "^1.2.3",
     "mvvm-babel-generator": "0.4.0-mvvm.6",
     "mvvm-template-parser": "0.4.0-mvvm.6",
-    "postcss": "^7.0.14"
+    "postcss": "^7.0.14",
+    "mvvm-cml-ux-loader": "1.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
