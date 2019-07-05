@@ -1,7 +1,7 @@
 <template>
   <view class="api-com">
     <!-- <poly-com></poly-com> -->
-    <cml-com></cml-com>
+    <!-- <cml-com></cml-com> -->
   </view>
 </template>
 
