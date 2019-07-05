@@ -8,8 +8,13 @@ import {
   transferLifecycle
 } from '../util/util'
 import {
-  mergeHooks
+  mergeDefault,
+  mergeHooks,
+  mergeSimpleProps,
+  mergeData,
+  mergeWatch
 } from '../util/resolve'
+
 
 // web&&weex options transform 基类
 class QuickAppVmAdapter extends BaseVmAdapter {
@@ -97,9 +102,42 @@ class QuickAppVmAdapter extends BaseVmAdapter {
       btMixin
   }
 
-
   resolveOptions() {
 
+    const self = this
+    let extractMixins = function (mOptions, options) {
+      if (options.mixins) {
+        for (const mix of options.mixins) {
+          extractMixins(mOptions, mix)
+        }
+      }
+      mergeMixins(mOptions, options)
+    }
+
+    let mergeMixins = function (parent, child) {
+      for (let key in child) {        
+        if (self.hooks.indexOf(key) > -1) {
+          mergeHooks(parent, child, key)
+        } else if (key === 'data') {
+          mergeData(parent, child, key)
+        } else if (testProps(key)) {
+          mergeSimpleProps(parent, child, key)
+        } else if (key === 'watch') {
+          mergeWatch(parent, child, key)
+        } else if (key !== 'mixins') {
+          mergeDefault(parent, child, key)
+        }
+      }
+    }
+
+    let testProps = function (key) {
+      let regExp = new RegExp('computed|methods|proto|' + self.propsName)
+      return regExp.test(key)
+    }
+
+    const newOptions = {}
+    extractMixins(newOptions, this.options)
+    this.options = newOptions
   }
 
   addHookMixin() {

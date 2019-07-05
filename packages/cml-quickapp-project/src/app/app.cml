@@ -8,29 +8,6 @@
     methods = {}
     computed = {}
     watch = {}
-    /* beforeCreate() {
-      console.log('APP ================ beforeCreate')
-    }
-
-    created() {
-      console.log('APP ================ created')
-    }
-
-    beforeMount() {
-      console.log('APP ================ beforeMount')
-    }
-
-    mounted() {
-      console.log('APP ================ mounted')
-    }
-
-    beforeDestroy() {
-      console.log('APP ================ beforeDestroy')
-    }
-
-    destroyed() {
-      console.log('================ destroyed')
-    } */
   }
   export default new App();
 </script>

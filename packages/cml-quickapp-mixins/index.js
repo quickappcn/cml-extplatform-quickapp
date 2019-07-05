@@ -85,11 +85,13 @@ _.mixins = {
 
     },
     [_.eventProxyName](e) {
-      let { dataset } = e.currentTarget;
+      let { dataset } = e.currentTarget || e.target;
       let eventKey = e.type.toLowerCase();
       let originFuncName = dataset && dataset[`event${eventKey}`] && dataset[`event${eventKey}`][0];
+      
       if (originFuncName && this[originFuncName] && _.isType(this[originFuncName], 'Function')) {
         let newEvent = utils.getNewEvent(e);
+        
         this[originFuncName](newEvent)
       } else {
         console.log(`can not find method ${originFuncName}`)

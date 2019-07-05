@@ -22,6 +22,7 @@
   "author": "Chameleon-Team",
   "license": "Apache",
   "dependencies": {
+    "cml-quickapp-mixins": "0.0.1",
     "chameleon-runtime": "^0.2.0-alpha.4"
   },
   "devDependencies": {

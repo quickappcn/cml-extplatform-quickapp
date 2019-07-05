@@ -1,0 +1,72 @@
+<template>
+  <view class="api-com">
+    <!-- <poly-com></poly-com> -->
+    <!-- <cml-com></cml-com> -->
+  </view>
+</template>
+
+<script>
+class ApiCom {
+   data = {
+    name: 'Chameleon'
+  }
+  beforeCreate(e) {
+    console.log("TCL: Index -> beforeCreate -> e", e)
+    console.log('before Create');
+  }
+  created(e) {
+    console.log("TCL: Index -> created -> e", e)
+    console.log('created');
+  }
+  beforeMount(e) {
+    console.log("TCL: Index -> beforeMount -> e", e)
+    console.log('brefore Mount');
+  }
+  mounted() {
+    console.log('mounted');
+    setTimeout(() => {
+      this.name="3333"
+    }, 1000);
+  }
+  computed = {
+    computeName: function () {
+      return 'prefix' + this.name
+    }
+  }
+   watch = {
+    name: function (newV, oldV) {
+      console.log("TCL: Index -> newV, oldV", newV, oldV)
+    },
+  }
+}
+require('../../assets/images/chameleon.png')
+
+export default new ApiCom();
+</script>
+<style>
+.api-com {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  align-self: center;
+  color: #61c7fc;
+  font-size: 72cpx;
+  margin-top: 160cpx;
+  margin-bottom: 20cpx;
+}
+.logo {
+  width: 150cpx;
+  height: 150cpx;
+  margin-top: 100cpx;
+}
+</style>
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {
+    }
+  }
+}
+</script>

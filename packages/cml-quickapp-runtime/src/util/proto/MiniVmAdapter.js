@@ -1,26 +1,45 @@
 import BaseVmAdapter from './BaseVmAdapter'
 
-import { hasOwn, transferLifecycle, extend, extendWithIgnore, rename, enumerableKeys } from '../util/util'
-import { type } from '../util/type'
-import {mergeDefault, mergeHooks, mergeSimpleProps, mergeData, mergeWatch} from '../util/resolve'
-import { extras } from 'mobx'
+import {
+  hasOwn,
+  transferLifecycle,
+  extend,
+  extendWithIgnore,
+  rename,
+  enumerableKeys
+} from '../util/util'
+import {
+  type
+} from '../util/type'
+import {
+  mergeDefault,
+  mergeHooks,
+  mergeSimpleProps,
+  mergeData,
+  mergeWatch
+} from '../util/resolve'
+import {
+  extras
+} from 'mobx'
 import KEY from '../util/KEY'
 import lifecycle from '../util/lifecycle'
-import { mergeOptions } from '../util/options'
+import {
+  mergeOptions
+} from '../util/options'
 
 // 各种小程序options transform 基类
 class MiniVmAdapter extends BaseVmAdapter {
   constructor(config) {
     super(config)
-    
+
     //小程序特有
     this.needPropsHandler = config.needPropsHandler
-    
+
     this.needResolveAttrs = config.needResolveAttrs
     this.needTransformProperties = config.needTransformProperties
   }
 
-  init () {
+  init() {
     this.propsName = this.platform ? KEY.get(`${this.platform}.props`) : ''
 
     // 处理 CML hooks
@@ -29,10 +48,10 @@ class MiniVmAdapter extends BaseVmAdapter {
     this.initOptions(this.options)
     // 处理 mixins 
     this.initMixins(this.options)
-    
+
     // 处理 生命周期多态
     this.extendPolyHooks()
-    
+
     // init 顺序很重要、
 
     // 添加各种mixins
@@ -96,9 +115,9 @@ class MiniVmAdapter extends BaseVmAdapter {
    * @param  {Object} options 组件options
    * @return {[type]}     [description]
    */
-  handleProps (options) {
+  handleProps(options) {
     if (!options['props']) return
-    
+
     Object.getOwnPropertyNames(options['props']).forEach((name) => {
       let prop = options['props'][name]
       // Number: 0
@@ -157,7 +176,7 @@ class MiniVmAdapter extends BaseVmAdapter {
       function knowType(type) {
         return type === Number || type === Boolean || type === Array || type === String || type === Object || type === null
       }
-      
+
       // 处理 props = { a: String, b: Boolean }
       make(prop)
 
@@ -167,9 +186,9 @@ class MiniVmAdapter extends BaseVmAdapter {
             // alipay 处理 // 处理 props = { a: {type:String}, b: {type:Boolean} }
             make(prop.type)
           }
-          
+
           options['props'][name] = prop['default']
-          
+
         } else {
           rename(options['props'][name], 'default', 'value')
         }
@@ -181,7 +200,7 @@ class MiniVmAdapter extends BaseVmAdapter {
     }
 
     function check(value, type) {
-      
+
       if (typeof value === 'undefined') {
         console.error(`${prop}需要传默认值`)
         return false
@@ -191,7 +210,7 @@ class MiniVmAdapter extends BaseVmAdapter {
     }
   }
 
-  initMixins (options) {
+  initMixins(options) {
     if (!options.mixins) return
 
     const mixins = options.mixins
@@ -223,25 +242,25 @@ class MiniVmAdapter extends BaseVmAdapter {
     })
   }
 
-  mergeInjectedMixins () {
-    this.options.mixins = this.options.mixins
-      ? this.options.mixins.concat(this.injectMixins)
-      : this.injectMixins
+  mergeInjectedMixins() {
+    this.options.mixins = this.options.mixins ?
+      this.options.mixins.concat(this.injectMixins) :
+      this.injectMixins
   }
-  
-  mergeBuiltinMixins () {
+
+  mergeBuiltinMixins() {
     const btMixin = [
       this.baseMixins,
       this.runtimeMixins
     ].filter(item => item)
-  
-    this.options.mixins = this.options.mixins
-      ? btMixin.concat(this.options.mixins)
-      : btMixin
+
+    this.options.mixins = this.options.mixins ?
+      btMixin.concat(this.options.mixins) :
+      btMixin
   }
-  
-  
-  resolveOptions () {
+
+
+  resolveOptions() {
     const self = this
     let extractMixins = function (mOptions, options) {
       if (options.mixins) {
@@ -251,7 +270,7 @@ class MiniVmAdapter extends BaseVmAdapter {
       }
       mergeMixins(mOptions, options)
     }
-  
+
     let mergeMixins = function (parent, child) {
       for (let key in child) {
         if (self.hooks.indexOf(key) > -1) {
@@ -271,14 +290,14 @@ class MiniVmAdapter extends BaseVmAdapter {
     let testProps = function (key) {
       let regExp = new RegExp('computed|methods|proto|' + self.propsName)
       return regExp.test(key)
-    }  
-  
+    }
+
     const newOptions = {}
     extractMixins(newOptions, this.options)
     this.options = newOptions
   }
-  
-  transformHooks () {
+
+  transformHooks() {
     if (!this.hooks || !this.hooks.length) return
     const self = this
     this.hooks.forEach(key => {
@@ -286,7 +305,7 @@ class MiniVmAdapter extends BaseVmAdapter {
       hooksArr && (self.options[key] = function (...args) {
         let result
         let asyncQuene = []
-        
+
         // 多态生命周期需要统一回调参数
         // if (self.polyHooks.indexOf(key) > -1) {
         //   let res = args[0]
@@ -305,7 +324,7 @@ class MiniVmAdapter extends BaseVmAdapter {
             if (type(hooksArr[i]) === 'Function') {
 
               result = hooksArr[i].apply(this, args)
-    
+
               // if (result && result.enableAsync) {
               //   asyncQuene = hooksArr.slice(i + 1)
               //   break
@@ -322,8 +341,8 @@ class MiniVmAdapter extends BaseVmAdapter {
       })
     })
   }
-  
-  resolveAttrs () {
+
+  resolveAttrs() {
     if (!this.needResolveAttrs.length) return
     let keys = this.needResolveAttrs
     if (type(keys) === 'String') {
@@ -333,19 +352,19 @@ class MiniVmAdapter extends BaseVmAdapter {
     keys.forEach(key => {
       const value = this.options[key]
       if (type(value) !== 'Object') return
-      
+
       extendWithIgnore(this.options, value, this.usedHooks)
       delete this.options[key]
     })
   }
-  
-  transformProperties () {
+
+  transformProperties() {
     let originProperties = this.options[this.propsName]
     const newProps = {}
-    
+
     enumerableKeys(originProperties).forEach(key => {
       const rawFiled = originProperties[key]
-      
+
       const rawObserver = rawFiled.observer
       let newFiled = null
       if (typeof rawFiled === 'function') {
@@ -355,7 +374,7 @@ class MiniVmAdapter extends BaseVmAdapter {
       } else {
         newFiled = extend({}, rawFiled)
       }
-      newFiled.observer = function(value, oldValue) {
+      newFiled.observer = function (value, oldValue) {
         // 小程序内部数据使用了JSON.parse(JSON.stringify(x))的方式，导致每次引用都会变化
         if (extras.deepEqual(value, oldValue)) return
         this[key] = value
@@ -363,7 +382,7 @@ class MiniVmAdapter extends BaseVmAdapter {
       }
       newProps[key] = newFiled
     })
-  
+
     this.options[this.propsName] = newProps
   }
 }
