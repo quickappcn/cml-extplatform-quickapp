@@ -1,7 +1,7 @@
 import BaseCtor from '../../util/proto/BaseCtor'
 import lifecycle from '../../util/util/lifecycle'
 import VmAdapter from '../core/VmAdapter'
-import MiniRuntimeCore from '../../util/proto/MiniRuntimeCore'
+import QuickAppRuntimeCore from '../../util/proto/QuickAppRuntimeCore'
 
 export class CmlComponent extends BaseCtor {
   constructor (options) {
@@ -9,7 +9,7 @@ export class CmlComponent extends BaseCtor {
 
     this.cmlType = 'quickapp'
 
-    const runtimeCore = new MiniRuntimeCore({
+    const runtimeCore = new QuickAppRuntimeCore({
       polyHooks: lifecycle.get('quickapp.component.polyHooks'),
       platform: this.cmlType,
       options: this.options
@@ -45,6 +45,7 @@ export class CmlComponent extends BaseCtor {
       polyHooks: lifecycle.get('quickapp.component.polyHooks'),
       usedHooks: lifecycle.get('quickapp.component.usedHooks'),
       needPropsHandler: true,
+      needResolveAttrs: ['methods'],
       needTransformProperties: true
     })
     

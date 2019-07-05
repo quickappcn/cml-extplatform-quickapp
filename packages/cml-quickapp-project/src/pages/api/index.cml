@@ -1,45 +1,57 @@
 <template>
-  <div class="scroller-wrap">
-    <div><text>pageCCCCCCCCCCCCCCCCCC</text></div>
-    <demo-com></demo-com>
-    <comA></comA>
-    <comB></comB>
-    <div class="class1"></div>
-  </div>
-
-
+  <view>
+    <text>api demo</text>
+    <api-com></api-com>
+  </view>
 </template>
 
 <script>
-class Index  {
-}
-export default new Index();
 
+class Api   {
+
+  data = {
+  }
+
+  computed = {
+  }
+
+  watch  = {
+  }
+
+  methods = {
+  }
+
+  beforeCreate() {
+  }
+
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+  }
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new Api();
 </script>
+
 <style>
 
-.scroller-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.class1 {
-  width: 500cpx;
-  height: 500cpx;
-  background-image: url('../../assets/images/chameleon.png');
-  background-repeat: no-repeat;
-  background-size: 500cpx 500cpx;
-}
-
 </style>
+
 <script cml-type="json">
 {
   "base": {
     "usingComponents": {
-      "demo-com": "/components/demo-com/demo-com",
-      "comA": "/components/comA/comA",
-      "comB": "/components/comB/comB"
+      "api-com": "../../components/api-com/api-com"
     }
   },
   "wx": {

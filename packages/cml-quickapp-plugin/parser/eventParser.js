@@ -6,17 +6,17 @@ const {
   doublequot2singlequot,
   getInlineStatementArgs
 } = require('../util');
-const quickappMixin = require('../../cml-quickapp-mixins/index');
+const quickappMixin = require('cml-quickapp-mixins');
 
 module.exports = function (context) {
   let { path, options, attributes, attr, tagName } = context;
   let namespace = attr.name && attr.name.namespace;
   if (namespace && (namespace.name === 'c-bind' || attr.name.namespace.name === 'c-catch')) {
     
-    // 头条文档上并没有找到关于catch的描述。。。。。。
+    // 文档上并没有找到关于catch的描述。。。。。。
     let handler = attr.value.value && trim(attr.value.value);
-    let eventNameKey = namespace.name === 'c-bind' ? 'bind' : 'catch';
-    let eventNameVal = attr.name.name.name === 'click' ? 'tap' : attr.name.name.name;
+    let eventNameKey = namespace.name === 'c-bind' ? 'on' : '@';
+    let eventNameVal = attr.name.name.name === 'tap' ? 'click' : attr.name.name.name;
     let eventKey = eventNameVal.toLowerCase();
     let eventName = `${eventNameKey}${eventNameVal}`;
     let match = isInlineStatementFn(handler);

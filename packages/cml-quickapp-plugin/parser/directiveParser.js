@@ -5,7 +5,7 @@ const {
   trimCurly,
   getModelKey
 } = require('../util');
-const quickappMixin = require('../../cml-quickapp-mixins/index');
+const quickappMixin = require('cml-quickapp-mixins');
 
 module.exports = function (context) {
   let {
@@ -81,7 +81,7 @@ module.exports = function (context) {
   if (t.isJSXIdentifier(attr.name) && attr.name.name === 'c-text') {
     // 去掉c-text指令
     attr.name.name = EMPTYTAG;
-    let textValue = attr.value.value;
-    node.children = [t.jsxElement(t.jsxOpeningElement(t.jsxIdentifier('text'), []), t.jsxClosingElement(t.jsxIdentifier('text')), [t.jsxText(textValue)], null)];
+    let textValue = attr.value.value;    
+    node.children = [t.jsxElement(t.jsxOpeningElement(t.jsxIdentifier('text'), attributes), t.jsxClosingElement(t.jsxIdentifier('text')), [t.jsxText(textValue)], null)];
   }
 }

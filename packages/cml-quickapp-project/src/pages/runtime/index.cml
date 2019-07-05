@@ -1,0 +1,80 @@
+<template>
+  <view> <view class="class1"><text>chameleon</text></view>
+    <text>Hello {{name}}!</text>
+    <text>计算属性: {{computeName}}!</text>
+    <text>计算属性: {{computeName}}!</text>
+    </view>
+</template>
+
+<script>
+
+class Runtime   {
+data = {
+    name: 'Chameleon'
+  }
+  beforeCreate(e) {
+    console.log("TCL: Index -> beforeCreate -> e", e)
+    console.log('before Create');
+  }
+
+  created(e) {
+    console.log("TCL: Index -> created -> e", e)
+    console.log('created');
+  }
+  beforeMount(e) {
+    console.log("TCL: Index -> beforeMount -> e", e)
+    console.log('brefore Mount');
+  }
+  mounted() {
+    debugger
+    console.log('mounted');
+    setTimeout(() => {
+      this.name="22222"
+    }, 1000);
+  }
+  computed = {
+    computeName: function () {
+      return 'prefix' + this.name
+    }
+  }
+   watch = {
+    name: function (newV, oldV) {
+      console.log("TCL: Index -> newV, oldV", newV, oldV)
+    },
+  }
+}
+
+export default new Runtime();
+</script>
+
+<style>
+
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {}
+  },
+  "wx": {
+    "navigationBarTitleText": "index",
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#E2E2E2"
+  },
+  "alipay": {
+    "defaultTitle": "index",
+    "pullRefresh": false,
+    "allowsBounceVertical": "YES",
+    "titleBarColor": "#ffffff"
+  },
+  "baidu": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "index",
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": false,
+    "onReachBottomDistance": 50
+  }
+}
+</script>

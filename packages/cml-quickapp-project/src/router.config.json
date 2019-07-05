@@ -9,21 +9,33 @@
       "mock": "index.php"
     },
     {
-      "url": "/cml/h5/pagea",
-      "path": "/pages/pageA/index",
-      "name": "pageAAAAAAAAAAAA",
+      "url": "/cml/h5/api",
+      "path": "/pages/api/index",
+      "name": "api",
       "mock": "index.php"
     },
     {
-      "url": "/cml/h5/pageb",
-      "path": "/pages/pageB/index",
-      "name": "pageBBBBBBBBBBBBBBBB",
+      "url": "/cml/h5/plugin",
+      "path": "/pages/plugin/index",
+      "name": "plugin",
       "mock": "index.php"
     },
     {
-      "url": "/cml/h5/pagec",
-      "path": "/pages/pageC/index",
-      "name": "pageCCCCCCCCCCCCCCCC",
+      "url": "/cml/h5/runtime",
+      "path": "/pages/runtime/index",
+      "name": "runtime",
+      "mock": "index.php"
+    },
+    {
+      "url": "/cml/h5/ui",
+      "path": "/pages/ui/index",
+      "name": "ui",
+      "mock": "index.php"
+    },
+    {
+      "url": "/cml/h5/ui-builtin",
+      "path": "/pages/ui-builtin/index",
+      "name": "ui-builtin",
       "mock": "index.php"
     }
   ]
