@@ -46,7 +46,6 @@ export default new Index();
 {
   "base": {
     "usingComponents": {
-      "cml-com": "../../components/cml-com/cml-com"
     }
   },
   "wx": {
