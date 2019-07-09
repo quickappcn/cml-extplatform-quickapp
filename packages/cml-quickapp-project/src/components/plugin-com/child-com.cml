@@ -1,0 +1,32 @@
+<template>
+  <view class="custom-event" c-bind:tap="triggerCustomEvent"><text>触发自定义事件</text></view>
+</template>
+<script>
+  class Index {
+    data = {}
+    methods = {
+      triggerCustomEvent(e) {
+        this.$cmlEmit('customevent', {
+          company: 'oppo',
+          name: 'lucida'
+        })
+      }
+    }
+  }
+  export default new Index();
+</script>
+<style>
+  .custom-event {
+    margin-top: 30cpx;
+    font-size: 40cpx;
+    border: 1px solid;
+    padding: 10cpx;
+  }
+</style>
+<script cml-type="json">
+  {
+    "base": {
+      "usingComponents": {}
+    }
+  }
+</script>

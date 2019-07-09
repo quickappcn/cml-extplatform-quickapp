@@ -53,7 +53,7 @@ _.mixins = {
   methods: {
     // 支持事件传参
     [_.inlineStatementEventProxy](e) {
-      let { dataset } = e.currentTarget;
+      let { dataset } = e.currentTarget || e.target;
       let eventKey = e.type.toLowerCase();
       let originFuncName = dataset && dataset[`event${eventKey}`] && dataset[`event${eventKey}`][0];
       let inlineArgs = dataset && dataset[`event${eventKey}`] && dataset[`event${eventKey}`].slice(1);
@@ -77,10 +77,18 @@ _.mixins = {
       }
     },
     [_.modelEventProxyName](e) {
-      let dataset = e.currentTarget && e.currentTarget.dataset
+      let { dataset } = e.currentTarget || e.target;
       let modelKey = dataset && dataset.modelkey
       if (modelKey) {
-        this[modelKey] = e.detail.value;
+        /* quickapp onchange event is not standard object
+          {
+            name: 'text | email | date | time | number | password',
+            value: '',
+            checked: true | false,
+            text: ''
+          }
+        */
+        this[modelKey] = e.value;
       }
 
     },
@@ -118,10 +126,8 @@ _.mixins = {
       animation.index = index + 1;
     },
     [_.eventEmitName]: function(eventKey, detail) {
-      this.triggerEvent(eventKey, detail);
-      if (this.$__checkCmlEmit__) {
-        this.$__checkCmlEmit__(eventKey, detail);
-      }
+      // Todo quickapp only supports this.on(customEvent, callback)
+      this.$emit(eventKey, detail)
     }
   }
 

@@ -28,6 +28,7 @@ var websocketfactory = require("@system.websocketfactory")
 var wifi = require("@system.wifi")
 var contact = require("@system.contact")
 var router = require("@system.router")
+var app = require("@system.app")
 
 module.exports = {
     webview: webview,
@@ -59,5 +60,6 @@ module.exports = {
     websocketfactory: websocketfactory,
     wifi: wifi,
     contact: contact,
-    router: router
+    router: router,
+    app: app
 }

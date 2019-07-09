@@ -9,7 +9,7 @@ const {
 const quickappMixin = require('cml-quickapp-mixins');
 
 module.exports = function (context) {
-  let { path, options, attributes, attr, tagName } = context;
+  let { options, attributes, attr, tagName } = context;
   let namespace = attr.name && attr.name.namespace;
   if (namespace && (namespace.name === 'c-bind' || attr.name.namespace.name === 'c-catch')) {
     
