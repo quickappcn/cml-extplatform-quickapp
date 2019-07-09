@@ -1,7 +1,7 @@
 <template>
   <view class="scroller-wrap">
-    <!-- props testcase -->
-    <text style="{{inlineStyle}}" class="{{show ? 'cls1' : 'cls2'}}">props test => {{xxx}}</text>
+    <!-- expression testcase -->
+    <text style="{{inlineStyle}}" class="{{show ? 'cls1' : 'cls2'}}">expression test</text>
     <!-- c-show -->
     <text c-show="{{show}}">c-show => {{message}}</text>
     <!-- c-if c-else -->
@@ -20,7 +20,7 @@
     <!-- c-text -->
     <view c-text="c-text" class="red-text" style="color: blue"></view>
     <!-- c-for -->
-    <!-- <view class="sample-class" c-for="{{array}}">
+    <view class="sample-class" c-for="{{array}}">
       <text> only c-for => {{index}}: {{item.city}}</text>
     </view>
     <view class="sample-class" c-for="{{array}}" c-for-index="idx">
@@ -28,59 +28,68 @@
     </view>
     <view class="sample-class" c-for="{{array}}" c-for-index="idx" c-for-item="itemName">
       <text> c-for & c-for-index & c-for-item => {{idx}}: {{itemName.city}}</text>
-    </view> -->
+    </view>
     <!-- more than one c-for -->
     <view class="sample-class" c-for-index="index" c-for-item="item" c-for="{{list}}">
       <text> c-for => {{index}}: {{item.name}}</text>
     </view>
-    <!-- <view c-for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" c-for-item="i">
-      <view c-for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" c-for-item="j">
-        <view c-if="{{i <= j}}">
-          <text> {{i}} * {{j}} = {{i * j}}</text>
-        </view>
-      </view>
-    </view> -->
+    <!-- c-model testcase -->
+    <text>c-model: {{message}}</text>
+    <input c-model="{{message}}"></input>
+    <!-- custom event testcase -->
+    <child-com c-bind:customevent="customEventHandler"></child-com>
+    <!-- inline function with params testcase -->
+    <view class="event" c-bind:tap="handleElementTap"><text>无参数</text></view>
+    <view class="event" c-bind:tap="handleElementTap()"><text>空参数()</text></view>
+    <view class="event" c-bind:tap="handleElementTap(1, 2, 3)"><text>不带$event参数</text></view>
+    <view class="event" c-bind:tap="handleElementTap(1, 2, 3, 'message' + message,  $event )">
+      <text>带$event参数</text>
+    </view>
   </view>
 </template>
 
 <script>
+  import cml from 'cml-quickapp-api'
+
   class PluginCom {
-    data() {
-      return {
-        message: "Hello Chameleon!",
-        show: true,
-        inlineStyle: 'color: yellow',
-        type: 'BC',
-        list: [{
-          name: 'lucida'
-        }, {
-          name: 'chenlei'
-        }, {
-          name: 'leilei'
-        }],
-        array: [{
-            city: "北京"
-          },
-          {
-            city: "上海"
-          },
-          {
-            city: "广州"
-          }
-        ],
-        showlist: true
+    data = {
+      message: "Hello Chameleon!",
+      show: true,
+      inlineStyle: 'color: #000',
+      type: 'BC',
+      list: [{
+        name: 'lucida'
+      }, {
+        name: 'chenlei'
+      }, {
+        name: 'leilei'
+      }],
+      array: [{
+          city: "北京"
+        },
+        {
+          city: "上海"
+        },
+        {
+          city: "广州"
+        }
+      ],
+    }
+    methods = {
+      customEventHandler(e) {
+        cml.showToast({
+          message: 'trigger custom event'
+        })
+      },
+      handleElementTap(...args) {
+        console.log('-------------', [].slice.call(args))
       }
     }
-
-    computed = {
-      message2: function () {
-        return "computed => " + this.message;
-      }
-    };
   }
 
   export default new PluginCom();
 </script>
+
 <style>
   .scroller-wrap {
     display: flex;
@@ -88,22 +97,23 @@
     align-items: center;
   }
 
-  .class1 {
-    width: 500cpx;
-    height: 500cpx;
-    background-image: url('../../assets/images/chameleon.png');
-    background-repeat: no-repeat;
-    background-size: 500cpx 500cpx;
-  }
-
   .red-text {
     color: red;
+  }
+
+  .event {
+    margin-top: 30cpx;
+    font-size: 40cpx;
+    border: 1px solid;
+    padding: 10cpx;
   }
 </style>
 <script cml-type="json">
   {
     "base": {
-      "usingComponents": {}
+      "usingComponents": {
+        "child-com": "./child-com"
+      }
     }
   }
 </script>

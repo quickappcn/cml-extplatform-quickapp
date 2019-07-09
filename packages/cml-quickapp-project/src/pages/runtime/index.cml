@@ -1,80 +1,53 @@
 <template>
-  <view> <view class="class1"><text>chameleon</text></view>
-    <text>Hello {{name}}!</text>
-    <text>计算属性: {{computeName}}!</text>
-    <text>计算属性: {{computeName}}!</text>
-    </view>
+  <view class="runtime-demo">
+    <text class="demo-title">runtime demo</text>
+    <runtime-com xxxProps="xxxPropsValue"></runtime-com>
+  </view>
 </template>
 
 <script>
+  class Runtime {}
 
-class Runtime   {
-data = {
-    name: 'Chameleon'
-  }
-  beforeCreate(e) {
-    console.log("TCL: Index -> beforeCreate -> e", e)
-    console.log('before Create');
-  }
-
-  created(e) {
-    console.log("TCL: Index -> created -> e", e)
-    console.log('created');
-  }
-  beforeMount(e) {
-    console.log("TCL: Index -> beforeMount -> e", e)
-    console.log('brefore Mount');
-  }
-  mounted() {
-    debugger
-    console.log('mounted');
-    setTimeout(() => {
-      this.name="22222"
-    }, 1000);
-  }
-  computed = {
-    computeName: function () {
-      return 'prefix' + this.name
-    }
-  }
-   watch = {
-    name: function (newV, oldV) {
-      console.log("TCL: Index -> newV, oldV", newV, oldV)
-    },
-  }
-}
-
-export default new Runtime();
+  export default new Runtime();
 </script>
 
 <style>
-
+.runtime-demo {
+  flex-direction: column;
+  align-items: center;
+}
+.demo-title {
+  font-size: 40cpx;
+  color: red;
+}
 </style>
 
 <script cml-type="json">
-{
-  "base": {
-    "usingComponents": {}
-  },
-  "wx": {
-    "navigationBarTitleText": "index",
-    "backgroundTextStyle": "dark",
-    "backgroundColor": "#E2E2E2"
-  },
-  "alipay": {
-    "defaultTitle": "index",
-    "pullRefresh": false,
-    "allowsBounceVertical": "YES",
-    "titleBarColor": "#ffffff"
-  },
-  "baidu": {
-    "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "index",
-    "backgroundColor": "#ffffff",
-    "backgroundTextStyle": "dark",
-    "enablePullDownRefresh": false,
-    "onReachBottomDistance": 50
+  {
+    "base": {
+      "usingComponents": {
+        "runtime-com": "../../components/runtime-com/runtime-com"
+      }
+    },
+    "wx": {
+      "navigationBarTitleText": "index",
+      "backgroundTextStyle": "dark",
+      "backgroundColor": "#E2E2E2"
+    },
+    "alipay": {
+      "defaultTitle": "index",
+      "pullRefresh": false,
+      "allowsBounceVertical": "YES",
+      "titleBarColor": "#ffffff"
+    },
+    "baidu": {
+      "navigationBarBackgroundColor": "#ffffff",
+      "navigationBarTextStyle": "white",
+      "navigationBarTitleText": "index",
+      "backgroundColor": "#ffffff",
+      "backgroundTextStyle": "dark",
+      "enablePullDownRefresh": false,
+      "onReachBottomDistance": 50
+    }
   }
-}
 </script>

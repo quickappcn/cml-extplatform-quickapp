@@ -105,15 +105,15 @@ _.isPlainTextElement = _.makeMap('script,style,textarea', true)
 _.getInlineStatementArgs = function(argsStr) {
   // argsStr:"1,'index'+1,$event,'item',index+1,item"
   const result = argsStr.split(',').reduce((result, current, index) => {
-    if (current === '$event') {
+    if (current.trim() === '$event') {
       result.push("'$event'");
     } else {
       result.push(current)
     }
     return result
-  }, []);
+  }, []);  
   return result.join();// "1,'index'+1,'$event','item',index+1,item"
-
+  
 }
 
 _.isOriginTagOrNativeComp = function(tagName, options) {
