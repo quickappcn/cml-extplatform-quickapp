@@ -1,7 +1,6 @@
 <template>
   <view>
     <child-com xx="xxValue" oncustomevent="customEventHandler"></child-com>
-    <!-- <bubble-com></bubble-com> -->
   </view>
 </template>
 
@@ -26,8 +25,7 @@
   {
     "base": {
       "usingComponents": {
-        "child-com": "./child-com",
-        "bubble-com": "./bubble-com"
+        "child-com": "./child-com"
       }
     }
   }
