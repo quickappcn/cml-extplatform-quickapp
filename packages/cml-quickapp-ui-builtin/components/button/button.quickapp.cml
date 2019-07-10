@@ -12,7 +12,7 @@
 <script>
   import {
     transCls
-  } from './util'
+  } from '../util'
 
   class Button implements ButtonInterface {
     props = {
