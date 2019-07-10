@@ -27,7 +27,7 @@ export function propToFn (obj, name) {
  * @param  {Object} hooksMap 映射表
  * @return {Object}     修改后值
  */
-export function transferLifecycle (options, hooksMap) {
+export function transferLifecycle (options, hooksMap) {  
   if (!hooksMap) {
     return
   }

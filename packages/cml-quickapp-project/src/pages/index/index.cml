@@ -3,15 +3,14 @@
     <view><text class="row-text" data-page="/pages/api/index" c-bind:tap="gotoPage">gotoApiPage</text></view>
     <view><text class="row-text" data-page="/pages/plugin/index" c-catch:tap="gotoPage">gotoPluginPage</text></view>
     <view><text class="row-text" data-page="/pages/runtime/index" c-bind:tap="gotoPage">gotoRuntimePage</text></view>
-    <view><text class="row-text" data-page="/pages/ui/index" c-bind:tap="gotoPage">gotoUiPage</text></view>
     <view><text class="row-text" data-page="/pages/ui-builtin/index" c-bind:tap="gotoPage">gotoUiBuiltinPage</text>
     </view>
+    <view><text class="row-text" data-page="/pages/ui/index" c-bind:tap="gotoPage">gotoUiPage</text></view>
   </view>
 </template>
 
 <script>
   import cml from 'cml-quickapp-api';
-
   class Index {
     data = {}
     methods = {
@@ -21,7 +20,6 @@
         })
       },
     }
-
   }
 
   export default new Index();

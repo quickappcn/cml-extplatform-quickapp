@@ -1,0 +1,57 @@
+<template>
+  <view class="root">
+    <view class="pad">
+      cml语法事件冒泡测试
+    </view>
+    <view c-bind:click="rootClick">
+      <text style="font-size: 40px;">{{rootText}}</text>
+      <view class="outer" c-catch:click="parentClick">
+        <view>
+          <text style="font-size: 40px;">{{parentText}}</text>
+        </view>
+        <text class="inner" c-bind:click="click">{{innerText}}</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  class Index {
+    data = {
+      rootText: 'root',
+      parentText: 'parent',
+      innerText: 'inner'
+    }
+    methods = {
+      click: function (e) {
+        this.innerText = 'inner bubble'
+        console.log('this.innerText', this.innerText)
+
+      },
+      parentClick: function (e) {
+        this.parentText = 'parent bubble'
+        console.log('this.parentClick', this.parentClick)
+      },
+      rootClick: function (e) {
+        this.rootText = 'root bubble'
+        console.log('this.rootClick', this.rootClick)
+      },
+    }
+  }
+
+  export default new Index();
+</script>
+
+<style>
+  .outer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .root {
+    border: 1px solid red;
+  }
+</style>
+<script cml-type="json">
+  {}
+</script>

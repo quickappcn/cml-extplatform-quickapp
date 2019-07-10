@@ -1,32 +1,18 @@
 <template>
   <view class="plugin-demo">
     <text class="demo-title">plugin demo</text>
-    <plugin-com></plugin-com>
+    <plugin-com onmyevent="myEvent"></plugin-com>
   </view>
 </template>
 
 <script>
+  import cml from 'cml-quickapp-api'
   class Plugin {
-
-    data = {}
-
-    computed = {}
-
-    watch = {}
-
-    methods = {}
-
-    beforeCreate() {}
-
-    created() {}
-
-    beforeMount() {}
-
-    mounted() {}
-
-    beforeDestroy() {}
-
-    destroyed() {}
+    methods = {
+      myEvent() {
+        cml.showToast({ message: 'trigger myEvent' })
+      }
+    }
   }
 
   export default new Plugin();

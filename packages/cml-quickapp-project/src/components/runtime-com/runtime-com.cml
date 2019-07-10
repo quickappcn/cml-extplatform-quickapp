@@ -1,7 +1,7 @@
 <template>
   <view class="runtime-com">
     <text>Hello {{name}}!</text>
-    <text>props test => {{xxxProps}}</text>
+    <text>PROPS => {{xx}}</text>
     <text>computed: {{computeName}}!</text>
   </view>
 </template>
@@ -12,9 +12,9 @@
       name: 'Chameleon'
     }
     props = {
-      xxxProps: {
+      xx: {
         type: String,
-        default: 'default-props-value'
+        default: '未知'
       }
     }
     computed = {
@@ -28,22 +28,19 @@
       },
     }
     beforeCreate(e) {
-      console.log("TCL: Index -> beforeCreate -> e", e)
-      console.log('before Create');
+      console.log('Runtime Component => before Create');
     }
 
     created(e) {
-      console.log("TCL: Index -> created -> e", e)
-      console.log('created');
+      console.log('Runtime Component => created');
     }
     beforeMount(e) {
-      console.log("TCL: Index -> beforeMount -> e", e)
-      console.log('brefore Mount');
+      console.log('Runtime Component => brefore Mount');
     }
     mounted() {
-      console.log('mounted');
+      console.log('Runtime Component => mounted', this);
       setTimeout(() => {
-        this.name = "22222"
+        // this.name = "22222"
       }, 1000);
     }
   }
