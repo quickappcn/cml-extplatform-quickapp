@@ -1,20 +1,23 @@
 <template>
-  <div 
-    class="{{btnClasses}}" 
-    style="{{mrBtnStyle}}" 
-    c-bind:tap="onclick" 
-    open-type="{{openType}}" 
-    lang="{{lang}}">
-      <text c-if="{{text}}" class="{{textClasses}}" style="{{mrTextStyle}}">{{text}}</text>
+  <div>
+    <input 
+      type="button" 
+      value="{{text}}" 
+      onclick="clickHandler" 
+      style="width: {{ width > 0 ? width+'px' : 'initial' }};background-color: {{type}};{{btnStyle}}">
+    </input>
   </div>
 </template>
 
 <script>
   import {
     transCls
-  } from './util'
+  } from '../util'
 
   class Button implements ButtonInterface {
+    data = {
+      hover: false
+    }
     props = {
       text: {
         type: String,
@@ -60,41 +63,6 @@
         type: String,
         default: ''
       },
-      openType: {
-        type: String,
-        default: ""
-      },
-      lang: {
-        type: String,
-        default: "en"
-      },
-      sessionFrom: {
-        type: String,
-        default: ""
-      },
-      sendMessageTitle: {
-        type: String,
-        default: "当前标题"
-      },
-      sendMessagePath: {
-        type: String,
-        default: "当前分享路径"
-      },
-      sendMessageImg: {
-        type: String,
-        default: "截图"
-      },
-      showMessageCard: {
-        type: Boolean,
-        default: false
-      },
-      appParameter: {
-        type: String,
-        default: ""
-      }
-    }
-    data = {
-      hover: false
     }
     computed = {
       hasWidth() {
@@ -144,8 +112,8 @@
       }
     }
     methods = {
-      onclick(e) {
-
+      clickHandler(e) {
+        debugger
         const {
           type,
           disabled
@@ -162,29 +130,11 @@
       touchend(e) {
         this.hover = false
       },
-      getuserinfo(e) {
-        this.$cmlEmit('getuserinfo', e.detail);
-      },
-      contact(e) {
-        this.$cmlEmit('contact');
-      },
-      getphonenumber(e) {
-        this.$cmlEmit('getphonenumber', {
-          errMsg: e.detail.errMsg,
-          encryptedData: e.detail.encryptedData || '',
-          //包括敏感数据在内的完整用户信息的加密数据
-          iv: e.detail.iv || ''
-          //加密算法的初始向量
-        });
-      },
       error(e) {
         this.$cmlEmit('error', {
           errMsg: e.detail.errMsg
         });
       },
-      opensetting(e) {
-        this.$cmlEmit('opensetting');
-      }
     }
   }
   export default new Button();
