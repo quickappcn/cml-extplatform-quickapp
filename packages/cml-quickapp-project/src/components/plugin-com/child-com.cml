@@ -1,10 +1,93 @@
 <template>
-  <view class="custom-event" c-bind:tap="triggerCustomEvent"><text>触发自定义事件</text></view>
+  <view class="scroller-wrap">
+    <text>PROPS => {{xx}} </text>
+    <!-- expression testcase -->
+    <text style="{{inlineStyle}}" class="{{show ? 'cls1' : 'cls2'}}">expression test</text>
+    <!-- c-show -->
+    <text c-show="{{show}}">c-show => {{message}}</text>
+    <!-- c-if c-else -->
+    <text c-if="{{type === 'A'}}">
+      c-if => A
+    </text>
+    <text c-else-if="{{type === 'B'}}">
+      c-else-if => B
+    </text>
+    <text c-else-if="{{type === 'C'}}">
+      C-else-if => C
+    </text>
+    <text c-else>
+      c-else => Not A/B/C
+    </text>
+    <!-- c-text -->
+    <view c-text="c-text" class="red-text" style="color: blue"></view>
+    <!-- c-for -->
+    <view class="sample-class" c-for="{{array}}">
+      <text> only c-for => {{index}}: {{item.city}}</text>
+    </view>
+    <view class="sample-class" c-for="{{array}}" c-for-index="idx">
+      <text> c-for & c-for-index => {{idx}}: {{item.city}}</text>
+    </view>
+    <view class="sample-class" c-for="{{array}}" c-for-index="idx" c-for-item="itemName">
+      <text> c-for & c-for-index & c-for-item => {{idx}}: {{itemName.city}}</text>
+    </view>
+    <!-- more than one c-for -->
+    <view class="sample-class" c-for-index="index" c-for-item="item" c-for="{{list}}">
+      <text> c-for => {{index}}: {{item.name}}</text>
+    </view>
+    <!-- c-model testcase -->
+    <text>c-model: {{message}}</text>
+    <input c-model="{{message}}"></input>
+    <!-- inline function with params testcase -->
+    <view class="event" c-bind:tap="handleElementTap"><text>无参数</text></view>
+    <view class="event" c-bind:tap="handleElementTap()"><text>空参数()</text></view>
+    <view class="event" c-bind:tap="handleElementTap(1, 2, 3)"><text>不带$event参数</text></view>
+    <view class="event" c-bind:tap="handleElementTap(1, 2, 3, 'message' + message,  $event )">
+      <text>带$event参数</text>
+    </view>
+    <view class="event" c-bind:tap="triggerCustomEvent"><text>触发自定义事件</text></view>
+  </view>
 </template>
 <script>
+  import cml from 'cml-quickapp-api'
+
   class Index {
-    data = {}
+    data = {
+      message: "Hello Chameleon!",
+      show: true,
+      inlineStyle: 'color: #000',
+      type: 'BC',
+      list: [{
+        name: 'lucida'
+      }, {
+        name: 'chenlei'
+      }, {
+        name: 'leilei'
+      }],
+      array: [{
+          city: "北京"
+        },
+        {
+          city: "上海"
+        },
+        {
+          city: "广州"
+        }
+      ],
+    }
+    props = {
+      xx: {
+        type: String,
+        default: '未知'
+      },
+      // oncustomevent: {
+      //   type: Function,
+      //   default: () => {}
+      // }
+    }
     methods = {
+      handleElementTap(...args) {
+        console.log('-------------', [].slice.call(args))
+      },
       triggerCustomEvent(e) {
         this.$cmlEmit('customevent', {
           company: 'oppo',
@@ -16,7 +99,17 @@
   export default new Index();
 </script>
 <style>
-  .custom-event {
+  .scroller-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .red-text {
+    color: red;
+  }
+
+  .event {
     margin-top: 30cpx;
     font-size: 40cpx;
     border: 1px solid;

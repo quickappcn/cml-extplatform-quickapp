@@ -4,10 +4,30 @@
 
 <script>
   class App {
-    data = {}
-    methods = {}
-    computed = {}
-    watch = {}
+    // data = {}
+    // methods = {}
+    // computed = {}
+    // watch = {}
+    // beforeCreate(e) {
+    //   console.log('App before Create');
+    // }
+    // created(e) {
+    //   console.log('App created');
+    // }
+    // beforeMount(e) {
+    //   console.log('App brefore Mount');
+    // }
+    // mounted() {
+    //   console.log('App mounted');
+    // }
+
+    // beforeDestroy() {
+    //   console.log('App before Destroy');
+    // }
+
+    // destroyed() {
+    //   console.log('App destroyed');
+    // }
   }
   export default new App();
 </script>

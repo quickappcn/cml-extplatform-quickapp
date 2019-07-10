@@ -9,7 +9,6 @@ import {
 } from '../util/util'
 import {
   mergeDefault,
-  mergeHooks,
   mergeSimpleProps,
   mergeData,
   mergeWatch
@@ -103,7 +102,6 @@ class QuickAppVmAdapter extends BaseVmAdapter {
   }
 
   resolveOptions() {
-
     const self = this
     let extractMixins = function (mOptions, options) {
       if (options.mixins) {
@@ -116,9 +114,7 @@ class QuickAppVmAdapter extends BaseVmAdapter {
 
     let mergeMixins = function (parent, child) {
       for (let key in child) {        
-        if (self.hooks.indexOf(key) > -1) {
-          mergeHooks(parent, child, key)
-        } else if (key === 'data') {
+        if (key === 'data') {
           mergeData(parent, child, key)
         } else if (testProps(key)) {
           mergeSimpleProps(parent, child, key)
@@ -137,6 +133,7 @@ class QuickAppVmAdapter extends BaseVmAdapter {
 
     const newOptions = {}
     extractMixins(newOptions, this.options)
+    
     this.options = newOptions
   }
 

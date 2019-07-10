@@ -7,7 +7,7 @@ class BaseCtor {
 
     this.options = {
       ...options
-    }
+    }    
     this.originalOptions = options
   }
 
