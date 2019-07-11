@@ -1,8 +1,8 @@
 <template>
   <view class="runtime-com">
     <text>Hello {{name}}!</text>
-    <text>PROPS => {{xx}}</text>
-    <text>computed: {{computeName}}!</text>
+    <text>PROPS => {{runProp}}</text>
+    <text c-bind:tap="handler">computed: {{computeName}}!</text>
   </view>
 </template>
 
@@ -12,14 +12,19 @@
       name: 'Chameleon'
     }
     props = {
-      xx: {
+      'runProp': {
         type: String,
         default: '未知'
       }
     }
+    methods = {
+      handler() {
+        this.name = 'xxx'
+      }
+    }
     computed = {
       computeName: function () {
-        return 'prefix' + this.name
+        return 'prefix ' + this.name
       }
     }
     watch = {

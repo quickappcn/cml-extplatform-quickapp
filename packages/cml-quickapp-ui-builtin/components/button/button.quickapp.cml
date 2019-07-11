@@ -1,11 +1,8 @@
 <template>
-  <div 
-    class="{{btnClasses}}" 
-    style="{{mrBtnStyle}}" 
-    c-bind:tap="onclick" 
-    open-type="{{openType}}" 
-    lang="{{lang}}">
-      <text c-if="{{text}}" class="{{textClasses}}" style="{{mrTextStyle}}">{{text}}</text>
+  <div class="{{btnClasses}}" style="{{mrBtnStyle}}" onclick="clickHandler" ontouchstart="touchstart"
+    ontouchend="touchend">
+    <text c-if="{{text}}" class="{{textClasses}}" style="{{mrTextStyle}}">{{text}}</text>
+    <block c-else></block>
   </div>
 </template>
 
@@ -15,6 +12,9 @@
   } from '../util'
 
   class Button implements ButtonInterface {
+    data = {
+      hover: false
+    }
     props = {
       text: {
         type: String,
@@ -60,41 +60,10 @@
         type: String,
         default: ''
       },
-      openType: {
-        type: String,
-        default: ""
-      },
-      lang: {
-        type: String,
-        default: "en"
-      },
-      sessionFrom: {
-        type: String,
-        default: ""
-      },
-      sendMessageTitle: {
-        type: String,
-        default: "当前标题"
-      },
-      sendMessagePath: {
-        type: String,
-        default: "当前分享路径"
-      },
-      sendMessageImg: {
-        type: String,
-        default: "截图"
-      },
-      showMessageCard: {
-        type: Boolean,
-        default: false
-      },
-      appParameter: {
-        type: String,
-        default: ""
+      dataEventonclick: {
+        type: Array,
+        default: []
       }
-    }
-    data = {
-      hover: false
     }
     computed = {
       hasWidth() {
@@ -144,8 +113,8 @@
       }
     }
     methods = {
-      onclick(e) {
-
+      clickHandler(e) {
+        console.log('----dataset', e.target.dataset)
         const {
           type,
           disabled
@@ -161,35 +130,145 @@
       },
       touchend(e) {
         this.hover = false
-      },
-      getuserinfo(e) {
-        this.$cmlEmit('getuserinfo', e.detail);
-      },
-      contact(e) {
-        this.$cmlEmit('contact');
-      },
-      getphonenumber(e) {
-        this.$cmlEmit('getphonenumber', {
-          errMsg: e.detail.errMsg,
-          encryptedData: e.detail.encryptedData || '',
-          //包括敏感数据在内的完整用户信息的加密数据
-          iv: e.detail.iv || ''
-          //加密算法的初始向量
-        });
-      },
-      error(e) {
-        this.$cmlEmit('error', {
-          errMsg: e.detail.errMsg
-        });
-      },
-      opensetting(e) {
-        this.$cmlEmit('opensetting');
       }
     }
   }
   export default new Button();
 </script>
-<style>
+<style scoped lang="less">
+  @import "../../assets/css/var.less";
+
+  .cml-btn {
+    display: flex;
+    padding: 0 30cpx;
+    height: 88cpx;
+    line-height: 88cpx;
+    background: @color-regular-blue;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4cpx;
+    font-size: 32cpx;
+    color: #fff;
+
+    &-active {
+      background: #444654;
+    }
+  }
+
+  .cml-btn-orange {
+    background: @color-orange;
+
+    &-active {
+      background: @color-background-grew;
+    }
+  }
+
+  .cml-btn-green {
+    background: #50a050;
+
+    &-active {
+      background: #57a957;
+    }
+  }
+
+  .cml-btn-red {
+    background: #db2a36;
+
+    &-active {
+      background: #ea2e3b;
+    }
+  }
+
+  .cml-btn-disable {
+    background: @color-light-grey-s;
+
+    &:active {
+      background: @color-light-grey-s;
+    }
+  }
+
+  .cml-btn-white {
+    color: #666;
+    background: #FFFFFF;
+    border: 2cpx solid #A5A5A5;
+
+    &-active {
+      background: #e8e8e8;
+    }
+
+    &-disable,
+    &:disabled {
+      color: @color-white;
+      background: @color-light-grey-s;
+      border: 0;
+
+      &:active {
+        background: @color-light-grey-s;
+      }
+    }
+  }
+
+  .cml-btn-full {
+    width: 702cpx;
+    height: 88cpx;
+  }
+
+  .cml-btn-big {
+    width: 339cpx;
+    height: 70cpx;
+  }
+
+  .cml-btn-medium {
+    width: 218cpx;
+    height: 60cpx;
+  }
+
+  .cml-btn-small {
+    width: 157cpx;
+    height: 44cpx;
+  }
+
+  .cml-btn-stretch {
+    align-self: stretch;
+  }
+
+  .cml-btn-auto {
+    align-self: flex-start;
+  }
+
+  .btn-text {
+    text-align: center;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    outline: none;
+    font-size: 36cpx;
+    color: #ffffff;
+  }
+
+  .btn-text-white {
+    color: #666;
+  }
+
+  .btn-text-white-disable {
+    color: @color-white;
+  }
+
+  .btn-text-full {
+    font-size: 36cpx;
+  }
+
+  .btn-text-big {
+    font-size: 32cpx;
+  }
+
+  .btn-text-medium {
+    font-size: 28cpx;
+  }
+
+  .btn-text-small {
+    font-size: 24cpx;
+  }
 </style>
 <script cml-type="json">
   {}

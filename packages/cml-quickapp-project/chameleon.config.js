@@ -26,7 +26,7 @@ cml.config.merge({
   },
   quickapp: {
     dev: {
-      moduleIdType: 'name',
+      // moduleIdType: 'name',
       minimize: false,
       increase: true
     },

@@ -1,7 +1,7 @@
 <template>
   <view class="runtime-demo">
     <text class="demo-title">runtime demo</text>
-    <runtime-com xx="自定义属性值"></runtime-com>
+    <runtime-com run-prop="自定义属性值"></runtime-com>
   </view>
 </template>
 
