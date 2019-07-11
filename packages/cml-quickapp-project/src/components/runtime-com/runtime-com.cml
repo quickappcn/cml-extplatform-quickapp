@@ -1,0 +1,84 @@
+<template>
+  <view class="runtime-com">
+    <text>Hello {{name}}!</text>
+    <text>PROPS => {{runProp}}</text>
+    <text>computed: {{computeName}}!</text>
+  </view>
+</template>
+
+<script>
+  class RuntimeCom {
+    data = {
+      name: 'Chameleon'
+    }
+    props = {
+      'runProp': {
+        type: String,
+        default: '未知'
+      }
+    }
+    computed = {
+      computeName: function () {
+        return 'prefix' + this.name
+      }
+    }
+    watch = {
+      name: function (newV, oldV) {
+        console.log("TCL: Index -> newV, oldV", newV, oldV)
+      },
+    }
+    beforeCreate(e) {
+      console.log('Runtime Component => before Create');
+    }
+
+    created(e) {
+      console.log('Runtime Component => created');
+    }
+    beforeMount(e) {
+      console.log('Runtime Component => brefore Mount');
+    }
+    mounted() {
+      console.log('Runtime Component => mounted', this);
+      setTimeout(() => {
+        // this.name = "22222"
+      }, 1000);
+    }
+  }
+
+  export default new RuntimeCom();
+</script>
+
+<style>
+  .runtime-com {
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
+
+<script cml-type="json">
+  {
+    "base": {
+      "usingComponents": {}
+    },
+    "wx": {
+      "navigationBarTitleText": "index",
+      "backgroundTextStyle": "dark",
+      "backgroundColor": "#E2E2E2"
+    },
+    "alipay": {
+      "defaultTitle": "index",
+      "pullRefresh": false,
+      "allowsBounceVertical": "YES",
+      "titleBarColor": "#ffffff"
+    },
+    "baidu": {
+      "navigationBarBackgroundColor": "#ffffff",
+      "navigationBarTextStyle": "white",
+      "navigationBarTitleText": "index",
+      "backgroundColor": "#ffffff",
+      "backgroundTextStyle": "dark",
+      "enablePullDownRefresh": false,
+      "onReachBottomDistance": 50
+    }
+  }
+</script>

@@ -1,0 +1,20 @@
+<template>
+  <view class="ui-com">
+    <text></text>
+  </view>
+</template>
+
+<style>
+  .ui-com {
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
+
+<script>
+  class UiCom {}
+  export default new UiCom()
+</script>
+<script cml-type="json">
+  {}
+</script>

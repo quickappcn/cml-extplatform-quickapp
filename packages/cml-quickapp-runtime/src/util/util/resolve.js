@@ -1,24 +1,8 @@
 import { merge, extend } from './util'
 import { type } from './type'
 
-export function mergeDefault(parent, child, key) {
+export function mergeDefault(parent, child, key) {  
   parent[key] = child[key]
-}
-
-export function mergeHooks(parent, child, key) {
-
-  let hasKeyParent = parent.hasOwnProperty(key)
-  let isArrayChild = type(child[key]) === 'Array'
-
-  if (!hasKeyParent && !isArrayChild) {
-    parent[key] = [child[key]]
-  } else if (!hasKeyParent && isArrayChild) {
-    parent[key] = child[key]
-  } else if (hasKeyParent && !isArrayChild) {
-    parent[key].push(child[key])
-  } else if (hasKeyParent && isArrayChild) {
-    parent[key] = parent[key].concat(child[key])
-  }
 }
 
 export function mergeSimpleProps(parent, child, key) {
@@ -27,7 +11,11 @@ export function mergeSimpleProps(parent, child, key) {
   if (!parentVal) {
     parent[key] = parentVal = {}
   }
-  extend(parentVal, childVal)
+  if (key !== 'methods') {
+    extend(parentVal, childVal)
+  } else {
+    extend(parent, childVal)
+  }
 }
 
 export function mergeData(parent, child, key) {
@@ -55,4 +43,5 @@ export function mergeWatch(parent, child, key) {
     }
   })
 }
+
 

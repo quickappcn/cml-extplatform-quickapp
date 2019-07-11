@@ -13,12 +13,11 @@ export function noop () {}
 
   // transfer 对象的`${name}`属性值 to function
 export function propToFn (obj, name) {
+  
   if (obj && isObject(obj[name])) {
     var _temp = obj[name]
 
-    obj[name] = function() {
-      return deepClone(_temp)
-    }
+    obj[name] = deepClone(_temp)
   }
 }
 
@@ -28,13 +27,14 @@ export function propToFn (obj, name) {
  * @param  {Object} hooksMap 映射表
  * @return {Object}     修改后值
  */
-export function transferLifecycle (options, hooksMap) {
+export function transferLifecycle (options, hooksMap) {  
   if (!hooksMap) {
     return
   }
 
   let _hooksTemp = []
   let _mapTemp = {}
+  let tempObj = {}
   // 将生命周期 键名 处理成 [`$_${key}`]
   Object.keys(hooksMap).forEach(key => {
     const uniKey = `$_${key}`
@@ -45,7 +45,7 @@ export function transferLifecycle (options, hooksMap) {
       options[uniKey] = options[key]
       delete options[key]
     }
-  })
+  })  
 
   _hooksTemp.forEach(function(uniKey) {
     const mapKey = _mapTemp[uniKey]
@@ -60,7 +60,15 @@ export function transferLifecycle (options, hooksMap) {
       } else {
         options[mapKey] = hook
       }
+      tempObj[mapKey] = [].concat(options[mapKey]);
       delete options[uniKey]
+    }
+  })
+  Object.keys(tempObj).forEach(lifeFunc => {
+    
+    options[lifeFunc] = () => {
+      // Todo when func has context such as This
+      tempObj[lifeFunc].forEach(func => func())
     }
   })
 }
@@ -257,5 +265,3 @@ export function flatten(obj = {}) {
 
   return ret
 }
-
-

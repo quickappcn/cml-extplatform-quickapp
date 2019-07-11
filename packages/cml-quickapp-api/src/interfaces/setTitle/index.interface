@@ -1,16 +1,10 @@
 <include src="chameleon-api/src/interfaces/setTitle/index.interface"></include>
 
 <script cml-type="quickapp">
-
 class Method implements setTitleInterface {
   setTitle(title) {
-    const page = quickapp.router.getState();
-    // quickapp.router.push({
-    //   uri: page.path,
-    //   params: {
-    //     titleBarText: title
-    //   }
-    // })
+    // Todo 
+    // quickapp => this.$page.setTitleBar(title)
   }
 }
 
