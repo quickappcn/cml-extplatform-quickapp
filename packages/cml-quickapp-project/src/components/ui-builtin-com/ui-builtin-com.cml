@@ -1,39 +1,20 @@
 <template>
-  <view class="ui-builtin-com">
-    <button 
-      text="button组件"
-      size="auto" 
-      type="orange"
-      width="{{250}}"
-      disabled="{{false}}" 
-      btn-style="background-color: green" 
-      text-style="color: black;font-style: italic" 
-      disabled-style="background-color: grey" 
-      text-style-disabled="color: #fff" 
-      btn-hover-style="background-color: pink" 
-      text-hover-style="color: #fff" 
-      c-bind:onclick="clickHandler">
-    </button>
-  </view>
+  <view><button-com></button-com></view>
 </template>
 
 <style>
-  .ui-builtin-com {
-    flex-direction: column;
-    align-items: center;
-  }
 </style>
 
 <script>
-  class UiBuiltinCom {
-    methods = {
-      clickHandler(e) {
-        console.log('=========== event = ', e)
-      }
-    }
-  }
+  class UiBuiltinCom {}
   export default new UiBuiltinCom()
 </script>
 <script cml-type="json">
-  {}
+  {
+    "base": {
+      "usingComponents": {
+        "button-com": "./button-com"
+      }
+    }
+  }
 </script>
