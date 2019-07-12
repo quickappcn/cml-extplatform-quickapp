@@ -1,9 +1,9 @@
 <template>
-  <div class="{{btnClasses}}" style="{{mrBtnStyle}}" onclick="clickHandler" ontouchstart="touchstart"
+  <view class="{{btnClasses}}" style="{{mrBtnStyle}}" onclick="clickHandler" ontouchstart="touchstart"
     ontouchend="touchend">
     <text c-if="{{text}}" class="{{textClasses}}" style="{{mrTextStyle}}">{{text}}</text>
     <block c-else></block>
-  </div>
+  </view>
 </template>
 
 <script>
@@ -22,7 +22,7 @@
       },
       size: {
         type: String,
-        default: "stretch"
+        default: "auto"
       },
       width: {
         type: Number,
@@ -59,10 +59,6 @@
       textHoverStyle: {
         type: String,
         default: ''
-      },
-      dataEventonclick: {
-        type: Array,
-        default: []
       }
     }
     computed = {
@@ -93,7 +89,7 @@
           btnStyle
 
         if (hasWidth) {
-          style = `width:${width}cpx;${style}`
+          style = `width:${width}px;${style}`
         }
         return style
       },
@@ -105,16 +101,16 @@
           hover,
           textHoverStyle
         } = this;
-        return disabled ?
+        const style = disabled ?
           `${textStyle};${textStyleDisabled}` :
           hover ?
           `${textStyle};${textHoverStyle}` :
-          textStyle
+          textStyle;
+        return  style
       }
     }
     methods = {
       clickHandler(e) {
-        console.log('----dataset', e.target.dataset)
         const {
           type,
           disabled
@@ -143,7 +139,7 @@
     padding: 0 30cpx;
     height: 88cpx;
     line-height: 88cpx;
-    background: @color-regular-blue;
+    background: @color-grey-blue;
     align-items: center;
     justify-content: center;
     border-radius: 4cpx;
@@ -160,6 +156,14 @@
 
     &-active {
       background: @color-background-grew;
+    }
+  }
+
+  .cml-btn-blue {
+    background: @color-grey-blue;
+
+    &-active {
+      background: @color-grey-blue;
     }
   }
 

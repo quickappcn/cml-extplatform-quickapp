@@ -21,7 +21,7 @@ module.exports = function (context) {
     let eventName = `${eventNameKey}${eventNameVal}`;
     let match = isInlineStatementFn(handler);
     attr.name = t.jsxIdentifier(eventName);
-    // ====这里作用是阻止对 origin-tag标签的事件进行代理
+/*     // ====这里作用是阻止对 origin-tag标签的事件进行代理
     if (isOriginTagOrNativeComp(tagName, options)) {
       return // 原生标签和原生组件直接不解析
     }
@@ -40,6 +40,6 @@ module.exports = function (context) {
       } else { // 内联函数不传参
         attributes.push(t.jsxAttribute(t.jsxIdentifier(`data-event${eventKey}`), t.stringLiteral(`{{['${handler}']}}`)));
       }
-    }
+    } */
   }
 }
