@@ -1,0 +1,115 @@
+<template>
+  <view class="ui-builtin-com">
+    <button 
+      text="full button"
+      size="full" 
+      type="blue"
+      disabled="{{false}}" 
+      btn-style="margin-bottom: 20px" 
+      text-style="color: black;font-style: normal" 
+      disabled-style="background-color: grey" 
+      text-style-disabled="color: #fff" 
+      btn-hover-style="background-color: pink" 
+      text-hover-style="color: #fff;font-style: italic"
+      c-bind:onclick="clickHandler">
+    </button>
+    <button 
+      text="big button"
+      size="big" 
+      type="red"
+      disabled="{{false}}" 
+      btn-style="margin-bottom: 20px" 
+      text-style="color: black;font-style: normal" 
+      disabled-style="background-color: grey" 
+      text-style-disabled="color: #fff" 
+      btn-hover-style="background-color: pink" 
+      text-hover-style="color: #fff;font-style: italic"
+      c-bind:onclick="clickHandler">
+    </button>
+    <button 
+      text="medium button"
+      size="medium" 
+      type="green"
+      disabled="{{false}}" 
+      btn-style="margin-bottom: 20px" 
+      text-style="color: black;font-style: normal" 
+      disabled-style="background-color: grey" 
+      text-style-disabled="color: #fff" 
+      btn-hover-style="background-color: pink" 
+      text-hover-style="color: #fff;font-style: italic"
+      c-bind:onclick="clickHandler">
+    </button>
+    <button 
+      text="samll button"
+      size="small" 
+      type="orange"
+      disabled="{{false}}" 
+      btn-style="margin-bottom: 20px" 
+      text-style="color: black;font-style: normal" 
+      disabled-style="background-color: grey" 
+      text-style-disabled="color: #fff" 
+      btn-hover-style="background-color: pink" 
+      text-hover-style="color: #fff;font-style: italic"
+      c-bind:onclick="clickHandler">
+    </button>
+    <button 
+      text="auto button"
+      size="auto" 
+      type="white"
+      disabled="{{false}}" 
+      btn-style="margin-bottom: 20px" 
+      text-style="color: black;font-style: normal" 
+      disabled-style="background-color: grey" 
+      text-style-disabled="color: #fff" 
+      btn-hover-style="background-color: pink" 
+      text-hover-style="color: #fff;font-style: italic"
+      c-bind:onclick="clickHandler">
+    </button>
+    <button 
+      text="button width"
+      size="auto" 
+      width="{{450}}"
+      disabled="{{false}}" 
+      btn-style="margin-bottom: 20px" 
+      text-style="color: black;font-style: normal" 
+      disabled-style="background-color: grey" 
+      text-style-disabled="color: #fff" 
+      btn-hover-style="background-color: pink" 
+      text-hover-style="color: #fff;font-style: italic"
+      c-bind:onclick="clickHandler">
+    </button>
+    <button 
+      text="disabled stretch button"
+      disabled="{{true}}"
+      size="stretch"
+      btn-style="margin-bottom: 20px" 
+      text-style="color: black;font-style: normal" 
+      disabled-style="background-color: grey" 
+      text-style-disabled="color: #fff" 
+      btn-hover-style="background-color: pink" 
+      text-hover-style="color: #fff;font-style: italic"
+      c-bind:onclick="clickHandler">
+    </button>
+  </view>
+</template>
+
+<style>
+  .ui-builtin-com {
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
+
+<script>
+  class ButtonCom {
+    methods = {
+      clickHandler(e) {
+        console.log('=========== event = ', e)
+      }
+    }
+  }
+  export default new ButtonCom()
+</script>
+<script cml-type="json">
+  {}
+</script>

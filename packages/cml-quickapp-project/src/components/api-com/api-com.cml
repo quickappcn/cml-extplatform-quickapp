@@ -36,7 +36,7 @@
         cml.alert({
           message: 'This is alert! ',
           confirmTitle: "ok"
-        }).then(function (res) {
+        }).then(function () {
           cml.showToast({
             message: 'success!',
             duration: 1000
@@ -44,7 +44,7 @@
         })
       },
       setTitle: function () {
-        cml.setTitle('我是标题').bind(this)
+        cml.setTitle('我是标题')
       },
       showComfirm: function () {
         cml.confirm({
