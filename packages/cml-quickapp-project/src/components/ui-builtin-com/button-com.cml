@@ -1,115 +1,155 @@
 <template>
-  <view class="ui-builtin-com">
-    <button 
-      text="full button"
-      size="full" 
-      type="blue"
-      disabled="{{false}}" 
-      btn-style="margin-bottom: 20px" 
-      text-style="color: black;font-style: normal" 
-      disabled-style="background-color: grey" 
-      text-style-disabled="color: #fff" 
-      btn-hover-style="background-color: pink" 
-      text-hover-style="color: #fff;font-style: italic"
-      c-bind:onclick="clickHandler">
-    </button>
-    <button 
-      text="big button"
-      size="big" 
-      type="red"
-      disabled="{{false}}" 
-      btn-style="margin-bottom: 20px" 
-      text-style="color: black;font-style: normal" 
-      disabled-style="background-color: grey" 
-      text-style-disabled="color: #fff" 
-      btn-hover-style="background-color: pink" 
-      text-hover-style="color: #fff;font-style: italic"
-      c-bind:onclick="clickHandler">
-    </button>
-    <button 
-      text="medium button"
-      size="medium" 
-      type="green"
-      disabled="{{false}}" 
-      btn-style="margin-bottom: 20px" 
-      text-style="color: black;font-style: normal" 
-      disabled-style="background-color: grey" 
-      text-style-disabled="color: #fff" 
-      btn-hover-style="background-color: pink" 
-      text-hover-style="color: #fff;font-style: italic"
-      c-bind:onclick="clickHandler">
-    </button>
-    <button 
-      text="samll button"
-      size="small" 
-      type="orange"
-      disabled="{{false}}" 
-      btn-style="margin-bottom: 20px" 
-      text-style="color: black;font-style: normal" 
-      disabled-style="background-color: grey" 
-      text-style-disabled="color: #fff" 
-      btn-hover-style="background-color: pink" 
-      text-hover-style="color: #fff;font-style: italic"
-      c-bind:onclick="clickHandler">
-    </button>
-    <button 
-      text="auto button"
-      size="auto" 
-      type="white"
-      disabled="{{false}}" 
-      btn-style="margin-bottom: 20px" 
-      text-style="color: black;font-style: normal" 
-      disabled-style="background-color: grey" 
-      text-style-disabled="color: #fff" 
-      btn-hover-style="background-color: pink" 
-      text-hover-style="color: #fff;font-style: italic"
-      c-bind:onclick="clickHandler">
-    </button>
-    <button 
-      text="button width"
-      size="auto" 
-      width="{{450}}"
-      disabled="{{false}}" 
-      btn-style="margin-bottom: 20px" 
-      text-style="color: black;font-style: normal" 
-      disabled-style="background-color: grey" 
-      text-style-disabled="color: #fff" 
-      btn-hover-style="background-color: pink" 
-      text-hover-style="color: #fff;font-style: italic"
-      c-bind:onclick="clickHandler">
-    </button>
-    <button 
-      text="disabled stretch button"
-      disabled="{{true}}"
-      size="stretch"
-      btn-style="margin-bottom: 20px" 
-      text-style="color: black;font-style: normal" 
-      disabled-style="background-color: grey" 
-      text-style-disabled="color: #fff" 
-      btn-hover-style="background-color: pink" 
-      text-hover-style="color: #fff;font-style: italic"
-      c-bind:onclick="clickHandler">
-    </button>
-  </view>
-</template>
-
-<style>
-  .ui-builtin-com {
-    flex-direction: column;
-    align-items: center;
-  }
-</style>
-
-<script>
-  class ButtonCom {
+    <view class="container">
+        <view class="section-title">
+          <text class="section-title-text">类型样式</text>
+        </view>
+        <view class="button-list">
+          <text class="button-text">default/blue</text>
+          <button c-bind:onclick='testclick' text="确定" ></button>
+          <text class="button-text">disabled</text>
+          <button
+            type="blue"
+            text="确定"
+            disabled="{{true}}"
+            c-bind:onclick='testclick'
+          >
+          </button>
+          <text class="button-text">orange</text>
+          <button
+            type="orange"
+            text="确定"
+            c-bind:onclick='testclick'
+          >
+          </button>
+          <text class="button-text">red && disabled</text>
+          <button
+            type="red"
+            text="确定"
+            disabled="{{true}}"
+            c-bind:onclick='testclick'
+          >
+          </button>
+          <text class="button-text">green</text>
+          <button
+            type="green"
+            text="确定"
+            c-bind:onclick='testclick'
+          >
+          </button>
+        </view>
+  
+        <view class="section-title">
+          <text class="section-title-text">尺寸</text>
+        </view>
+        <view class="button-list">
+          <text class="button-text">big</text>
+          <button
+            type="orange"
+            text="确定"
+            size="big"
+            c-bind:onclick='testclick' >
+          </button>
+          <text class="button-text">medium</text>
+          <button
+            type="orange"
+            text="确定"
+            size="medium"
+            c-bind:onclick='testclick' >
+          </button>
+          <text class="button-text">small</text>
+          <button
+            type="red"
+            text="确定"
+            size="small"
+            disabled="{{true}}"
+            c-bind:onclick='testclick'
+          >
+          </button>
+        </view>
+  
+        
+    </view>
+  </template>
+  <script>
+  import cml from 'cml-quickapp-api'
+  class Button {
+    data = {
+      sessionFrom: '会话来源',
+      messageTitle: '标题',
+      messagePath: '路径',
+      messageImg: '图片',
+      contactPath: '',
+      contactQuery: {},
+      errMsg: '',
+      iv: '',
+      encryptedData: '',
+      appErrMsg: ''
+    }
     methods = {
-      clickHandler(e) {
-        console.log('=========== event = ', e)
+      testclick(e) {
+        let type = e.detail.type
+        cml.showToast({
+          message: type + ' button'
+        })
+      },
+      bindcontact(e) {
+        this.contactPath = e.path;
+        this.contactQuery = e.query;
+      },
+      bindgetuserinfo(e) {
+        console.log(e.detail);
+      },
+      bindgetphonenumber(e) {
+        this.errMsg = e.detail.errMsg;
+        this.iv = e.detail.iv;
+        this.encryptedData = e.detail.encryptedData;
+      },
+      binderror(e) {
+        this.appErrMsg = e.detail.errMsg;
+      },
+      bindopensetting(e) {
+        console.log(e);
       }
     }
   }
-  export default new ButtonCom()
-</script>
-<script cml-type="json">
-  {}
-</script>
+  export default new Button();
+  </script>
+  <style scoped>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 60cpx;
+    font-size: 32cpx;
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+  }
+  .button-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .section-title {
+    margin-top: 60cpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .section-title-text {
+    color: #fc9153;
+    font-size: 40cpx;
+  }
+  .button-text {
+    display: block;
+    color: #999;
+    margin-top: 40cpx;
+    margin-left: 8cpx;
+    margin-bottom: 16cpx;
+  }
+  </style>
+  
+  <script cml-type="json">
+  {
+    "base": {}
+  }
+  </script>
+  
