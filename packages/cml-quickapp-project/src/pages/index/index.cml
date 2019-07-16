@@ -1,67 +1,62 @@
 <template>
-  <view class="scroller-wrap">
-    <view><text class="row-text" data-page="/pages/api/index" c-bind:tap="gotoPage">gotoApiPage</text></view>
-    <view><text class="row-text" data-page="/pages/plugin/index" c-catch:tap="gotoPage">gotoPluginPage</text></view>
-    <view><text class="row-text" data-page="/pages/runtime/index" c-bind:tap="gotoPage">gotoRuntimePage</text></view>
-    <view><text class="row-text" data-page="/pages/ui-builtin/index" c-bind:tap="gotoPage">gotoUiBuiltinPage</text>
-    </view>
-    <view><text class="row-text" data-page="/pages/ui/index" c-bind:tap="gotoPage">gotoUiPage</text></view>
+  <view c-if="{{true}}" class="scroller-wrap">
+    <view class="class1"><text>chameleon</text></view>
+    <demo-com></demo-com>
   </view>
+
 </template>
 
 <script>
-  import cml from 'cml-quickapp-api';
-  class Index {
-    data = {}
-    methods = {
-      gotoPage(e) {
-        cml.navigateTo({
-          path: e.target.dataset.page
-        })
-      },
-    }
-  }
+import cml from 'cml-quickapp-api';
+class Index  {}
 
-  export default new Index();
+export default new Index();
+
+cml.alert({message: 'chameleon', confirmTitle:'确定'})
+
 </script>
 <style>
-  .scroller-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .row-text {
-    color: blue;
-    font-size: 50cpx;
-    margin-bottom: 20cpx;
-    text-decoration: underline;
-  }
+.scroller-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.class1 {
+  width: 100cpx;
+  height: 100cpx;
+  background: url('../../assets/images/chameleon.png') no-repeat;
+  background-size: 100cpx 100cpx;
+}
+
 </style>
 <script cml-type="json">
-  {
-    "base": {
-      "usingComponents": {}
-    },
-    "wx": {
-      "navigationBarTitleText": "index",
-      "backgroundTextStyle": "dark",
-      "backgroundColor": "#E2E2E2"
-    },
-    "alipay": {
-      "defaultTitle": "index",
-      "pullRefresh": false,
-      "allowsBounceVertical": "YES",
-      "titleBarColor": "#ffffff"
-    },
-    "baidu": {
-      "navigationBarBackgroundColor": "#ffffff",
-      "navigationBarTextStyle": "white",
-      "navigationBarTitleText": "index",
-      "backgroundColor": "#ffffff",
-      "backgroundTextStyle": "dark",
-      "enablePullDownRefresh": false,
-      "onReachBottomDistance": 50
+{
+  "base": {
+    "usingComponents": {
+      "demo-com": "/components/demo-com/demo-com"
     }
+  },
+  "wx": {
+    "navigationBarTitleText": "index",
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#E2E2E2"
+  },
+  "alipay": {
+    "defaultTitle": "index",
+    "pullRefresh": false,
+    "allowsBounceVertical": "YES",
+    "titleBarColor": "#ffffff"
+  },
+  "baidu": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "index",
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": false,
+    "onReachBottomDistance": 50
   }
+}
 </script>

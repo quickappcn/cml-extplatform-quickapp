@@ -1,2 +1,2 @@
 <include src="cml-ui/components/c-tip/c-tip.interface"></include>
-<script cml-type="quickapp" src="cml-ui/components/c-tip/c-tip.cml"></script>
+<script cml-type="demo" src="cml-ui/components/c-tip/c-tip.cml"></script>

@@ -7,36 +7,6 @@
       "path": "/pages/index/index",
       "name": "首页",
       "mock": "index.php"
-    },
-    {
-      "url": "/cml/h5/api",
-      "path": "/pages/api/index",
-      "name": "api",
-      "mock": "index.php"
-    },
-    {
-      "url": "/cml/h5/plugin",
-      "path": "/pages/plugin/index",
-      "name": "plugin",
-      "mock": "index.php"
-    },
-    {
-      "url": "/cml/h5/runtime",
-      "path": "/pages/runtime/index",
-      "name": "runtime",
-      "mock": "index.php"
-    },
-    {
-      "url": "/cml/h5/ui",
-      "path": "/pages/ui/index",
-      "name": "ui",
-      "mock": "index.php"
-    },
-    {
-      "url": "/cml/h5/ui-builtin",
-      "path": "/pages/ui-builtin/index",
-      "name": "ui-builtin",
-      "mock": "index.php"
     }
   ]
 }

@@ -1,2 +1,2 @@
 <include src="cml-ui/components/c-actionsheet/c-actionsheet.interface"></include>
-<script cml-type="quickapp" src="cml-ui/components/c-actionsheet/c-actionsheet.cml"></script>
+<script cml-type="demo" src="cml-ui/components/c-actionsheet/c-actionsheet.cml"></script>

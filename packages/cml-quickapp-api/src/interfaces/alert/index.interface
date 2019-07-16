@@ -2,24 +2,22 @@
 <include src="chameleon-api/src/interfaces/alert/index.interface"></include>
 
 // 扩展实现新端
-<script cml-type="quickapp">
-
+<script cml-type="demo">
 class Method implements uiInterface {
   alert(opt, successCallBack, failCallBack) {
     let { message, confirmTitle} = opt;
-    quickapp.prompt.showDialog({
+    wx.showModal({
+      showCancel: false,
       title: '',
-      message,
-      buttons: [
-        {
-          text: confirmTitle,
-          color: '#33dd44'
-        }
-      ],
-      success: successCallBack,
-      cancel: failCallBack,
-      fail: failCallBack
-    })
+      content: message,
+      confirmText: confirmTitle,
+      success() {
+        successCallBack(confirmTitle);
+      },
+      fail() {
+        failCallBack(confirmTitle);
+      }
+    });
   }
 }
 

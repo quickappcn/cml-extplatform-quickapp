@@ -1,5 +1,5 @@
 <include src="chameleon-store/src/interfaces/createStore/index.interface"></include>
-<script cml-type="quickapp">
+<script cml-type="demo">
     import createStore from '../../platform/web'
     class Method implements createStoreInterface {
       createStore(options) {
