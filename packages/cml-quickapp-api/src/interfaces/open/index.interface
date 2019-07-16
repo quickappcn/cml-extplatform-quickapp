@@ -1,0 +1,16 @@
+<include src="chameleon-api/src/interfaces/open/index.interface"></include>
+
+<script cml-type="quickapp">
+
+class Method implements openPageInterface {
+  open(url, commonPatchParams = {}, extraOptions = {}) {
+    quickapp.router.push({
+      uri: url,
+      params: commonPatchParams
+    })
+  }
+}
+
+export default new Method();
+
+</script>

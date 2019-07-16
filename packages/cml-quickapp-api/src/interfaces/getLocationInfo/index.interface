@@ -1,0 +1,33 @@
+<include src="chameleon-api/src/interfaces/getLocationInfo/index.interface"></include>
+
+<script cml-type="quickapp">
+  class Method implements UtilsInterface {
+    getLocationInfo(cb) {
+      quickapp.geolocation.getLocation({
+        success: (res) => {
+          const latitude = +res.latitude;
+          const longitude = +res.longitude;
+          cb({
+            errno: 0,
+            errMsg: '',
+            data: {
+              lat: latitude,
+              lng: longitude
+            }
+          });
+        },
+        fail: () => {
+          cb({
+            errno: -1,
+            errMsg: 'getLocation failed',
+            data: {
+              lat: 0,
+              lng: 0
+            }
+          });
+        }
+      })
+    }
+  }
+  export default new Method();
+</script>
