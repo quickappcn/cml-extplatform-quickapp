@@ -1,0 +1,68 @@
+<template>
+  <swiper index="{{current}}" autoplay="{{autoplay}}" interval="{{interval}}" indicator="{{indicatorDots}}"
+    loop="{{circular}}" onchange="swiperChange">
+    <slot></slot>
+  </swiper>
+</template>
+<script>
+  class CCarousel implements CCarouselInterface {
+    data = {}
+    props = {
+      autoplay: {
+        type: Boolean,
+        default: false,
+      },
+      change: {
+        type: Function,
+        default: () => {},
+      },
+      current: {
+        type: Number,
+        default: 0,
+      },
+      interval: {
+        type: Number,
+        default: 5000,
+      },
+      circular: {
+        type: Boolean,
+        default: false,
+      },
+      indicatorDots: {
+        type: Boolean,
+        default: false,
+      },
+      indicatorColor: {
+        type: String,
+        default: '#cccccc'
+      },
+      indicatorActiveColor: {
+        type: String,
+        default: '#000000'
+      }
+    }
+    computed = {}
+    mounted() {}
+    methods = {
+      swiperChange(e) {
+        if (e.index !== undefined) {
+          this.$cmlEmit('change', {
+            current: e.index
+          })
+        }
+      }
+    }
+  }
+  export default new CCarousel();
+</script>
+
+<style scoped>
+</style>
+
+<script cml-type="json">
+  {
+    "base": {
+      "usingComponents": {}
+    }
+  }
+</script>

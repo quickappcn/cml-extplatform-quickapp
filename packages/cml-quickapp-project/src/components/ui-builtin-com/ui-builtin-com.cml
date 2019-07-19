@@ -1,8 +1,18 @@
 <template>
   <view class="ui-builtin-com">
     <button-com></button-com>
-    <radio-com></radio-com>
-    <checkbox-com></checkbox-com>
+    <!-- <radio-com></radio-com> -->
+    <!-- <checkbox-com></checkbox-com> -->
+    <!-- <switch-com></switch-com> -->
+    <!-- <carousel-com></carousel-com> -->
+    <!-- <input-com></input-com> -->
+    <!-- <video-com></video-com> -->
+    <!-- <list-com></list-com> -->
+    <!-- <page-com></page-com> -->
+    <!-- <richtext-com></richtext-com> -->
+    <!-- <textarea-com></textarea-com> -->
+    <!-- <scroller-com></scroller-com> -->
+    <!-- <layout-com></layout-com> -->
   </view>
 </template>
 
@@ -21,10 +31,23 @@
   {
     "base": {
       "usingComponents": {
-        "button-com": "./button-com",
-        "radio-com": "./radio-com",
-        "checkbox-com": "./checkbox-com"
+        "button-com": "./button-com"
       }
     }
   }
 </script>
+<!-- 
+  // "button-com": "./button-com",
+  // "radio-com": "./radio-com",
+  // "checkbox-com": "./checkbox-com",
+  // "switch-com": "./switch-com",
+  // "carousel-com": "./carousel-com",
+  // "input-com": "./input-com",
+  // "video-com": "./video-com",
+  // "list-com": "./list-com",
+  // "richtext-com": "./richtext-com",
+  // "textarea-com": "./textarea-com",
+  // "scroller-com": "./scroller-com",
+  // "page-com": "./page-com",
+  // "layout-com": "./layout-com"
+ -->

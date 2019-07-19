@@ -2,7 +2,7 @@
   <view class="scroller-wrap">
     <view><text class="row-text" data-page="/pages/api/index" c-bind:tap="gotoPage">gotoApiPage</text></view>
     <view><text class="row-text" data-page="/pages/plugin/index" c-catch:tap="gotoPage">gotoPluginPage</text></view>
-    <view><text class="row-text" data-page="/pages/runtime/index" c-bind:tap="gotoPage">gotoRuntimePage</text></view>
+    <view><text class="row-text" data-page="/pages/runtime/index?query=123" c-bind:tap="gotoPage">gotoRuntimePage</text></view>
     <view><text class="row-text" data-page="/pages/ui-builtin/index" c-bind:tap="gotoPage">gotoUiBuiltinPage</text>
     </view>
     <view><text class="row-text" data-page="/pages/ui/index" c-bind:tap="gotoPage">gotoUiPage</text></view>

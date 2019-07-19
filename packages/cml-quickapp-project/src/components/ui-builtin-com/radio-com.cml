@@ -1,25 +1,22 @@
 <template>
   <view class="container">
+      <text class="title">Radio</text>
     <view class="box">
       <radio checked="{{ radioValue1 }}" label="Option1" c-bind:change="valueChange1">
       </radio>
     </view>
-    <view class="title"><text>value: {{ radioValue1 ? 'true' : 'false' }}</text></view>
     <view class="box">
-      <radio checked="{{ radioValue2 }}" label="Option3" position="right" c-bind:change="valueChange2">
+      <radio checked="{{ radioValue2 }}" label="Option2" position="right" c-bind:change="valueChange2">
       </radio>
     </view>
-    <view class="title"><text>value: {{ radioValue2 ? 'true' : 'false'  }}</text></view>
     <view class="box">
-      <radio checked="{{ radioValue3 }}" label="Option2" disabled="{{ true }}">
+      <radio checked="{{ radioValue3 }}" label="disabled left" disabled="{{ true }}">
       </radio>
     </view>
-    <view class="title"><text>value: {{ radioValue3 ? 'true' : 'false' }}</text></view>
     <view class="box">
-      <radio checked="{{ radioValue4 }}" label="Option3" position="right" disabled="{{ true }}">
+      <radio checked="{{ radioValue4 }}" label="disabled right" position="right" disabled="{{ true }}">
       </radio>
     </view>
-    <view class="title"><text>value: {{ radioValue4 ? 'true' : 'false' }}</text></view>
   </view>
 </template>
 <script>
