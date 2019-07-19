@@ -3,6 +3,7 @@
     <button-com></button-com>
     <radio-com></radio-com>
     <checkbox-com></checkbox-com>
+    <textarea-com></textarea-com>
   </view>
 </template>
 
@@ -23,7 +24,8 @@
       "usingComponents": {
         "button-com": "./button-com",
         "radio-com": "./radio-com",
-        "checkbox-com": "./checkbox-com"
+        "checkbox-com": "./checkbox-com",
+        "textarea-com": "./textarea-com"
       }
     }
   }
