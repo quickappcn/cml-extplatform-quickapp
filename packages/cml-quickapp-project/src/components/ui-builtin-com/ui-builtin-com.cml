@@ -4,6 +4,7 @@
     <radio-com></radio-com>
     <checkbox-com></checkbox-com>
     <textarea-com></textarea-com>
+    <richtext-com></richtext-com>
   </view>
 </template>
 
@@ -25,7 +26,8 @@
         "button-com": "./button-com",
         "radio-com": "./radio-com",
         "checkbox-com": "./checkbox-com",
-        "textarea-com": "./textarea-com"
+        "textarea-com": "./textarea-com",
+        "richtext-com": "./richtext-com"
       }
     }
   }
