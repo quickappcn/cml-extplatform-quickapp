@@ -9,7 +9,7 @@
     onchange="inputEvent"
     onblur="blurEvent"
     onfocus="focusEvent"
-  />
+  ></origin-input>
 </template>
 <script>
 import {getValBetweenMaxAndMin} from '../../assets/js/utils';
