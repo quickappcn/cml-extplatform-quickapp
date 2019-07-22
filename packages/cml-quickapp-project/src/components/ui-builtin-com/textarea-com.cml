@@ -1,0 +1,107 @@
+<template>
+  <view class="container">
+      <view class="section-title">
+        <text class="section-title-text">Text</text>
+      </view>
+      <view class="section-title">
+        <text class="title-text" >focus聚焦</text>
+      </view>
+      <view class="input-wrap">
+          <textarea placeholder="focus聚焦" focus="{{isfocus}}"  c-bind:blur="bindblurevent"></textarea>
+      </view>
+      <view class="section-title">
+        <text class="title-text"><span>数据绑定,value:{{inputValue}}</span></text>
+      </view>
+      <view class="input-wrap">
+          <textarea placeholder="数据绑定" value="" c-bind:input="inputEvent"></textarea>
+      </view>
+      <view class="section-title">
+        <text class="title-text"><span>监听input事件,当前事件：{{eventName}}</span></text>
+      </view>
+      <view class="input-wrap">
+          <textarea placeholder="监听textarea事件"  c-bind:input="testEvent" c-bind:blur="testEvent" c-bind:focus="testEvent" c-bind:confirm="testEvent"></textarea>
+      </view>
+      <view class="section-title">
+        <text class="title-text">自定义样式</text>
+      </view>
+      <view class="end-item">
+          <textarea placeholder="自定义样式" cstyle="color: #00ff00; border-width: 1px;border-color: #ff0000;" ></textarea>
+      </view>
+  </view>
+</template>
+
+<script>
+import cml from 'cml-quickapp-api'
+class Texrarea {
+  data = {
+    isfocus: false,
+    inputValue: '',
+    eventName: '触发的事件名称'
+  }
+  computed = {}
+  watch = {}
+  methods = {
+    inputEvent(e) {
+      this.inputValue = e.detail.value;
+    },
+    testEvent(e) {
+      this.eventName = e.type
+    },
+    bindblurevent()  {
+      console.log('blur')
+      this.isfocus = false;
+    }
+  }
+  // mounted(res) {
+  //   setTimeout(() => {
+  //     this.isfocus = true;
+  //   }, 300);
+  // }
+};
+export default new Texrarea();
+</script>
+<style scoped>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 60cpx;
+    font-size: 32cpx;
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+  }
+.page-demo {
+  background: #FAFAFA;
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+}
+.section-title {
+    margin-top: 60cpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+.title-text {
+  color: #999;
+  margin: 30cpx 20cpx 10cpx;
+  font-size: 28cpx;
+}
+.end-item {
+  margin-bottom: 40cpx;
+  padding: 0 30px;
+  border-top: 1px solid #D9D9D9;
+  border-bottom: 1px solid #D9D9D9;
+}
+.input-wrap  {
+  border-top: 1px solid #D9D9D9;
+  border-bottom: 1px solid #D9D9D9;
+}
+</style>
+
+<script cml-type="json">
+{
+  "base": {}
+}
+</script>

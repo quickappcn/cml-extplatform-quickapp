@@ -1,0 +1,61 @@
+<template>
+<view class="container">
+  <richtext rich-data="{{richData}}"></richtext>
+</view>
+</template>
+<script>
+import cml from 'cml-quickapp-api';
+class Richtext {
+  data = {
+    richData: {
+      message: '这是一段富文本',
+      rich_message: [
+        {
+          "color": "#666666",
+          "font_size": 28,
+          "start": 0,
+          "end": 3,
+          "font_family": "sans",
+          "font_weight": "normal",
+          "click": false
+        },
+        {
+          "color": "#fc9153",
+          "font_size": 28,
+          "start": 4,
+          "end": 6,
+          "font_family": "serif",
+          "font_weight": "bold",
+          "font_style": "normal",
+          "text_decoration": "underline",
+          "click": true,
+          "callback": () => {
+            this.methods.clickHandle()
+          }
+        }
+      ]
+    }
+  }
+  methods = {
+    clickHandle() {
+      cml.showToast({
+        message: 'richtext click'
+      })
+    }
+  }
+}
+
+export default new Richtext();
+</script>
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
+<script cml-type="json">
+{
+  "base": {}
+}
+</script>

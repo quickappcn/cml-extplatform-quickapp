@@ -1,0 +1,115 @@
+<template>
+  <textarea
+    style="{{computedStyle}}"
+    value="{{inputValue}}"
+    placeholder="{{placeholder}}"
+    disabled="{{disabled}}"
+    maxlength="{{maxlength}}"
+    rows="{{rows}}"
+    focus="{{focus}}"
+    @blur="blurEvent"
+    @focus="focusEvent"
+    @change="confirmEvent"
+  ></textarea>
+</template>
+<script>
+  /*
+  event: cinput cblur cfocus cconfirm
+  */
+ class Textarea implements TextareaInterface {
+    props = {
+      cstyle: {
+        type: String,
+        default: ''
+      },
+      //textarea的内容
+      value: {
+        type: String,
+        default: '' 
+      },
+      //textarea的placerholder
+      placeholder: {
+        type: String,
+        default: '' 
+      },
+      //是否禁用textarea输入
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      //控制textarea是否聚焦
+      focus: {
+        type: Boolean,
+        default: false
+      },
+      //最大长度
+      maxlength: {
+        type: Number,
+        default: 0
+      },
+      rows: {
+        type: Number,
+        default: 3
+      }
+    }
+    data = {
+      inputValue: '',
+      defaultStyle: 'color:rgba(0, 0, 0, 0.87);font-size:37.5px;placeholder-color:rgba(0, 0, 0, 0.38);'
+    }
+    computed ={
+      computedStyle() {
+        let style = this.defaultStyle + (this.cStyle || this.cstyle);
+
+        if(style[style.length-1] !== ';') {
+          style +=';'
+        } 
+        // style += `placeholder-color: ${this.placerHolderColor};`
+        return style;
+      }
+    }
+    watch = {
+      value: function(newVal, oldVal) {
+        this.inputValue = newVal;
+      }
+    }
+    methods = {
+      inputEvent(e) {
+        this.inputValue = e.value || ''
+
+        this.$cmlEmit('input',{
+          value: this.inputValue
+        })
+      },
+      blurEvent() {
+        this.$cmlEmit('blur',{
+          value: this.inputValue
+        })
+      },
+      focusEvent() {
+        this.$cmlEmit('focus',{
+          value: this.inputValue
+        })
+      },
+      confirmEvent(e) {
+        this.inputValue = e.value || ''
+
+        this.$cmlEmit('confirm',{
+          value: this.inputValue
+        })
+        this.$cmlEmit('input',{
+          value: this.inputValue
+        })
+      }
+    }
+  }
+  export default new Textarea();
+</script>
+
+<style scoped>
+
+</style>
+
+<script cml-type="json">
+{
+}
+</script>
