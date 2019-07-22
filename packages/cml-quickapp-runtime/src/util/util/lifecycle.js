@@ -26,14 +26,16 @@ const LIFECYCLE = {
     },
     // https://developer.toutiao.com/docs/framework/startupPage.html#%E5%90%AF%E5%8A%A8%E9%A1%B5%E9%9D%A2
     page: {
-      hooks: ["onInit", "onReady", "onHide", "onDestroy", "onBackPress", "onMenuPress"],
+      hooks: ["onInit", "onReady", "onShow", "onHide", "onDestroy", "onBackPress", "onMenuPress"],
       hooksMap: {
         beforeCreate: "onInit",
         created: "onInit",
         beforeMount: "onInit",
         mounted: "onReady",
         beforeDestroy: "onHide",
-        destroyed: "onDestroy"
+        destroyed: "onDestroy",
+        onShow: "onShow",
+        onHide: "onHide"
       },
       usedHooks: ["onInit", "onReady", "onShow", "onHide", "onDestroy"],
       polyHooks: ["onBackPress", "onMenuPress"]
