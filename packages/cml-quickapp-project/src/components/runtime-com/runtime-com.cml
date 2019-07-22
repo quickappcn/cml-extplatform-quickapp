@@ -1,15 +1,15 @@
 <template>
   <view class="runtime-com">
-    <text>Hello {{name}}!</text>
-    <text>PROPS => {{runProp}}</text>
-    <text c-bind:tap="handler">computed: {{computeName}}!</text>
+    <text c-bind:tap="handle">counter => {{counter}}</text>
+    <text>props testcase => {{runProp}}</text>
+    <text>computed: counter x 10 => {{computedCounter}}!</text>
   </view>
 </template>
 
 <script>
   class RuntimeCom {
     data = {
-      name: 'Chameleon'
+      counter: 0
     }
     props = {
       'runProp': {
@@ -18,38 +18,36 @@
       }
     }
     methods = {
-      handler() {
-        this.name = 'xxx'
+      handle() {
+        this.counter++
       }
     }
     computed = {
-      computeName: function () {
-        return 'prefix ' + this.name
+      computedCounter: function () {
+        return this.counter * 10
       }
     }
     watch = {
-      name: function (newV, oldV) {
-        console.log("TCL: Index -> newV, oldV", newV, oldV)
+      counter: function (newV, oldV) {
+        console.log('----------- counter is ', this.counter)
       },
     }
-    beforeCreate(e) {
+    beforeCreate() {
       console.log('Runtime Component => before Create');
     }
-
-    created(e) {
+    created() {
       console.log('Runtime Component => created');
     }
-    beforeMount(e) {
+    beforeMount() {
       console.log('Runtime Component => brefore Mount');
     }
     mounted() {
-      console.log('Runtime Component => mounted', this);
+      console.log('Runtime Component => mounted');
       setTimeout(() => {
-        // this.name = "22222"
+        this.counter = 1
       }, 1000);
     }
   }
-
   export default new RuntimeCom();
 </script>
 

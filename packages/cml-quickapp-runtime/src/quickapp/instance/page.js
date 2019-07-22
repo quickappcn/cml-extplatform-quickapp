@@ -18,8 +18,7 @@ export class CmlPage extends BaseCtor {
       options: this.options,
       type: 'page',
       runtimeMixins: {
-        onBackPress() {},
-        onMenuPress() {}
+
       },
       needResolveAttrs: ['methods'],
       hooks: lifecycle.get('quickapp.page.hooks'),

@@ -38,7 +38,7 @@ class Checkbox implements CheckboxInterface   {
   data = {
     checkedImg: require('./images/selected.png'),
     uncheckImg: require('./images/unselected.png'),
-    innerChecked:false
+    innerChecked: false
   }
 
   computed = {
@@ -63,13 +63,16 @@ class Checkbox implements CheckboxInterface   {
       }
       return this.innerChecked? 'cml-checkbox-checked': 'cml-checkbox-uncheck';
     },
-  }
-
-  watch  = {
-    checked(newChecked) {
-      this.innerChecked = newChecked;
+    innerChecked() {
+      return this.checked
     }
   }
+
+  // watch  = {
+  //   checked(newChecked) {
+  //     this.innerChecked = newChecked;
+  //   }
+  // }
 
   methods = {
     changeCheck () {
@@ -85,9 +88,9 @@ class Checkbox implements CheckboxInterface   {
     }
   }
 
-  created() {
-    // let { checked } = this
-    // this.innerChecked = checked
+  mounted() {
+    let { checked } = this
+    this.innerChecked = checked
   }
 }
 

@@ -5,17 +5,14 @@
       <checkbox checked="{{checkboxValue1}}" disabled="{{false}}" label="Checkbox1" c-bind:change="valueChange1">
       </checkbox>
     </view>
-    <view class="title"><text>value: {{ checkboxValue1 ? 'true' : 'false' }}</text></view>
     <view class="box">
       <checkbox checked="{{checkboxValue2}}" label="Checkbox2" position="right" c-bind:change="valueChange2">
       </checkbox>
     </view>
-    <view class="title"><text>value: {{ checkboxValue2 ? 'true' : 'false' }}</text></view>
     <view class="box">
       <checkbox checked="{{checkboxValue3}}" label="Checkbox3" position="right" disabled="{{true}}">
       </checkbox>
     </view>
-    <view class="title"><text>value: {{ checkboxValue3 ? 'true' : 'false' }}</text></view>
   </view>
 </template>
 <script>

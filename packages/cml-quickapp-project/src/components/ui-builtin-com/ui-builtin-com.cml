@@ -3,8 +3,16 @@
     <button-com></button-com>
     <radio-com></radio-com>
     <checkbox-com></checkbox-com>
-    <textarea-com></textarea-com>
-    <richtext-com></richtext-com>
+    <switch-com></switch-com>
+    <carousel-com></carousel-com>
+    <input-com></input-com>
+    <video-com></video-com>
+    <page-com></page-com>
+    <!-- <list-com></list-com> -->
+    <!-- <richtext-com></richtext-com> -->
+    <!-- <textarea-com></textarea-com> -->
+    <!-- <scroller-com></scroller-com> -->
+    <!-- <layout-com></layout-com> -->
   </view>
 </template>
 
@@ -26,9 +34,20 @@
         "button-com": "./button-com",
         "radio-com": "./radio-com",
         "checkbox-com": "./checkbox-com",
-        "textarea-com": "./textarea-com",
-        "richtext-com": "./richtext-com"
+        "switch-com": "./switch-com",
+        "carousel-com": "./carousel-com",
+        "input-com": "./input-com",
+        "video-com": "./video-com",
+        "page-com": "./page-com"
       }
     }
   }
 </script>
+<!-- 
+
+  // "richtext-com": "./richtext-com",
+  // "textarea-com": "./textarea-com",
+  // "scroller-com": "./scroller-com",
+    "list-com": "./list-com",
+  // "layout-com": "./layout-com"
+ -->

@@ -1,17 +1,17 @@
 <template>
   <view class="cml-radio">
     <view class="cml-radio-wrap" c-bind:tap="changeSelect">
-      <text c-if="{{position === 'right'}}" class="cml-radio-label" >{{ label }}</text>
+      <text c-if="{{position === 'right'}}" class="cml-radio-label">{{ label }}</text>
       <view class="cml-radio-select" style="{{ radioStyle }}">
         <view class="{{ radioClass }}" style="{{ radioInnerStyle }}">
         </view>
       </view>
-      <text c-if="{{position === 'left'}}" class="cml-radio-label" >{{ label }}</text>
+      <text c-if="{{position === 'left'}}" class="cml-radio-label">{{ label }}</text>
     </view>
   </view>
-  </template>
-  <script>
-  class Radio implements RadioInterface  {
+</template>
+<script>
+  class Radio implements RadioInterface {
     props = {
       checked: {
         type: Boolean,
@@ -42,7 +42,7 @@
       innerChecked: false
     }
     computed = {
-      radioStyle () {
+      radioStyle() {
         let style = '';
         if (this.disabled) {
           style += 'opacity:0.5;'
@@ -54,32 +54,32 @@
         }
         return style;
       },
-      radioInnerStyle () {
+      radioInnerStyle() {
         let style = ''
         if (this.innerChecked) {
           style += `border:10px solid ${this.color};`
         } else {
           style += `border:1px solid #ccc;`
         }
-        
+
         return style;
       },
-      radioClass () {
+      radioClass() {
         if (this.disabled) {
-          return  this.innerChecked? 'cml-radio-selected-disabled': 'cml-radio-unselect-disabled';
+          return this.innerChecked ? 'cml-radio-selected-disabled' : 'cml-radio-unselect-disabled';
         }
-        return this.innerChecked? 'cml-radio-selected': 'cml-radio-unselect';
+        return this.innerChecked ? 'cml-radio-selected' : 'cml-radio-unselect';
       }
     }
-  
-    watch  = {
-      checked (val) {
+
+    watch = {
+      checked(val) {
         this.innerChecked = val;
       }
     }
-  
+
     methods = {
-      changeSelect () {
+      changeSelect() {
         if (this.disabled) return;
         this.innerChecked = !this.innerChecked
         let value = {
@@ -90,20 +90,22 @@
         this.$cmlEmit('changeevent', value);
       }
     }
-    // mounted() {
-    //   this.innerChecked = this.checked;
-    // }
+    mounted() {
+      this.innerChecked = this.checked;
+    }
   }
-  
+
   export default new Radio();
-  </script>
-  <style scoped>
+</script>
+<style scoped>
   @import "../../assets/css/var.less";
+
   .cml-radio {
     margin: 10cpx;
   }
+
   .cml-radio-wrap {
-    padding:11cpx 0;
+    padding: 11cpx 0;
     word-break: break-word;
     word-wrap: break-word;
     display: flex;
@@ -112,45 +114,50 @@
     line-height: 1.5;
     position: relative;
   }
+
   .cml-radio-selected {
-    width:32cpx;
-    height:32cpx;
+    width: 32cpx;
+    height: 32cpx;
     border-radius: 100cpx;
     box-sizing: border-box;
     border: 10px solid #fc9153;
   }
+
   .cml-radio-selected-disabled {
-    width:32cpx;
-    height:32cpx;
+    width: 32cpx;
+    height: 32cpx;
     border-radius: 100cpx;
     box-sizing: border-box;
     opacity: 0.5;
+    border: 10px solid #fc9153;
   }
+
   .cml-radio-unselect {
-    width:32cpx;
-    height:32cpx;
-    border:1px solid #ccc;
+    width: 32cpx;
+    height: 32cpx;
+    border: 1px solid #ccc;
     border-radius: 20cpx;
-    box-sizing:border-box;
+    box-sizing: border-box;
   }
+
   .cml-radio-unselect-disabled {
-    width:32cpx;
-    height:32cpx;
+    width: 32cpx;
+    height: 32cpx;
     border-radius: 20cpx;
     background: #ccc;
-    box-sizing:border-box;
+    box-sizing: border-box;
   }
+
   .cml-radio-label {
-    color:#666;
+    color: #666;
     font-weight: 400;
     font-size: 32cpx;
   }
-  </style>
-  <script cml-type="json">
+</style>
+<script cml-type="json">
   {
     "base": {
       "component": true
     }
   }
-  </script>
-  
+</script>

@@ -1,7 +1,6 @@
 import BaseVmAdapter from './BaseVmAdapter'
 import {
-  type,
-  isObject
+  type
 } from '../util/type'
 import {
   propToFn,
@@ -23,6 +22,8 @@ class QuickAppVmAdapter extends BaseVmAdapter {
   }
 
   init() {
+    this.initHooks(this.options)
+
     this.initOptions(this.options)
     // 处理 mixins 
     this.initMixins(this.options)
@@ -33,11 +34,42 @@ class QuickAppVmAdapter extends BaseVmAdapter {
     this.mergeBuiltinMixins()
     // 修改 vue options 的合并策略
     this.resolveOptions()
+    this.transformHooks()
 
     // 添加生命周期代理
     this.needAddHookMixin && this.addHookMixin()
   }
+  /**
+   * merge cml hooks from mixins
+   * handle hooks include:
+   * 1. cml hooks
+   * 2. platforms hooks in resolveOptions function
+   * @param {Object} options 
+   */
+  initHooks(options) {
+    if (!options.mixins) return
+    const cmlHooks = lifecycle.get('cml.hooks')
+    const mixins = options.mixins
 
+    for (let i = mixins.length - 1; i >= 0; i--) {
+      const mix = mixins[i]
+
+      Object.keys(mix).forEach(key => {
+        if (cmlHooks.indexOf(key) !== -1) {
+          !Array.isArray(mix[key]) && (mix[key] = [mix[key]])
+
+          if (hasOwn(options, key)) {
+            !Array.isArray(options[key]) && (options[key] = [options[key]])
+
+            options[key] = mix[key].concat(options[key])
+          } else {
+            options[key] = mix[key]
+          }
+          delete mix[key]
+        }
+      })
+    }
+  }
   initOptions(options) {
     // 处理 props
     this.handleProps(options)
@@ -113,7 +145,7 @@ class QuickAppVmAdapter extends BaseVmAdapter {
     }
 
     let mergeMixins = function (parent, child) {
-      for (let key in child) {        
+      for (let key in child) {
         if (key === 'data') {
           mergeData(parent, child, key)
         } else if (testProps(key)) {
@@ -133,8 +165,52 @@ class QuickAppVmAdapter extends BaseVmAdapter {
 
     const newOptions = {}
     extractMixins(newOptions, this.options)
-    
+
     this.options = newOptions
+  }
+  transformHooks() {
+    if (!this.hooks || !this.hooks.length) return
+    const self = this
+    this.hooks.forEach(key => {
+      const hooksArr = self.options[key]
+      hooksArr && (self.options[key] = function (...args) {
+        let result
+        let asyncQuene = []
+
+        // 多态生命周期需要统一回调参数
+        // if (self.polyHooks.indexOf(key) > -1) {
+        //   let res = args[0]
+        //   if (type(res) !== 'Object') {
+        //     res = {
+        //       'detail': args[0]
+        //     }
+        //   }
+        //   args = [res]
+        // }
+
+        if (type(hooksArr) === 'Function') {
+          result = hooksArr.apply(this, args)
+        } else if (type(hooksArr) === 'Array') {
+          for (let i = 0; i < hooksArr.length; i++) {
+            if (type(hooksArr[i]) === 'Function') {
+
+              result = hooksArr[i].apply(this, args)
+
+              // if (result && result.enableAsync) {
+              //   asyncQuene = hooksArr.slice(i + 1)
+              //   break
+              // }
+            }
+          }
+          // Promise.resolve().then(() => {
+          //   asyncQuene.forEach(fn => {
+          //     fn.apply(this, args)
+          //   })
+          // })
+        }
+        return result
+      })
+    })
   }
 
   addHookMixin() {

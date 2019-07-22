@@ -1,0 +1,45 @@
+<template>
+  <view class="page">
+    <slot></slot>
+  </view>
+</template>
+<script>
+  import cml from 'cml-quickapp-api';
+  class CPage implements CPageInterface {
+    props = {
+      title: {
+        required: true,
+        type: String,
+        default: ''
+      }
+    }
+    // component级别无法监测路由变化
+    /* onBackPress() {
+      this.$cmlEmit('back', {
+        message: 'page back'
+      })
+    } */
+    created() {
+      this.$page.setTitleBar({
+        text: this.title
+      })
+    }
+  }
+
+  export default new CPage();
+</script>
+
+<style scoped>
+  .page {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<script cml-type="json">
+  {
+    "web": {
+      "component": true
+    }
+  }
+</script>

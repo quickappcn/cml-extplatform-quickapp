@@ -132,12 +132,12 @@ export default class QuickAppRuntimeCore {
     let options = context.__cml_originOptions__
 
     let watches = options.watch
-
+    
     if (type(watches) !== 'Object') {
       return
     }
 
-    enumerableKeys(watches).forEach(key => {
+    enumerableKeys(watches).forEach((key, index) => {
       const handler = watches[key]
       if (type(handler) === 'Array') {
         // mobx的reaction执行是倒序的，顾为保证watch正常次序，需倒序注册
@@ -145,7 +145,7 @@ export default class QuickAppRuntimeCore {
           context.$watch(key, handler[i])
         }
       } else {
-        context.$watch(key, handler)
+        context.$watch(key, handler.bind(context))
       }
     })
   }
@@ -165,12 +165,57 @@ export default class QuickAppRuntimeCore {
    * @param  {[type]} context [description]
    * @return {[type]}       [description]
    */
-  start(name) {
+  start (name) {
     if (!this.context) return
     const context = this.context
+    const self = this
     // 渲染更新监听
-    const disposer = autorunThrottle(context.$setData, name)
+    // const disposer = autorunThrottle(context.$setData, name)
 
+    /**
+     * [computed description]
+     * @return {[type]} [description]
+     */
+    function dataExprFn() {
+      let properties = context.__cml_originOptions__[self.propsName]
+      let propKeys = enumerableKeys(properties)
+      // setData 的数据不包括 props
+      const obData = deleteProperties(context.__cml_ob_data__, propKeys)
+      
+      return toJS(obData)
+    }
+
+    let _cached = false
+    let cacheData
+    function sideEffect(curVal, reaction) {
+      let diffV
+      if (_cached) {
+        diffV = diff(curVal, cacheData)
+
+        // emit 'beforeUpdate' hook ，第一次不触发
+        emit('beforeUpdate', context, curVal, cacheData, diffV)
+      } else {
+        _cached = true
+        diffV = curVal
+      }
+
+      if (type(context.setData) === 'Function') {
+        context.setData(diffV, walkUpdatedCb(context))
+      }
+
+      cacheData = { ...curVal }
+    }
+
+    const options = {
+      fireImmediately: true,
+      name,
+      onError: function() {
+        warn('runtimeCore start reaction error!')
+      }
+    }
+    
+    const disposer = reaction(dataExprFn, sideEffect, options)
+  
     context.__cml_disposerList__.push(disposer)
   }
 
@@ -213,13 +258,13 @@ function watchFnFactory(context) {
     function dataExprFn() {
       oldVal = curVal
       curVal = exprType === 'string' ? getByPath(context, expr) : expr.call(context)
-      if (handler.deep) {
-        curVal = toJS(curVal, false)
-      } else if (isObservableArray(curVal)) {
-        // 强制访问，让数组被观察
-        curVal.peek()
-      }
-      return curVal
+      // if (handler.deep) {
+      //   curVal = toJS(curVal, false)
+      // } else if (isObservableArray(curVal)) {
+      //   // 强制访问，让数组被观察
+      //   curVal.peek()
+      // }
+      return toJS(curVal)
     }
 
     function sideEffect(curVal, reaction) {
