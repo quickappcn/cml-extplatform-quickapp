@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <list bottom-offset="{{bottomOffset}}" c-bind:scrolltobottom="onBottom" c-bind:onscroll="onScroll" height="{{-1}}">
+    <list bottom-offset="{{bottomOffset}}" c-bind:scrolltobottom="onBottom" c-bind:onscroll="onScroll" height="{{600}}">
       <cell class="cell" c-for="{{lists}}" c-for-index="i" c-for-item="item" data-idx="{{i}}">
         <view class="panel">
           <text class="text">{{item}}</text>
@@ -31,11 +31,11 @@
         });
         console.log('-------- bottom')
         // setTimeout(() => {
-          const length = this.lists.length
-          for (let i = length; i < length + LOADMORE_COUNT; ++i) {
-            // bug 用this.lists = this.lists.concat([i + 1]) 不会更新
-            this.lists.push(i + 1)
-          }
+          // const length = this.lists.length
+          // for (let i = length; i < length + LOADMORE_COUNT; ++i) {
+          //   // bug => this.lists = this.lists.concat([i + 1]) 不会更新
+          //   this.lists.push(i + 1)
+          // }
         // }, 800)
       },
       onScroll(e) {
@@ -55,7 +55,6 @@
   .panel {
     display: flex;
     width: 600cpx;
-    height: 300cpx;
     margin-left: 75cpx;
     margin-top: 35cpx;
     margin-bottom: 35cpx;

@@ -1,18 +1,17 @@
 <template>
   <view class="ui-builtin-com">
-    <!-- <button-com></button-com> -->
-    <!-- <radio-com></radio-com> -->
-    <!-- <checkbox-com></checkbox-com> -->
-    <!-- <switch-com></switch-com> -->
-    <!-- <carousel-com></carousel-com> -->
-    <!-- <input-com></input-com> -->
-    <!-- <video-com></video-com> -->
-    <!-- <page-com></page-com> -->
+    <button-com></button-com>
+    <radio-com></radio-com>
+    <checkbox-com></checkbox-com>
+    <switch-com></switch-com>
+    <carousel-com></carousel-com>
+    <input-com></input-com>
+    <video-com></video-com>
+    <page-com></page-com>
     <list-com></list-com>
-    <!-- <richtext-com></richtext-com> -->
-    <!-- <textarea-com></textarea-com> -->
-    <!-- <scroller-com></scroller-com> -->
-    <!-- <layout-com></layout-com> -->
+    <richtext-com></richtext-com>
+    <textarea-com></textarea-com>
+    <layout-com></layout-com>
   </view>
 </template>
 
@@ -31,22 +30,19 @@
   {
     "base": {
       "usingComponents": {
-        "list-com": "./list-com"
+        "button-com": "./button-com",
+        "radio-com": "./radio-com",
+        "checkbox-com": "./checkbox-com",
+        "switch-com": "./switch-com",
+        "carousel-com": "./carousel-com",
+        "input-com": "./input-com",
+        "video-com": "./video-com",
+        "page-com": "./page-com",
+        "list-com": "./list-com",
+        "richtext-com": "./richtext-com",
+        "textarea-com": "./textarea-com",
+        "layout-com": "./layout-com"
       }
     }
   }
 </script>
-<!-- 
-      "button-com": "./button-com",
-      "radio-com": "./radio-com",
-      "checkbox-com": "./checkbox-com",
-      "switch-com": "./switch-com",
-      "carousel-com": "./carousel-com",
-      "input-com": "./input-com",
-      "video-com": "./video-com",
-      "page-com": "./page-com"
-  // "richtext-com": "./richtext-com",
-  // "textarea-com": "./textarea-com",
-  // "scroller-com": "./scroller-com",
-  // "layout-com": "./layout-com"
- -->

@@ -32,12 +32,12 @@
       }
     }
     data = {
-      cmtstyle: 'height: 100%;'
+      cmtstyle: ''
     }
     computed = {
       wrapperStyle() {
-        if (this.height >= 0) {
-          return `${this.cstyle};height:${this.height}cpx;`
+        if (this.height > 0) {
+          return `${this.cstyle};height:${this.height}px;`
         }
         return this.cmtstyle + this.cstyle;
       }

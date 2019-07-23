@@ -1,0 +1,177 @@
+<template>
+  <view>
+    <scroller height="{{-1}}" class="wrap">
+      <view>
+        <container direction="column">
+
+          <head>
+            <view>
+              <text>header</text>
+            </view>
+          </head>
+          <main>
+            <view>
+              <text>main</text>
+            </view>
+          </main>
+        </container>
+      </view>
+      <!-- 2 -->
+      <view>
+        <container direction="column">
+
+          <head>
+            <view>
+              <text>header</text>
+            </view>
+          </head>
+          <main>
+            <view>
+              <text>main</text>
+            </view>
+          </main>
+          <foot>
+            <view>
+              <text>footer</text>
+            </view>
+          </foot>
+        </container>
+      </view>
+      <!-- 3 -->
+      <view>
+        <container direction="row">
+          <aside>
+            <view>
+              <text>aside</text>
+            </view>
+          </aside>
+          <main style="flex:1;">
+            <view>
+              <text>main</text>
+            </view>
+          </main>
+        </container>
+      </view>
+      <!-- 4 -->
+      <view>
+        <container direction="column">
+
+          <head>
+            <view>
+              <text>header</text>
+            </view>
+          </head>
+          <container direction="row" style="flex:1;">
+            <aside>
+              <view>
+                <text>aside</text>
+              </view>
+            </aside>
+            <main style="flex:1;">
+              <view>
+                <text>main</text>
+              </view>
+            </main>
+          </container>
+        </container>
+      </view>
+      <!-- 5 -->
+      <view>
+        <container direction="column">
+
+          <head>
+            <view>
+              <text>header</text>
+            </view>
+          </head>
+          <container direction="row" style="flex:1;">
+            <aside>
+              <view>
+                <text>aside</text>
+              </view>
+            </aside>
+            <container direction="column" style="flex:1">
+              <main style="flex:1;">
+                <view>
+                  <text>main</text>
+                </view>
+              </main>
+              <foot>
+                <view>
+                  <text>foot</text>
+                </view>
+              </foot>
+            </container>
+          </container>
+        </container>
+      </view>
+      <!-- 6 -->
+      <view class="container-wrap">
+        <container direction="row">
+          <aside>
+            <view>
+              <text>aside</text>
+            </view>
+          </aside>
+          <container direction="column" style="flex:1;">
+
+            <head>
+              <view>
+                <text>header</text>
+              </view>
+            </head>
+            <main style="flex:1;">
+              <view>
+                <text>main</text>
+              </view>
+            </main>
+          </container>
+        </container>
+      </view>
+      <!-- 7 -->
+      <view>
+        <container direction="row">
+          <aside>
+            <view>
+              <text>aside</text>
+            </view>
+          </aside>
+          <container direction="column" style="flex:1;">
+
+            <head>
+              <view>
+                <text>header</text>
+              </view>
+            </head>
+            <main style="flex:1;">
+              <view>
+                <text>main</text>
+              </view>
+            </main>
+            <foot>
+              <view>
+                <text>footer</text>
+              </view>
+            </foot>
+          </container>
+        </container>
+      </view>
+    </scroller>
+  </view>
+</template>
+<script>
+  class CLayout {}
+  export default new CLayout();
+</script>
+<style>
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
+<script cml-type="json">
+  {
+    "base": {}
+  }
+</script>
