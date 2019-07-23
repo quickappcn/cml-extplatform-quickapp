@@ -45,7 +45,7 @@
       //最大长度
       maxlength: {
         type: Number,
-        default: 0
+        default: undefined
       },
       rows: {
         type: Number,
@@ -56,14 +56,13 @@
       inputValue: '',
       defaultStyle: 'color:rgba(0, 0, 0, 0.87);font-size:37.5px;placeholder-color:rgba(0, 0, 0, 0.38);'
     }
-    computed ={
+    computed = {
       computedStyle() {
         let style = this.defaultStyle + (this.cStyle || this.cstyle);
 
         if(style[style.length-1] !== ';') {
           style +=';'
-        } 
-        // style += `placeholder-color: ${this.placerHolderColor};`
+        }
         return style;
       }
     }
@@ -75,7 +74,7 @@
     methods = {
       inputEvent(e) {
         this.inputValue = e.value || ''
-
+        console.log('e',e)
         this.$cmlEmit('input',{
           value: this.inputValue
         })
@@ -92,10 +91,9 @@
       },
       confirmEvent(e) {
         this.inputValue = e.value || ''
-
-        this.$cmlEmit('confirm',{
-          value: this.inputValue
-        })
+        // this.$cmlEmit('confirm',{
+        //   value: this.inputValue
+        // })
         this.$cmlEmit('input',{
           value: this.inputValue
         })
