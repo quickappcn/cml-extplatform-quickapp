@@ -15,8 +15,8 @@ import richHandle from './richHandle.js';
       richList: null
     }
     methods = {
-      richHandle() {
-        let richList = richHandle(this.richData);
+      richHandle(richData) {
+        let richList = richHandle(richData);
         richList = richList.map(item => {
           if (item.color && item.font_size) {
             item.style = `color:${item.color};font-size:${item.font_size}cpx;`
@@ -29,7 +29,7 @@ import richHandle from './richHandle.js';
       }
     }
     created() {
-      this.richHandle();
+      this._methods.richHandle(this.richData);
     }
   }
 

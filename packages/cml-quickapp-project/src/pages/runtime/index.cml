@@ -1,10 +1,11 @@
 <template>
   <view class="wrap">
-    <input c-model="{{lastName}}"></input>
+    <!--     <input c-model="{{lastName}}"></input>
     <text>lastname => {{lastName}}</text>
     <input c-model="{{firstName}}"></input>
     <text>firstname => {{firstName}}</text>
-    <text>fullName is : "{{ fullName }}"</text>
+    <text>fullName is : "{{ fullName }}"</text> -->
+    <runtime-com></runtime-com>
   </view>
 </template>
 <script>
@@ -38,14 +39,18 @@
   export default new Index();
 </script>
 <style>
-.wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 </style>
 <script cml-type="json">
-    {
-      "base": {}
+  {
+    "base": {
+      "usingComponents": {
+        "runtime-com": "../../components/runtime-com/runtime-com"
+      }
     }
-  </script>
+  }
+</script>
