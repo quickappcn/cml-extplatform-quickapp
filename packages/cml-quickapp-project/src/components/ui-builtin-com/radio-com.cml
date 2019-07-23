@@ -1,0 +1,69 @@
+<template>
+  <view class="container">
+      <text class="title">Radio</text>
+    <view class="box">
+      <radio checked="{{ radioValue1 }}" label="Option1" c-bind:change="valueChange1">
+      </radio>
+    </view>
+    <view class="box">
+      <radio checked="{{ radioValue2 }}" label="Option2" position="right" c-bind:change="valueChange2">
+      </radio>
+    </view>
+    <view class="box">
+      <radio checked="{{ radioValue3 }}" label="disabled left" disabled="{{ true }}">
+      </radio>
+    </view>
+    <view class="box">
+      <radio checked="{{ radioValue4 }}" label="disabled right" position="right" disabled="{{ true }}">
+      </radio>
+    </view>
+  </view>
+</template>
+<script>
+  class Radio {
+    data = {
+      radioValue1: false,
+      radioValue2: true,
+      radioValue3: true,
+      radioValue4: false
+    }
+    methods = {
+      valueChange1(e) {
+        this.radioValue1 = e.detail.value;
+      },
+      valueChange2(e) {
+        this.radioValue2 = e.detail.value;
+      }
+    }
+  }
+  export default new Radio();
+</script>
+<style scoped>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 38cpx;
+    font-weight: 400;
+    margin: 20cpx 0;
+    padding: 10cpx 30cpx;
+    background: #eee
+  }
+
+  .radio-value {
+    font-size: 32cpx;
+  }
+
+  .box {
+    margin: 0cpx 50cpx;
+  }
+</style>
+
+<script cml-type="json">
+  {
+    "base": {}
+  }
+</script>

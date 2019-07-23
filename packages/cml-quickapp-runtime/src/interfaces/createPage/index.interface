@@ -1,8 +1,11 @@
 <include src="chameleon-runtime/src/interfaces/createPage/index.interface"></include>
 <script cml-type="quickapp">
+  import {
+    Page
+  } from '../../quickapp'
   class Method implements createPageInterface {
     createPage(options) {
-      return options;
+      return new Page(options);
     }
   }
 

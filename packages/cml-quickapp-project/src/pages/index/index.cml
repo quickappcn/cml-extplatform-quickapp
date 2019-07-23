@@ -1,204 +1,66 @@
 <template>
-  <div class="scroller-wrap">
-    <div><text>chameleon -- 变色龙</text></div>
-    <demo-com></demo-com>
-    <comA></comA>
-    <comB></comB>
-    <div class="class1"></div>
-  </div>
-
-
+  <view class="scroller-wrap">
+    <view><text class="row-text" data-page="/pages/api/index" c-bind:tap="gotoPage">gotoApiPage</text></view>
+    <view><text class="row-text" data-page="/pages/plugin/index" c-catch:tap="gotoPage">gotoPluginPage</text></view>
+    <view><text class="row-text" data-page="/pages/runtime/index?query=123" c-bind:tap="gotoPage">gotoRuntimePage</text></view>
+    <view><text class="row-text" data-page="/pages/ui-builtin/index" c-bind:tap="gotoPage">gotoUiBuiltinPage</text>
+    </view>
+    <view><text class="row-text" data-page="/pages/ui/index" c-bind:tap="gotoPage">gotoUiPage</text></view>
+  </view>
 </template>
 <script>
-import cml from 'cml-quickapp-api';
-// cml.alert({ message: 'hello' }).then(() => {
-//   cml.showToast({ message: 'message' })
-// })
-// cml.canIUse('showToast').then(res => console.log('===================== can use'))
-// cml.chooseImage({ type: 'camera' })
-// cml.confirm({ message: 'ok?' })
-// console.log('px2cpx ========================= ', cml.px2cpx(100));
-// cml.setTitle('hello world')
-const ws = cml.initSocket('wss://echo.websocket.org')
-ws.onopen(() => {
-  console.log('ws on open')
-  setTimeout(() => {
-    ws.send('hello cml socket');
-  }, 2000);
-});
-
-ws.onmessage(res => {
-  console.log(`ws on message ${JSON.stringify(res)}`)
-  ws.send({
-    keyword:'socket传递复杂类型',
-    content: 'hello cml socket',
-    arr: ['test1', 12, {}]
-  })
-});
-
-ws.onerror(err => {
-    console.error('ws on error', JSON.stringify(err))
-});
-
-ws.onclose(() => {
-  console.log('ws closed')
-});
-
-setTimeout(() => {
-  ws.close();
-}, 20000);
-
-// cml.navigateTo({
-//   path: '/pages/pagea/pageb'
-// })
-
-// requestAnimationFrame cancelAnimationFrame
-// const id = requestAnimationFrame(function(){
-//   console.log(`requestAnimationFrame callback`)
-// })
-
-// console.log(`requestAnimationFrame id :${id}`)
-// cancelAnimationFrame(id)
-
-// cml.navigateTo({
-//   path: '/pages/pageA/index'
-// })
-
-// cml.open('http://baidu.com')
-// cml.close()
-
-/* function promise() {
-  return new Promise((res, rej) => {
-    setTimeout(() => res('ok'), 1000)
-  })
-}
-async function f() {
-  const result = await promise()
-  console.log('------------------ result = ', result)
-}
-f() */
-
-// setTimeout(() => {
-//   cml.navigateBack('hello')
-// cml.navigateBack(-2);
-
-// }, 2000);
-
-class Index  {
-    data: {
-      lAnimate: null,
-      rAnimate: null
+  import cml from 'cml-quickapp-api';
+  class Index {
+    data = {}
+    methods = {
+      gotoPage(e) {
+        cml.navigateTo({
+          path: e.target.dataset.page
+        })
+      },
     }
-    beforeCreate() {
-      console.log('================ beforeCreate')
-    }
+  }
 
-    created() {
-      console.log('================ created')
-      let option = {
-        duration: 100, // 动画执行时间
-        timingFunction: 'ease-in' // 动画执行效果
-      };
-      var lanimation = cml.createAnimation(option); // 创建动画
-      var ranimation = cml.createAnimation(option);
-      // 起点
-      lanimation.translateX(100);
-      lanimation.opacity(0.1).step();
-      // 终点
-      ranimation.translateX(-100);
-      ranimation.opacity(0.1).step();
-
-      this.lAnimate = lanimation.export()
-      this.rAnimate = ranimation.export()
-    }
-
-    beforeMount() {
-      console.log('================ beforeMount')
-    }
-
-
-    mounted() {
-      console.log('================ mounted')
-
-    }
-
-    beforeDestroy() {
-      console.log('================ beforeDestroy')
-
-    }
-
-    destroyed() {
-      console.log('================ destroyed')
-
-    }
-}
-export default new Index();
-
+  export default new Index();
 </script>
 <style>
-
-.scroller-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.class1 {
-  width: 500cpx;
-  height: 500cpx;
-  background-image: url('../../assets/images/chameleon.png');
-  background-repeat: no-repeat;
-  background-size: 500cpx 500cpx;
-}
-
-.animation{
-  margin-top: 20rpx;
-  padding: 10rpx 30rpx;
-}
-.dis-flex{
+  .scroller-wrap {
     display: flex;
-}
+    flex-direction: column;
+    align-items: center;
+  }
 
-.flex1{
-    flex: 1;
-    text-align: center;
-}
-.flex3{
-    flex: 3;
-    text-align: center;
-}
-.switch-icon:before { 
-  content: "\e8c8"; 
-}
+  .row-text {
+    color: blue;
+    font-size: 50cpx;
+    margin-bottom: 20cpx;
+    text-decoration: underline;
+  }
 </style>
 <script cml-type="json">
-{
-  "base": {
-    "usingComponents": {
-      "demo-com": "/components/demo-com/demo-com",
-      "comA": "/components/comA/comA",
-      "comB": "/components/comB/comB"
+  {
+    "base": {
+      "usingComponents": {}
+    },
+    "wx": {
+      "navigationBarTitleText": "index",
+      "backgroundTextStyle": "dark",
+      "backgroundColor": "#E2E2E2"
+    },
+    "alipay": {
+      "defaultTitle": "index",
+      "pullRefresh": false,
+      "allowsBounceVertical": "YES",
+      "titleBarColor": "#ffffff"
+    },
+    "baidu": {
+      "navigationBarBackgroundColor": "#ffffff",
+      "navigationBarTextStyle": "white",
+      "navigationBarTitleText": "index",
+      "backgroundColor": "#ffffff",
+      "backgroundTextStyle": "dark",
+      "enablePullDownRefresh": false,
+      "onReachBottomDistance": 50
     }
-  },
-  "wx": {
-    "navigationBarTitleText": "index",
-    "backgroundTextStyle": "dark",
-    "backgroundColor": "#E2E2E2"
-  },
-  "alipay": {
-    "defaultTitle": "index",
-    "pullRefresh": false,
-    "allowsBounceVertical": "YES",
-    "titleBarColor": "#ffffff"
-  },
-  "baidu": {
-    "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "index",
-    "backgroundColor": "#ffffff",
-    "backgroundTextStyle": "dark",
-    "enablePullDownRefresh": false,
-    "onReachBottomDistance": 50
   }
-}
 </script>

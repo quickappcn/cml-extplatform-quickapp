@@ -1,0 +1,48 @@
+<template>
+  <view class="ui-builtin-com">
+    <button-com></button-com>
+    <radio-com></radio-com>
+    <checkbox-com></checkbox-com>
+    <switch-com></switch-com>
+    <carousel-com></carousel-com>
+    <input-com></input-com>
+    <video-com></video-com>
+    <page-com></page-com>
+    <list-com></list-com>
+    <richtext-com></richtext-com>
+    <textarea-com></textarea-com>
+    <layout-com></layout-com>
+  </view>
+</template>
+
+<style>
+  .ui-builtin-com {
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
+
+<script>
+  class UiBuiltinCom {}
+  export default new UiBuiltinCom()
+</script>
+<script cml-type="json">
+  {
+    "base": {
+      "usingComponents": {
+        "button-com": "./button-com",
+        "radio-com": "./radio-com",
+        "checkbox-com": "./checkbox-com",
+        "switch-com": "./switch-com",
+        "carousel-com": "./carousel-com",
+        "input-com": "./input-com",
+        "video-com": "./video-com",
+        "page-com": "./page-com",
+        "list-com": "./list-com",
+        "richtext-com": "./richtext-com",
+        "textarea-com": "./textarea-com",
+        "layout-com": "./layout-com"
+      }
+    }
+  }
+</script>

@@ -1,0 +1,30 @@
+<template>
+  <page title="自定义Page标题" c-bind:back="goback">
+    <text class="main">这是页面内容</text>
+  </page>
+</template>
+<script>
+  import cml from 'cml-quickapp-api'
+
+  class Page {
+    methods = {
+      goback(e) {
+        cml.showToast({
+          message: e.detail.message
+        })
+      }
+    }
+  }
+  export default new Page();
+</script>
+<style scoped>
+  .main {
+    color: red;
+  }
+</style>
+
+<script cml-type="json">
+  {
+    "base": {}
+  }
+</script>

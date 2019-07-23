@@ -1,0 +1,32 @@
+<template>
+  <view>
+    <child-com xx="xxValue" oncustomevent="customEventHandler"></child-com>
+  </view>
+</template>
+
+<script>
+  class PluginCom {
+    data = { name: 'lucida' }
+    methods = {
+      customEventHandler(e) {
+        console.log('-------- event = ', e)
+        this.$cmlEmit('myevent', { name: 'lucida' })
+      }
+    }
+  }
+
+  export default new PluginCom();
+</script>
+
+<style>
+
+</style>
+<script cml-type="json">
+  {
+    "base": {
+      "usingComponents": {
+        "child-com": "./child-com"
+      }
+    }
+  }
+</script>

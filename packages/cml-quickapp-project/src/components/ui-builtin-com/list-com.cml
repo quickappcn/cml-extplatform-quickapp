@@ -1,0 +1,80 @@
+<template>
+  <view class="container">
+    <list bottom-offset="{{bottomOffset}}" c-bind:scrolltobottom="onBottom" c-bind:onscroll="onScroll" height="{{600}}">
+      <cell class="cell" c-for="{{lists}}" c-for-index="i" c-for-item="item" data-idx="{{i}}">
+        <view class="panel">
+          <text class="text">{{item}}</text>
+        </view>
+      </cell>
+    </list>
+  </view>
+</template>
+
+<script>
+  import cml from 'cml-quickapp-api'
+
+  const LOADMORE_COUNT = 4
+
+  class List {
+    data = {
+      /**
+       * list 配置 子元素必须是 cell 标签
+       */
+      bottomOffset: 20,
+      lists: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    }
+    methods = {
+      onBottom(e) {
+        cml.showToast({
+          message: "loadmore",
+          duration: 1000
+        });
+        console.log('-------- bottom')
+        // setTimeout(() => {
+          // const length = this.lists.length
+          // for (let i = length; i < length + LOADMORE_COUNT; ++i) {
+          //   // bug => this.lists = this.lists.concat([i + 1]) 不会更新
+          //   this.lists.push(i + 1)
+          // }
+        // }, 800)
+      },
+      onScroll(e) {
+      }
+    }
+  }
+
+  export default new List();
+</script>
+<style scoped>
+  .container {
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .panel {
+    display: flex;
+    width: 600cpx;
+    margin-left: 75cpx;
+    margin-top: 35cpx;
+    margin-bottom: 35cpx;
+    flex-direction: column;
+    justify-content: center;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(162, 217, 192);
+    background-color: rgba(162, 217, 192, 0.2);
+  }
+
+  .text {
+    font-size: 88cpx;
+    text-align: center;
+    color: #41B883;
+  }
+</style>
+
+<script cml-type="json">
+  {
+    "base": {}
+  }
+</script>

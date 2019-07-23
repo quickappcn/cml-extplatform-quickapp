@@ -4,8 +4,42 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:build": "node test/build/index.js quickapp",
+    "cover": "babel-node ./node_modules/.bin/istanbul cover --report lcov --root test/.chameleon node_modules/mocha/bin/_mocha -- -R spec --colors --recursive test/**/**/*.test.js",
+    "test": "npm run test:build && npm run cover"
   },
-  "author": "lucida",
-  "license": "ISC"
+  "babel": {
+    "presets": [
+      "env",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-object-rest-spread",
+      "istanbul"
+    ],
+    "sourceMap": "inline"
+  },
+  "author": "Chameleon-Team",
+  "license": "Apache",
+  "dependencies": {
+    "cml-quickapp-mixins": "0.0.1",
+    "chameleon-runtime": "^0.2.0-alpha.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-istanbul": "^5.1.4",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "chai": "^4.2.0",
+    "chameleon-css-loader": "0.1.0-alpha.4",
+    "chameleon-mixins": "0.1.0-alpha.4",
+    "fs-extra": "^7.0.1",
+    "glob": "^7.1.4",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "^5.2.0",
+    "shelljs": "^0.8.3"
+  }
 }
