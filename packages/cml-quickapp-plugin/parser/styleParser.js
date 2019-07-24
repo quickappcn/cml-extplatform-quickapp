@@ -14,7 +14,7 @@ module.exports = function (source) {
     if (!css) {
       css = fs.readFileSync(quickAppBaseStylePath, "utf8")
     }
-    source = css + source
+    source = css + '\n' + source
     return postcss([cpx(options), weexPlus()]).process(source).css;
   }
   return postcss([cpx(options), weexPlus()]).process(source).css;
