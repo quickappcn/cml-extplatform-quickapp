@@ -8,7 +8,6 @@
     <view><text class="row-text" data-page="/pages/ui/index" c-bind:tap="gotoPage">gotoUiPage</text></view>
   </view>
 </template>
-
 <script>
   import cml from 'cml-quickapp-api';
   class Index {

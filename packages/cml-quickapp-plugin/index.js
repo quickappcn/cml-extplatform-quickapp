@@ -129,8 +129,9 @@ module.exports = class QuickAppPlugin {
      * parentNodeType 父节点的nodeType
      */
     compiler.hook("compile-json", function (currentNode, parentNodeType) {
+      // currentNode.output = currentNode.source;
       if(currentNode.ext === '.json') {
-        currentNode.output = compiler.amd.amdWrapModule({content:currentNode.source, modId: currentNode.modId});
+        currentNode.output = compiler.amd.amdWrapModule({content:currentNode.source, modId:currentNode.modId});
       } else {
         currentNode.output = currentNode.source;
       }
@@ -247,7 +248,7 @@ module.exports = class QuickAppPlugin {
         if(currentNode.nodeType === 'module' && currentNode.moduleType === 'json' && currentNode.ext === '.json') {
           commonjsContent += currentNode.output;
         }
-  
+        
         currentNode.dependencies.forEach(item => {
           outputNode(item);
         })

@@ -2,7 +2,6 @@
 
 <script cml-type="quickapp">
 
-  import { cancelAnimationFrame } from 'chameleon-api/src/interfaces/requestAnimationFrame/animationShim.js';
   class Method implements CancelAnimationInterface {
     init() {
       return class AnimationFrameFactory {

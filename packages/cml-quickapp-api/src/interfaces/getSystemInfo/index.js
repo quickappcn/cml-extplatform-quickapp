@@ -14,7 +14,7 @@ export default function getSystemInfo() {
         resolve({
           ...res,
           viewportHeight,
-          viewportWidth 
+          viewportWidth
         });
       } else {
         reject(res);

@@ -1,0 +1,23 @@
+.cml-base {
+  text-align: left;
+  /* font-family: BlinkMacSystemFont, 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif; */
+  font-size: 32px;
+  flex-direction: column;
+}
+
+.cml-view {
+  border: 0 solid black;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cml-text {
+  box-sizing: border-box;
+  border: 0 solid black;
+  margin: 0;
+  padding: 0;
+}
+
