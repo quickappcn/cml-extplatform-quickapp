@@ -24,6 +24,9 @@ cml.config.merge({
   buildInfo: {
     wxAppId: '123456'
   },
+  baseStyle: {
+    quickapp: true
+  },
   quickapp: {
     dev: {
       // moduleIdType: 'name',
