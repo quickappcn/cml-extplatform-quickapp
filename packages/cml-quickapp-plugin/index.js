@@ -248,6 +248,7 @@ module.exports = class QuickAppPlugin {
         if(currentNode.nodeType === 'module' && currentNode.moduleType === 'json' && currentNode.ext === '.json') {
           commonjsContent += currentNode.output;
         }
+        
         currentNode.dependencies.forEach(item => {
           outputNode(item);
         })
