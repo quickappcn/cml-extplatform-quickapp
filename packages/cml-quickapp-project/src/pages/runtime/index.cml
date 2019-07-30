@@ -1,10 +1,11 @@
 <template>
   <view class="wrap">
-    <!--     <input c-model="{{lastName}}"></input>
+    <input value="{{lastName}}" c-bind:input="lastNameChange"></input>
     <text>lastname => {{lastName}}</text>
-    <input c-model="{{firstName}}"></input>
+    <input value="{{firstName}}" c-bind:input="firstNameChange"></input>
     <text>firstname => {{firstName}}</text>
-    <text>fullName is : "{{ fullName }}"</text> -->
+    <text>fullName is : "{{ fullName }}"</text>
+    <text>watchFull is : "{{ watchFull }}"</text>
     <runtime-com></runtime-com>
   </view>
 </template>
@@ -13,28 +14,41 @@
     data = {
       firstName: 'Foo',
       lastName: 'Bar',
+      watchFull: ''
     }
-    // watch = {
-    //   firstName: function (newV, oldV) {
-    //     this.fullName = newV + ' ' + this.lastName
-    //   },
-    //   lastName: function (newV, oldV) {
-    //     this.fullName = this.firstName + ' ' + newV
-    //   }
-    // }
+    watch
+     = {
+      firstName: function (newV, oldV) {
+        console.log('firstNamefirstNamefirstNamefirstName')
+        this.watchFull = newV + ' ' + this.lastName
+      },
+      lastName: function (newV, oldV) {
+        console.log('testtesttesttest')
+        this.watchFull = this.firstName + ' ' + newV
+      }
+    }
     computed = {
       fullName() {
         return this.firstName + ' ' + this.lastName
       }
     }
+    
     // mounted() {
     //   this.$watch('firstName', 'callback')
     // }
-    // methods = {
-    //   callback() {
-    //     console.log(`------- firstname`, this.firstName)
-    //   }
-    // }
+    methods = {
+      callback() {
+        console.log(`------- firstname`, this.firstName)
+      },
+      lastNameChange(e) {
+        console.log('lastNameChange', e.detail)
+        this.lastName = e.detail.value
+      },
+      firstNameChange(e) {
+        console.log('firstNameChange', e.detail)
+        this.firstName = e.detail.value
+      }
+    }
   };
   export default new Index();
 </script>

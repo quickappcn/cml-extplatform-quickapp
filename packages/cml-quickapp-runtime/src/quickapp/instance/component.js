@@ -16,7 +16,13 @@ export class CmlComponent extends BaseCtor {
 
     this.initVmAdapter(VmAdapter, {
       type: 'component',
-      runtimeMixins: {},
+      runtimeMixins: {
+        onInit() {
+          runtimeCore
+            .setContext(this)
+            .init()
+        }
+      },
       hooks: lifecycle.get('quickapp.component.hooks'),
       hooksMap: lifecycle.get('quickapp.component.hooksMap'),
       polyHooks: lifecycle.get('quickapp.component.polyHooks'),
