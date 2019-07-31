@@ -19,6 +19,7 @@ export class CmlPage extends BaseCtor {
       type: 'page',
       runtimeMixins: {
         onInit() {
+          quickapp.$page = this.$page
           runtimeCore
             .setContext(this)
             .init()

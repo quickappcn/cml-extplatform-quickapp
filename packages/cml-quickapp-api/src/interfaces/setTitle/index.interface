@@ -3,8 +3,7 @@
 <script cml-type="quickapp">
 class Method implements setTitleInterface {
   setTitle(title) {
-    // Todo 
-    // quickapp => this.$page.setTitleBar(title)
+    quickapp.$page.setTitleBar({ text: title})
   }
 }
 
