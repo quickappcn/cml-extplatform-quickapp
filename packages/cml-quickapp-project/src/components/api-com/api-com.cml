@@ -14,7 +14,7 @@
     <text class="btn" c-bind:tap="getSystemInfo">getSystemInfo</text>
     <text class="btn" c-bind:tap="lunchOptionsSync">getLaunchOptionsSync</text>
     <text class="btn" c-bind:tap="getRect">getRect</text>
-    <text class="btn" c-bind:tap="px2cpx">px2cpx</text>
+    <text class="btn" c-bind:tap="px2cpx_and_cpx2px">px2cpx_and_cpx2px</text>
     <text class="btn" c-bind:tap="initSocket">initSocket</text>
     <text class="btn" c-bind:tap="getLocationInfo">getLocationInfo</text>
     <text class="btn" c-bind:tap="request">request</text>
@@ -76,20 +76,20 @@
 
       animate: function () {
         // Todo
-        let animate = cml.createAnimation()
+        // let animate = cml.createAnimation()
 
-        this.animate = animate
-        this.animate
-          .backgroundColor('red');
-        this.animate
-          .scaleX(2)
-          .step({
-            duration: 5000
-          });
+        // this.animate = animate
+        // this.animate
+        //   .backgroundColor('red');
+        // this.animate
+        //   .scaleX(2)
+        //   .step({
+        //     duration: 5000
+        //   });
 
-        this.setData({
-          animationData: JSON.stringify(this.animate.export())
-        });
+        // this.setData({
+        //   animationData: JSON.stringify(this.animate.export())
+        // });
       },
 
       setStorage: function () {
@@ -169,20 +169,15 @@
           })
         })
       },
-      px2cpx: function () {
-        // Todo
+      px2cpx_and_cpx2px: function () {
         const cpx = cml.px2cpx(100);
         const px = cml.cpx2px(100);
-        console.log(cpx, px, cml)
 
         cml.canIUse('showToast').then(() => {
-          // 支持
-          console.log('支持')
           cml.showToast({
-            message: '支持'
+            message: `100px => ${cpx}cpx; 100cpx => ${px}px`
           })
         }, () => {
-          // 不支持
           console.log('不支持')
         });
       },

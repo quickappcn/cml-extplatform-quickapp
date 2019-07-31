@@ -3,7 +3,7 @@
 <script cml-type="quickapp">
 class Method implements getWidthInterface {
   getWidth() {
-    return quickapp.device.getInfo
+    return quickapp.$page.windowWidth
   }
 }
 
