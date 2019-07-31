@@ -24,7 +24,6 @@ export class CmlPage extends BaseCtor {
           runtimeCore
             .setContext(this)
             .init()
-            .addPageHooks()
         }
       },
       needResolveAttrs: ['methods'],
