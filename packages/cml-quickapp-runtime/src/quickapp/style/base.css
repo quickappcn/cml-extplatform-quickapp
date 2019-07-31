@@ -58,7 +58,7 @@ page, .cml-view {
 }
 
 .cml-border-1px:after {
-    border: 1rpx solid #ccc;
+    border: 1px solid #ccc;
     left: 0;
     top: 0;
     width: 100%;
@@ -68,14 +68,14 @@ page, .cml-view {
 }
 
 .cml-border-top-1px:before {
-  border-top: 1rpx solid #ccc;
+  border-top: 1px solid #ccc;
   left: 0;
   top: 0;
   width: 100%;
 }
 
 .cml-border-right-1px:after {
-  border-right: 1rpx solid #ccc;
+  border-right: 1px solid #ccc;
   top: 0;
   right: 0;
   height: 100%;
@@ -83,7 +83,7 @@ page, .cml-view {
   transform-origin: right 0;
 }
 .cml-border-bottom-1px:after {
-  border-bottom: 1rpx solid #ccc;
+  border-bottom: 1px solid #ccc;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -91,7 +91,7 @@ page, .cml-view {
   transform-origin: 0 bottom;
 }
 .cml-border-left-1px:before {
-  border-left: 1rpx solid #ccc;
+  border-left: 1px solid #ccc;
   top: 0;
   left: 0;
   height: 100%;

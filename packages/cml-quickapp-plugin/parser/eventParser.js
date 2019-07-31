@@ -2,9 +2,9 @@ const { types: t } = require('mvvm-template-parser');
 const {
   trim,
   isInlineStatementFn,
-  isOriginTagOrNativeComp,
-  doublequot2singlequot,
-  getInlineStatementArgs
+  // isOriginTagOrNativeComp,
+  // doublequot2singlequot,
+  // getInlineStatementArgs
 } = require('../util');
 const quickappMixin = require('cml-quickapp-mixins');
 

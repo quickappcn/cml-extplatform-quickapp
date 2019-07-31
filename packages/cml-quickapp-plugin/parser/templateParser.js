@@ -4,19 +4,14 @@ const {
   types: t,
   traverse
 } = require("mvvm-template-parser");
-const {
-  trimCurly,
-  getModelKey,
-  modelEventProxyName,
-  trim,
-  isInlineStatementFn
-} = require('../util');
 
 const tagParser = require('./tagParser');
 const classParser = require('./classParser');
 const eventParser = require('./eventParser');
 const directiveParser = require('./directiveParser');
 const animationParser = require('./animationParser');
+const templateStyleParser = require('./templateStyleParser');
+const dynamicComponentParser = require('./dynamicComponentParser');
 
 // 标记此attr需要被替换或者是单纯的删除
 const EMPTYTAG = Symbol('cml-remove-tag');
@@ -40,6 +35,8 @@ module.exports = function (content, options = {}) {
         attributes.forEach(attr => {
           context.attr = attr;
           directiveParser(context);
+          dynamicComponentParser(context);
+          templateStyleParser(context);
           eventParser(context);
           animationParser(context);
         });
