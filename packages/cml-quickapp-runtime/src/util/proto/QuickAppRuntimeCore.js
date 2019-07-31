@@ -64,8 +64,7 @@ export default class QuickAppRuntimeCore {
     this.initInterface()
 
     // 数据劫持
-    this.proxyHandler()
-
+    // this.proxyHandler()
     // watch 属性mobx转换
     this.watchesHandler()
     return this
@@ -98,7 +97,7 @@ export default class QuickAppRuntimeCore {
   initInterface() {
     const context = this.context
     // 构造 watch 能力
-    context.$watch = watchFnFactory(context)
+    // context.$watch = watchFnFactory(context)
 
     // 构造 updated callback 收集能力
     context.$collect = updatedCbFactory(context)
@@ -107,7 +106,7 @@ export default class QuickAppRuntimeCore {
     context.$setData = setDataFactory(context, this)
 
     // 构造强制更新能力
-    context.$forceUpdate = forceUpdateFactory(context)
+    // context.$forceUpdate = forceUpdateFactory(context)
   }
 
   proxyHandler() {
@@ -130,7 +129,6 @@ export default class QuickAppRuntimeCore {
   watchesHandler() {
     const context = this.context
     let options = context.__cml_originOptions__
-
     let watches = options.watch
     
     if (type(watches) !== 'Object') {
@@ -142,14 +140,21 @@ export default class QuickAppRuntimeCore {
       if (type(handler) === 'Array') {
         // mobx的reaction执行是倒序的，顾为保证watch正常次序，需倒序注册
         for (let i = handler.length - 1; i >= 0; i--) {
-          context.$watch(key, handler[i])
+          this.addWatchFunc(context, handler[i], key)
         }
       } else {
-        context.$watch(key, handler.bind(context))
+        this.addWatchFunc(context, handler, key)
       }
     })
   }
 
+  addWatchFunc(context, handler, key) {
+    const handlerFunc  = handler.bind(context)
+    const handlerFuncName = 'CML_WATCH_FUNC_ADAPTER_' + handlerFunc.name.split(' ').join('_')
+    context[handlerFuncName] = handlerFunc
+    context._methods[handlerFuncName] = handlerFunc
+    context.$watch(key, handlerFuncName)
+  }
   addPageHooks() {
     const context = this.context
     const originOptions = context.__cml_originOptions__
