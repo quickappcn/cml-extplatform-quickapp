@@ -16,14 +16,13 @@
       lastName: 'Bar',
       watchFull: ''
     }
-    watch
-     = {
+    watch = {
       firstName: function (newV, oldV) {
-        console.log('firstNamefirstNamefirstNamefirstName')
+        console.log('##### firstname changed')
         this.watchFull = newV + ' ' + this.lastName
       },
       lastName: function (newV, oldV) {
-        console.log('testtesttesttest')
+        console.log('###### lastname changed')
         this.watchFull = this.firstName + ' ' + newV
       }
     }
@@ -32,20 +31,12 @@
         return this.firstName + ' ' + this.lastName
       }
     }
-    
-    // mounted() {
-    //   this.$watch('firstName', 'callback')
-    // }
+
     methods = {
-      callback() {
-        console.log(`------- firstname`, this.firstName)
-      },
       lastNameChange(e) {
-        console.log('lastNameChange', e.detail)
         this.lastName = e.detail.value
       },
       firstNameChange(e) {
-        console.log('firstNameChange', e.detail)
         this.firstName = e.detail.value
       }
     }

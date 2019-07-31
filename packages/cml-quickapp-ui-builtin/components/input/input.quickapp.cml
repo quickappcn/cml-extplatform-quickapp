@@ -1,20 +1,12 @@
 <template>
-  <origin-input
-    style="{{computedStyle}}"
-    value="{{value}}"
-    type="{{type}}"
-    disabled="{{disabled}}"
-    placeholder="{{placeholder}}"
-    maxlength="{{maxlength}}"
-    onchange="inputEvent"
-    onblur="blurEvent"
-    onfocus="focusEvent"
-  ></origin-input>
+  <origin-input style="{{computedStyle}}" value="{{value}}" type="{{type}}" disabled="{{disabled}}"
+    placeholder="{{placeholder}}" maxlength="{{maxlength}}" onchange="inputEvent" onblur="blurEvent"
+    onfocus="focusEvent"></origin-input>
 </template>
 <script>
-import {getValBetweenMaxAndMin} from '../../assets/js/utils';
+  import { getValBetweenMaxAndMin } from '../../assets/js/utils';
 
- class Input implements InputInterface {
+  class Input implements InputInterface {
     props = {
       cStyle: {
         type: String,
@@ -74,8 +66,8 @@ import {getValBetweenMaxAndMin} from '../../assets/js/utils';
     data = {
       inputValue: ""
     }
-    computed ={
-      isInputNumber () {
+    computed = {
+      isInputNumber() {
         return this.type === 'number';
       },
       computedStyle() {
@@ -90,20 +82,20 @@ import {getValBetweenMaxAndMin} from '../../assets/js/utils';
       inputEvent(e) {
         this.handleDetail(e)
 
-        this.$cmlEmit('input',{
+        this.$cmlEmit('input', {
           value: this.inputValue
         })
       },
       blurEvent(e) {
         this.handleDetail(e)
 
-        this.$cmlEmit('blur',{
+        this.$cmlEmit('blur', {
           value: this.inputValue
         });
       },
       focusEvent(e) {
         this.handleDetail(e)
-        
+
         this.$cmlEmit('focus', {
           value: this.inputValue
         });
@@ -129,9 +121,9 @@ import {getValBetweenMaxAndMin} from '../../assets/js/utils';
 </style>
 
 <script cml-type="json">
-{
-  "base": {
-    "component": true
+  {
+    "base": {
+      "component": true
+    }
   }
-}
 </script>

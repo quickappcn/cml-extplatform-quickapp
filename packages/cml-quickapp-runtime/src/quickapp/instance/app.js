@@ -19,7 +19,13 @@ export class CmlApp extends BaseCtor {
 
     this.initVmAdapter(VmAdapter, {
       type: 'app',
-      runtimeMixins: {},
+      runtimeMixins: {
+        onInit() {
+          runtimeCore
+            .setContext(this)
+            .init()
+        }
+      },
       needResolveAttrs: ['methods'],
       hooks: lifecycle.get('quickapp.app.hooks'),
       hooksMap: lifecycle.get('quickapp.app.hooksMap'),
