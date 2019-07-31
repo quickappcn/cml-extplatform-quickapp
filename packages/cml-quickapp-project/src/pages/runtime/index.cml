@@ -40,6 +40,10 @@
         this.firstName = e.detail.value
       }
     }
+
+    beforeCreate() {
+      console.log('######beforeCreate', [].slice.call(arguments))
+    }
   };
   export default new Index();
 </script>
