@@ -9,7 +9,7 @@
 <script>
   import {
     transCls
-  } from '../util'
+  } from './util'
 
   class Button implements ButtonInterface {
     data = {
@@ -22,7 +22,7 @@
       },
       size: {
         type: String,
-        default: "auto"
+        default: "stretch"
       },
       width: {
         type: Number,
@@ -59,6 +59,38 @@
       textHoverStyle: {
         type: String,
         default: ''
+      },
+      openType: {
+        type: String,
+        default: ""
+      },
+      lang: {
+        type: String,
+        default: "en"
+      },
+      sessionFrom: {
+        type: String,
+        default: ""
+      },
+      sendMessageTitle: {
+        type: String,
+        default: "当前标题"
+      },
+      sendMessagePath: {
+        type: String,
+        default: "当前分享路径"
+      },
+      sendMessageImg: {
+        type: String,
+        default: "截图"
+      },
+      showMessageCard: {
+        type: Boolean,
+        default: false
+      },
+      appParameter: {
+        type: String,
+        default: ""
       }
     }
     computed = {
@@ -85,8 +117,8 @@
         let style = disabled ?
           `${btnStyle};${disabledStyle}` :
           hover ?
-          `${btnStyle};${btnHoverStyle}` :
-          btnStyle
+            `${btnStyle};${btnHoverStyle}` :
+            btnStyle
 
         if (hasWidth) {
           style = `width:${width}px;${style}`
@@ -104,9 +136,9 @@
         const style = disabled ?
           `${textStyle};${textStyleDisabled}` :
           hover ?
-          `${textStyle};${textHoverStyle}` :
-          textStyle;
-        return  style
+            `${textStyle};${textHoverStyle}` :
+            textStyle;
+        return style
       }
     }
     methods = {
@@ -139,7 +171,7 @@
     padding: 0 30cpx;
     height: 88cpx;
     line-height: 88cpx;
-    background: @color-grey-blue;
+    background-color: @color-grey-blue;
     align-items: center;
     justify-content: center;
     border-radius: 4cpx;
@@ -147,67 +179,67 @@
     color: #fff;
 
     &-active {
-      background: #444654;
+      background-color: #444654;
     }
   }
 
   .cml-btn-orange {
-    background: @color-orange;
+    background-color: @color-orange;
 
     &-active {
-      background: @color-background-grew;
+      background-color: @color-background-grew;
     }
   }
 
   .cml-btn-blue {
-    background: @color-grey-blue;
+    background-color: @color-grey-blue;
 
     &-active {
-      background: @color-grey-blue;
+      background-color: @color-grey-blue;
     }
   }
 
   .cml-btn-green {
-    background: #50a050;
+    background-color: #50a050;
 
     &-active {
-      background: #57a957;
+      background-color: #57a957;
     }
   }
 
   .cml-btn-red {
-    background: #db2a36;
+    background-color: #db2a36;
 
     &-active {
-      background: #ea2e3b;
+      background-color: #ea2e3b;
     }
   }
 
   .cml-btn-disable {
-    background: @color-light-grey-s;
+    background-color: @color-light-grey-s;
 
     &:active {
-      background: @color-light-grey-s;
+      background-color: @color-light-grey-s;
     }
   }
 
   .cml-btn-white {
     color: #666;
-    background: #FFFFFF;
+    background-color: #FFFFFF;
     border: 2cpx solid #A5A5A5;
 
     &-active {
-      background: #e8e8e8;
+      background-color: #e8e8e8;
     }
 
     &-disable,
     &:disabled {
       color: @color-white;
-      background: @color-light-grey-s;
+      background-color: @color-light-grey-s;
       border: 0;
 
       &:active {
-        background: @color-light-grey-s;
+        background-color: @color-light-grey-s;
       }
     }
   }
@@ -275,5 +307,5 @@
   }
 </style>
 <script cml-type="json">
-  {}
+  { }
 </script>

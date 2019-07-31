@@ -2,7 +2,7 @@
   <view class="cml-switch">
     <view class="cml-switch-wrap" c-bind:tap="changeSwitch">
       <view class="cml-switch-icon" style="{{ switchStyle }}">
-        <view class="inner-icon" style="{{ innerStyle }}">
+        <view class="inner-icon {{switchClass}}" style="{{ innerStyle }}">
         </view>
       </view>
       <text class="cml-switch-label">{{ label }}</text>
@@ -29,7 +29,9 @@
         default: '#fc9153'
       }
     }
-    data = {}
+    data = {
+      switchClass: ''
+    }
 
     computed = {
       switchStyle() {
@@ -48,24 +50,19 @@
       innerStyle() {
         let style = '';
         if (this.checked) {
-          style += `border:1px solid ${this.opencolor};`
+          style += `border:1cpx solid ${this.opencolor};`
         } else {
-          style += 'border:1px solid #ccc;'
+          style += 'border:1cpx solid #ccc;'
         }
         return style;
       },
-      switchClass() {
-        return this.checked ? 'cml-switch-open' : 'cml-switch-close';
-      }
     }
 
     methods = {
       changeSwitch() {
         if (this.disabled) return;
+        this.switchClass = !this.checked ? 'cml-switch-open' : 'cml-switch-close';
         this.$cmlEmit('change', {
-          value: !this.checked
-        });
-        this.$cmlEmit('changeevent', {
           value: !this.checked
         });
       }
@@ -77,9 +74,6 @@
 <style scoped>
   @import "../../assets/css/var.less";
 
-  .cml-switch {
-    display: inline-block;
-  }
 
   .cml-switch-wrap {
     padding: 11cpx 0;
@@ -99,24 +93,71 @@
     position: relative;
     box-sizing: border-box;
     margin-right: 13cpx;
-    border: 1px solid @color-light-grey-s;
+    border: 1cpx solid @color-light-grey-s;
   }
 
   .inner-icon {
     width: 60cpx;
-    height: 60cpx;
-    background: @color-white;
+    height: 58cpx;
+    background-color: @color-white;
     border-radius: 30cpx;
-    border: 1px solid @color-light-grey-s;
+    border: 1cpx solid @color-light-grey-s;
     box-sizing: border-box;
-    -webkit-transition: left .4s cubic-bezier(.25, .1, .25, 1.28);
-    transition: left .4s cubic-bezier(.25, .1, .25, 1.28);
+  }
+
+  .cml-switch-open {
+    animation-name: openSwitch;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+  }
+  .cml-switch-close {
+    animation-name: closeSwitch;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
   }
 
   .cml-switch-label {
     color: @color-grey;
     font-weight: 400;
     font-size: 32cpx;
+  }
+  @keyframes openSwitch {
+    0% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(10px, 0px);
+    }
+    50% {
+      transform: translate(20px, 0px);
+    }
+    75% {
+      transform: translate(30px, 0px);
+    }
+    100% {
+      transform: translate(40cpx, 0);
+    }
+  }
+  @keyframes closeSwitch {
+    0% {
+      transform: translate(40cpx, 0);
+    }
+    25% {
+      transform: translate(30px, 0%);
+    }
+    50% {
+      transform: translate(20px, 0%);
+    }
+    75% {
+      transform: translate(10px, 0%);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
   }
 </style>
 <script cml-type="json">

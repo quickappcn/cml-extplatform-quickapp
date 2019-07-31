@@ -18,11 +18,12 @@ export class CmlPage extends BaseCtor {
       options: this.options,
       type: 'page',
       runtimeMixins: {
-        onInit() {
+        onCreate() {
           // 初始化
           runtimeCore
             .setContext(this)
             .init()
+            .addPageHooks()
         }
       },
       needResolveAttrs: ['methods'],

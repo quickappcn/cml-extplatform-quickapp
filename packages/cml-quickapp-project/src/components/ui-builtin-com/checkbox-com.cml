@@ -46,7 +46,7 @@
     font-weight: 400;
     margin: 20cpx 0;
     padding: 8cpx 30cpx;
-    background: #eee
+    background-color: #eee;
   }
 
   .checkbox-value {

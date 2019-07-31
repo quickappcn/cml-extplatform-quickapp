@@ -1,1 +1,2 @@
 <include src="chameleon-ui-builtin/components/switch/switch.interface"></include>
+<script cml-type="quickapp" src="./switch.quickapp.cml"></script>

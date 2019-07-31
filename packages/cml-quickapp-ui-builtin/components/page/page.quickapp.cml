@@ -11,6 +11,10 @@
         required: true,
         type: String,
         default: ''
+      },
+      full: {
+        type: Boolean,
+        default: false
       }
     }
     // component级别无法监测路由变化

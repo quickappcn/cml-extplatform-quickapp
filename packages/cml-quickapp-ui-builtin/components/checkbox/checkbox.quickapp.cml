@@ -33,6 +33,18 @@ class Checkbox implements CheckboxInterface   {
     groupIndex: {
       type: Number,
       default: -1
+    },
+    checkedIcon: {
+      type: String,
+      default: ''
+    },
+    uncheckIcon: {
+      type: String,
+      default: ''
+    },
+    cstyle: {
+      type: String,
+      default: ''
     }
   }
   data = {
