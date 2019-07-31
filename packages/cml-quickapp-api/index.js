@@ -28,7 +28,6 @@ import getLocationInfo from './src/interfaces/getLocationInfo/index.js';
 import request from './src/interfaces/request/index.js';
 import get from './src/interfaces/get/index.js';
 import post from './src/interfaces/post/index.js';
-import createAnimation from './src/interfaces/createAnimation/index.js';
 
 export default {
   alert,
@@ -60,6 +59,5 @@ export default {
   getLocationInfo,
   request,
   get,
-  post,
-  createAnimation
+  post
 }

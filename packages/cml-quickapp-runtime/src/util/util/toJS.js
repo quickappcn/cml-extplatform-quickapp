@@ -72,7 +72,7 @@ export default function toJS(source, detectCycles = true, __alreadySeen = [], ne
         }
         return res;
     } else if (type(source) === 'String') {
-      // cpx to rpx
+      // cpx to px
       return needPxTransfer ? pxTransform(source) : source
     } else {
       return source 

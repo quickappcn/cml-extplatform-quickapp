@@ -1,1 +1,2 @@
 <include src="chameleon-ui-builtin/components/richtext/richtext.interface"></include>
+<script cml-type="quickapp" src="./richtext.quickapp.cml"></script>

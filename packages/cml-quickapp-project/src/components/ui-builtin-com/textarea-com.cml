@@ -70,7 +70,7 @@ export default new Texrarea();
     font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
   }
 .page-demo {
-  background: #FAFAFA;
+  background-color: #FAFAFA;
   position: absolute;
   top:0;
   bottom:0;
@@ -90,13 +90,13 @@ export default new Texrarea();
 }
 .end-item {
   margin-bottom: 40cpx;
-  padding: 0 30px;
-  border-top: 1px solid #D9D9D9;
-  border-bottom: 1px solid #D9D9D9;
+  padding: 0 30cpx;
+  border-top: 1cpx solid #D9D9D9;
+  border-bottom: 1cpx solid #D9D9D9;
 }
 .input-wrap  {
-  border-top: 1px solid #D9D9D9;
-  border-bottom: 1px solid #D9D9D9;
+  border-top: 1cpx solid #D9D9D9;
+  border-bottom: 1cpx solid #D9D9D9;
 }
 </style>
 

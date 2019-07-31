@@ -18,7 +18,13 @@ export class CmlPage extends BaseCtor {
       options: this.options,
       type: 'page',
       runtimeMixins: {
-
+        onCreate() {
+          // 初始化
+          runtimeCore
+            .setContext(this)
+            .init()
+            .addPageHooks()
+        }
       },
       needResolveAttrs: ['methods'],
       hooks: lifecycle.get('quickapp.page.hooks'),

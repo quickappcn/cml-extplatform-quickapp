@@ -1,1 +1,2 @@
 <include src="chameleon-ui-builtin/components/checkbox/checkbox.interface"></include>
+<script cml-type="quickapp" src="./checkbox.quickapp.cml"></script>

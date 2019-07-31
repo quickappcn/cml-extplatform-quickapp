@@ -18,6 +18,10 @@
   */
  class Textarea implements TextareaInterface {
     props = {
+      cStyle: {
+        type: String,
+        default: ''
+      },
       cstyle: {
         type: String,
         default: ''
@@ -45,11 +49,20 @@
       //最大长度
       maxlength: {
         type: Number,
-        default: 0
+        default: 140
+      },
+      //右下角返回键类型
+      returnKeyType: { //枚举值 done search next go
+        type: String,
+        default: 'done'
+      },
+      placerHolderColor: {
+        type: String,
+        default: '#666'
       },
       rows: {
         type: Number,
-        default: 3
+        default: 2
       }
     }
     data = {

@@ -7,7 +7,7 @@ module.exports = function(context) {
   let extraClass = isUsingComponents ? ` cml-view cml-${tagName}` : ` cml-base cml-${tagName}`;
 
   if (classNodes.length === 0) {
-    attributes.push(t.jsxAttribute(t.jsxIdentifier('class'), t.stringLiteral(extraClass)));
+    // attributes.push(t.jsxAttribute(t.jsxIdentifier('class'), t.stringLiteral(extraClass)));
   } else if (classNodes.length === 1) {
     classNodes.forEach((itemNode) => {
       const dealedClassNodeValue = `${itemNode.value.value} ${extraClass}`

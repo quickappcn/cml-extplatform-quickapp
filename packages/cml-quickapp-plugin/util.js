@@ -1,4 +1,7 @@
 const { types: t } = require('mvvm-template-parser');
+const parser = require('@babel/parser');
+const traverse = require('@babel/traverse')["default"];
+const generate = require('@babel/generator')["default"];
 const _ = module.exports = {};
 _.trimCurly = (str) => str.replace(/(?:{{)|(?:}})/ig, '');
 
@@ -18,45 +21,6 @@ _.camelize = function(str) {
 _.dasherise = function(str) {
   return str.replace(/([A-Z])/g, '-$1').replace(/[-_\s]+/g, '-')
     .toLowerCase();
-}
-_.analysisFor = function (nodeValue) {
-  // v-for="item in items"
-  let reg1 = /\s*(.+?)\s+(?:in|of)\s+(.+)\s*/;
-
-  // v-for="(item, index) in items"
-  let reg2 = /\s*\(([^\,\s]+?)\s*\,\s*([^\,\s]+?)\s*\)\s*(?:in|of)\s+(.+)\s*/
-  let item, index, list;
-  let matches1 = nodeValue.match(reg1);
-  let matches2 = nodeValue.match(reg2);
-  if (matches2) {
-    item = matches2[1];
-    index = matches2[2];
-    list = matches2[3];
-
-  } else if (matches1) {
-    item = matches1[1];
-    index = 'index';
-    list = matches1[2];
-  }
-  return {
-    item,
-    index,
-    list
-  }
-}
-_.titleLize = function (word) {
-  return word.replace(/^\w/, function (match) {
-    return match.toUpperCase();
-  })
-}
-// ast遍历相关
-_.getSiblingPaths = function (path) {
-  let container = path.container;
-  let siblingPaths = [];
-  for (let i = 0; i < container.length; i++) {
-    siblingPaths.push(path.getSibling(i));
-  }
-  return siblingPaths;
 }
 
 /* 获取某个jsxElement 上的某个具体属性的值*
@@ -80,26 +44,10 @@ _.isReactive = function (value) {
 _.doublequot2singlequot = function (value) {
   return value.replace(/["]/g, "'");
 }
-_.isMustacheReactive = function (value) {
-  let reg = /(?=.*[{]{2})(?=.*[}]{2})/;
-  return reg.test(value);
-}
 _.isOnlySpaceContent = function(value) {
   let reg = /[^\s]+/;
   return !reg.test(value);
 }
-
-_.makeMap = function(str, expectsLowerCase) {
-  const map = Object.create(null)
-  const list = str.split(',')
-  for (let i = 0; i < list.length; i++) {
-    map[list[i]] = true
-  }
-  return expectsLowerCase
-    ? val => map[val.toLowerCase()]
-    : val => map[val]
-}
-_.isPlainTextElement = _.makeMap('script,style,textarea', true)
 
 // 转换 $event参数
 _.getInlineStatementArgs = function(argsStr) {
@@ -111,12 +59,12 @@ _.getInlineStatementArgs = function(argsStr) {
       result.push(current)
     }
     return result
-  }, []);  
+  }, []);
   return result.join();// "1,'index'+1,'$event','item',index+1,item"
-  
+
 }
 
-_.isOriginTagOrNativeComp = function(tagName, options) {
+_.isOriginTagOrNativeComp = function(tagName, options = {}) {
   let usedComponentInfo = (options.usingComponents || []).find((item) => item.tagName === tagName)
   let isNative = usedComponentInfo && usedComponentInfo.isNative;
   let isOrigin = (tagName && typeof tagName === 'string' && tagName.indexOf('origin-') === 0);
@@ -124,4 +72,48 @@ _.isOriginTagOrNativeComp = function(tagName, options) {
     return true
   }
   return false;
+}
+_.isMustacheReactive = function (value) {
+  let reg = /(?=.*[{]{2})(?=.*[}]{2})/;
+  return reg.test(value);
+}
+_.transformWxDynamicStyleCpxToPx = function(value) {
+  let reg = /[{]{2}([^{}]*?)[}]{2}/g;
+  value = _.transformNotInMustacheCpxToPx(value);
+  value = value.replace(reg, (match, statement) => `{{${_.transformMustacheCpxToPx(statement)}}}`);
+  value = _.doublequot2singlequot(value)
+  return value;
+}
+_.transformNotInMustacheCpxToPx = function(value) {
+  let isNotMustacheCpxToPxReg = /([^{}]+)?(\{\{[^{}]+\}\})?/g;
+  let temp = '';
+  value.replace(isNotMustacheCpxToPxReg, (match, $1, $2, $3) => {
+    if ($1) {
+      temp += $1.replace(/cpx/g, 'px');
+    }
+    if ($2) {
+      temp += $2;
+    }
+  });
+  return temp
+}
+_.transformMustacheCpxToPx = function(source) {
+  const ast = parser.parse(source, {
+    plugins: ['jsx']
+  })
+  traverse(ast, {
+    enter(path) {
+      let node = path.node;
+      if (t.isStringLiteral(node)) {
+        if (node.value.includes('cpx')) {
+          node.value = node.value.replace(/cpx/g, `px`);
+        }
+      }
+    }
+  })
+  let result = generate(ast).code;
+  if (/;$/.test(result)) { // 这里有个坑，jsx解析语法的时候，默认解析的是js语法，所以会在最后多了一个 ; 字符串；但是在 html中 ; 是无法解析的；
+    result = result.slice(0, -1);
+  }
+  return result
 }
