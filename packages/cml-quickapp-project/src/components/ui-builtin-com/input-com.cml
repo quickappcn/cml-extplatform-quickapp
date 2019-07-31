@@ -72,7 +72,6 @@
     watch = {}
     methods = {
       inputEvent(e) {
-        debugger
         this.inputValue = e.detail.value;
       },
       testEvent(e) {
