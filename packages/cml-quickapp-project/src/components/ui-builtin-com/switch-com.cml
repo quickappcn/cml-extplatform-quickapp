@@ -47,7 +47,7 @@
     font-weight: 400;
     margin: 20cpx 0;
     padding: 10cpx 30cpx;
-    background: #eee
+    background-color: #eee;
   }
 
   .radio-value {

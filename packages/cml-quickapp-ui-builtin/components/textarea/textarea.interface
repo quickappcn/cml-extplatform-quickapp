@@ -1,1 +1,2 @@
 <include src="chameleon-ui-builtin/components/textarea/textarea.interface"></include>
+<script cml-type="quickapp" src="./textarea.quickapp.cml"></script>

@@ -1,1 +1,2 @@
 <include src="chameleon-ui-builtin/components/page/page.interface"></include>
+<script cml-type="quickapp" src="./page.quickapp.cml"></script>

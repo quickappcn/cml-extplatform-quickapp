@@ -14,6 +14,10 @@
         type: Boolean,
         default: false
       },
+      loop: {
+        type: Boolean,
+        default: false
+      },
       src: {
         type: String,
         default: ''
