@@ -41,6 +41,7 @@ export default class QuickAppRuntimeCore {
 
     this.propsName = KEY.get(`${this.platform}.props`)
     this.instance = KEY.get(`${this.platform}.instance`)
+    this.__watchIndex__ = 0
   }
 
   setOptions(options) {
@@ -150,11 +151,12 @@ export default class QuickAppRuntimeCore {
 
   addWatchFunc(context, handler, key) {
     const handlerFunc  = handler.bind(context)
-    const handlerFuncName = 'CML_WATCH_FUNC_ADAPTER_' + handlerFunc.name.split(' ').join('_')
+    const handlerFuncName = 'CML_WATCH_FUNC_ADAPTER_' + `${Date.now()}_${this.__watchIndex__++}_` + handlerFunc.name.split(' ').join('_')
     context[handlerFuncName] = handlerFunc
     context._methods[handlerFuncName] = handlerFunc
     context.$watch(key, handlerFuncName)
   }
+
   addPageHooks() {
     const context = this.context
     const originOptions = context.__cml_originOptions__
