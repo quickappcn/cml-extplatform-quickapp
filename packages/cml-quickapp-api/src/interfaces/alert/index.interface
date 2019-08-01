@@ -15,9 +15,15 @@ class Method implements uiInterface {
           text: confirmTitle
         }
       ],
-      success: successCallBack,
-      cancel: failCallBack,
-      fail: failCallBack
+      success() {
+        successCallBack(confirmTitle)
+      },
+      cancel() {
+        failCallBack(confirmTitle)
+      },
+      fail() {
+        failCallBack(confirmTitle)
+      }
     })
   }
 }
