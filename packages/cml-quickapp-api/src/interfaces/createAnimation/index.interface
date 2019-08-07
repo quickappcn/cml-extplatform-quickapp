@@ -1,0 +1,24 @@
+// 引入官方标准interface文件
+<include src="chameleon-api/src/interfaces/createAnimation/index.interface"></include>
+
+// 扩展实现新端
+<script cml-type="quickapp">
+class Method implements uiInterface {
+  initAnimation() {}
+  createAnimation() {
+    return null
+  }
+  checkNumber(number) {}
+  checkString(string) {}
+  checkObject(object) {}
+  getViewportWidth() {
+    return quickapp.$page.windowWidth
+  }
+  exportMiddleWare() {
+    return {}
+  }
+}
+
+export default new Method();
+
+</script>
