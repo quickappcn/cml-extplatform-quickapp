@@ -32,7 +32,7 @@
       }
     }
     data = {
-      cmtstyle: ''
+      cmtstyle: 'height: 400px;'
     }
     computed = {
       wrapperStyle() {

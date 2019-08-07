@@ -1,5 +1,5 @@
 <template>
-  <origin-list onscroll="scroll" onscrollbottom="scrollBottom">
+  <origin-list onscroll="scroll" onscrollbottom="scrollBottom" style="{{mergeStyle}}">
     <origin-list-item>
       <slot></slot>
     </origin-list-item>
@@ -43,7 +43,27 @@
         default: 0
       }
     }
-
+    computed = {
+      mergeStyle() {
+        let style = ''
+        if (this.height <= 0) {
+          style += 'height: 400px;'
+        } else {
+          style += `height: ${this.height}px;`
+        }
+        if (this.width <= 0) {
+          style += 'width: 100%;'
+        } else {
+          style += `width: ${this.width}px;`
+        }
+        // if (this.scrollDirection === 'vertical') {
+        //   style += 'overflow-y: scroll;'
+        // } else {
+        //   style += 'overflow-x: scroll;'
+        // }
+        return style;
+      }
+    }
     methods = {
       scroll() {
         console.log('##### scroll time')
