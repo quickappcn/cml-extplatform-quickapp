@@ -1,7 +1,7 @@
 <template>
   <origin-input style="{{computedStyle}}" value="{{value}}" type="{{type}}" disabled="{{disabled}}"
     placeholder="{{placeholder}}" maxlength="{{maxlength}}" onchange="inputEvent" onblur="blurEvent"
-    onfocus="focusEvent"></origin-input>
+    onfocus="focusEvent" data-modelkey="{{dataModelkey}}"></origin-input>
 </template>
 <script>
   import { getValBetweenMaxAndMin } from '../../assets/js/utils';
@@ -61,6 +61,10 @@
       minValue: { //type=number 最小值
         type: Number,
         default: -Infinity
+      },
+      dataModelkey: {
+        type: String,
+        default: ''
       }
     }
     data = {
