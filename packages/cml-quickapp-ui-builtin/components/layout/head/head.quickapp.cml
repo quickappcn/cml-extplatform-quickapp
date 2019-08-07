@@ -1,45 +1,44 @@
 <template>
-<view class="c-head" style="{{mergeHeadStyle}}">
-  <slot></slot>
-</view>
+  <view class="c-head" style="{{mergeHeadStyle}}">
+    <slot></slot>
+  </view>
 </template>
 <script>
-class CHead implements HeadInterface  {
+  class CHead implements HeadInterface {
 
-  props = {
-    headStyle:{
-      type:String,
-      default:'',
-    },
-  }
-  data = {
-    defaultStyle:'height:80cpx;'
-  }
-  computed = {
-    mergeHeadStyle(){
-      return this.defaultStyle + this.headStyle;
+    props = {
+      headStyle: {
+        type: String,
+        default: '',
+      },
     }
-  }
-  
-}
+    data = {
+      defaultStyle: 'height:80px;'
+    }
+    computed = {
+      mergeHeadStyle() {
+        return this.defaultStyle + this.headStyle;
+      }
+    }
 
-export default new CHead();
+  }
+
+  export default new CHead();
 </script>
 <style scoped>
-.c-head{
+  .c-head {
     display: flex;
     background-color: #b3c0d1;
     color: #333;
     line-height: 60cpx;
-    flex-shrink:0;
+    flex-shrink: 0;
 
-}
-
+  }
 </style>
 <script cml-type="json">
-{
+  {
     "base": {
-        "component": true
+      "component": true
     }
-}
+  }
 </script>

@@ -28,17 +28,17 @@
       colStyle () {
         let style = '';
         if (this.height) {
-          style = `height:${this.height}cpx;`;
+          style = `height:${this.height}px;`;
         }
         if (this.width) {
-          style += `width:${this.width}cpx;`;
+          style += `width:${this.width}px;`;
         }
         if (this.backgroundColor) {
           style += `background-color:${this.backgroundColor};`;
         }
         if (this.margin) {
           let mr = this.margin/2;
-          style += `margin-right:${mr}cpx;margin-left:${mr}cpx;`;
+          style += `margin-right:${mr}px;margin-left:${mr}px;`;
         }
         return style;
       }

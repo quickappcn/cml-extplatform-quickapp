@@ -1,6 +1,6 @@
 <template>
   <origin-list onscroll="scroll" onscrollbottom="scrollBottom" style="{{mergeStyle}}">
-    <origin-list-item>
+    <origin-list-item style="flex-direction: column;">
       <slot></slot>
     </origin-list-item>
   </origin-list>
@@ -47,7 +47,7 @@
       mergeStyle() {
         let style = ''
         if (this.height <= 0) {
-          style += 'height: 400px;'
+          style += 'height: 600px;'
         } else {
           style += `height: ${this.height}px;`
         }
@@ -56,20 +56,20 @@
         } else {
           style += `width: ${this.width}px;`
         }
-        // if (this.scrollDirection === 'vertical') {
-        //   style += 'overflow-y: scroll;'
-        // } else {
-        //   style += 'overflow-x: scroll;'
-        // }
+        if (this.scrollDirection === 'vertical') {
+          style += 'flex-direction: column;'
+        } else {
+          style += 'flex-direction: row;'
+        }
         return style;
       }
     }
     methods = {
-      scroll() {
-        console.log('##### scroll time')
+      scroll(e) {
+        this.$cmlEmit('onscroll', e)
       },
-      scrollBottom() {
-        console.log('###### scroll bottom')
+      scrollBottom(e) {
+        this.$cmlEmit('scrolltobottom', e.detail)
       }
     }
   }
