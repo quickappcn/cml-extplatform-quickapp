@@ -24,7 +24,7 @@ const method_set = [
   'navigateBack',
   'getSystemInfo',
   'getLaunchOptionsSync',
-  // 'getRect',
+  'getRect',
   'px2cpx',
   'cpx2px',
   'initSocket',
@@ -32,8 +32,8 @@ const method_set = [
   'getLocationInfo',
   'request',
   'get',
-  'post'
-  // 'createAnimation'
+  'post',
+  'createAnimation'
 ]
 class Method implements canIUseInterface {
   canIUse(metName, cb) {

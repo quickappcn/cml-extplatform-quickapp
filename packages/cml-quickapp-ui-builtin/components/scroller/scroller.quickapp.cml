@@ -1,0 +1,67 @@
+<template>
+  <origin-list onscroll="scroll" onscrollbottom="scrollBottom">
+    <origin-list-item>
+      <slot></slot>
+    </origin-list-item>
+  </origin-list>
+</template>
+<script>
+  class Scroller implements ScrollerInterface {
+    props = {
+      cstyle: {
+        type: String,
+        default: ''
+      },
+      bottomOffset: {
+        // 距底部/右边多远时（单位px），触发 scrolltolower 事件
+        type: Number,
+        default: 0
+      },
+      scrollDirection: {
+        // 可选为 horizontal 或者 vertical，默认值为 vertical 。定义滚动的方向。
+        type: String,
+        default: 'vertical'
+      },
+      bounce: {
+        type: Boolean,
+        default: true
+      },
+      height: {
+        type: Number,
+        default: 0
+      },
+      width: {
+        type: Number,
+        default: 0
+      },
+      scrollTop: {
+        type: Number,
+        default: 0
+      },
+      scrollLeft: {
+        type: Number,
+        default: 0
+      }
+    }
+
+    methods = {
+      scroll() {
+        console.log('##### scroll time')
+      },
+      scrollBottom() {
+        console.log('###### scroll bottom')
+      }
+    }
+  }
+
+  export default new Scroller();
+</script>
+<style scoped>
+</style>
+<script cml-type="json">
+  {
+    "base": {
+      "component": true
+    }
+  }
+</script>
