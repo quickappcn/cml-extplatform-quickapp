@@ -13,7 +13,7 @@ class CAside implements AsideInterface {
     },
   }
   data = {
-    defaultStyle:'width:200cpx;',
+    defaultStyle: 'width:200px;',
   }
   computed = {
     mergeAsideStyle(){

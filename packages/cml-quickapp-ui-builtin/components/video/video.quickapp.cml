@@ -30,7 +30,7 @@
     computed = {
       computedStyle() {
         // props 必须经过计算属性，否则没有经过 cpx 转换
-        return `object-fit: fill;${this.cstyle}`
+        return `object-fit: fill;height: 400px;${this.cstyle}`
       }
     }
     methods = {
