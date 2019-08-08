@@ -1,7 +1,7 @@
 <template>
   <origin-input style="{{computedStyle}}" value="{{value}}" type="{{type}}" disabled="{{disabled}}"
     placeholder="{{placeholder}}" maxlength="{{maxlength}}" onchange="inputEvent" onblur="blurEvent"
-    onfocus="focusEvent" data-modelkey="{{dataModelkey}}"></origin-input>
+    onfocus="focusEvent"></origin-input>
 </template>
 <script>
   import { getValBetweenMaxAndMin } from '../../assets/js/utils';
