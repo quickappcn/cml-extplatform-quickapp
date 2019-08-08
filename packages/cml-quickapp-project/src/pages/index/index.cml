@@ -19,6 +19,12 @@
         })
       },
     }
+    beforeCreate() {
+      console.log('######beforeCreate', [].slice.call(arguments))
+    }
+    created() {
+      console.log('######Created', [].slice.call(arguments))
+    }
   }
 
   export default new Index();

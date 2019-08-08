@@ -41,9 +41,14 @@
       }
     }
 
-    beforeCreate() {
-      console.log('######beforeCreate', [].slice.call(arguments))
-    }
+    // beforeCreate() {
+    //   console.log('######beforeCreate', [].slice.call(arguments))
+    // }
+    // created() {
+    //   setTimeout(()=>{
+    //     this.firstName = 'changed'
+    //   },3000)
+    // }
   };
   export default new Index();
 </script>

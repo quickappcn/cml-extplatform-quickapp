@@ -3,13 +3,15 @@
     <text c-bind:tap="handle">counter => {{counter}}</text>
     <text>props testcase => {{runProp}}</text>
     <text>computed: counter x 10 => {{computedCounter}}!</text>
+    <text>watch: counter x 10 => {{newCounter}}!</text>
   </view>
 </template>
 
 <script>
   class RuntimeCom {
     data = {
-      counter: 0
+      counter: 0,
+      newCounter: 0
     }
     props = {
       'runProp': {
@@ -30,6 +32,7 @@
     watch = {
       counter: function (newV, oldV) {
         console.log('----------- counter is ', this.counter)
+        this.newCounter = newV * 10
       },
     }
     beforeCreate() {
@@ -37,6 +40,7 @@
     }
     created() {
       console.log('Runtime Component => created');
+      console.log('this',this)
     }
     beforeMount() {
       console.log('Runtime Component => brefore Mount');

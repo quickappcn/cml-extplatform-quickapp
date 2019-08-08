@@ -1,8 +1,29 @@
 import { merge, extend } from './util'
 import { type } from './type'
 
-export function mergeDefault(parent, child, key) {  
-  parent[key] = child[key]
+export function mergeDefault(parent, child, key) {
+  if (parent[key]) {
+    if (Array.isArray(parent[key])){
+      if (Array.isArray(child[key])){
+        parent[key] = parent[key].concat(child[key])
+      }
+      else {
+        parent[key] = parent[key].concat([child[key]])
+      }
+    }
+    else {
+      parent[key] = [parent[key]]
+      if (Array.isArray(child[key])){
+        parent[key] = parent[key].concat(child[key])
+      }
+      else {
+        parent[key] = parent[key].concat([child[key]])
+      }
+    }
+  }
+  else {
+    parent[key] = child[key]
+  }
 }
 
 export function mergeSimpleProps(parent, child, key) {
