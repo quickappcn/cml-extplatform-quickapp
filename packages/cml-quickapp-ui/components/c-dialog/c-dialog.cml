@@ -1,0 +1,286 @@
+<template>
+<cml-popup show="{{show}}" mask="{{mask}}">
+  <view class="dialog-content" style="{{computedDialogStyle}}">
+    <!-- <slot name="header"></slot> -->
+    <view class="dialog-close" c-if="{{showClose}}" c-bind:tap="closeTap">
+      <image src="{{closeSrc}}" style="width:22cpx;height:22cpx;"/>
+    </view>
+    <!-- <slot> -->
+    <view class="dialog-content-wrap">
+      <view class="icon-row" c-if="{{showIcon}}">
+        <image c-if="{{iconUrl}}" src="{{iconUrl}}" class="custom-icon" style="{{computedIconStyle}}" />       
+        <view c-else class="icon-bg">
+          <image src="{{iconSrc}}" class="icon" />
+        </view>
+      </view>
+      <text class="title-row" style="{{computedTitleStyle}}">{{title}}</text>
+      <text class="content-row" style="{{computedContentStyle}}">{{content}}</text>
+    </view>
+    <!-- </slot> -->
+    <!-- <slot name="footer"> -->
+      <view class="btn-row">
+        <block c-if="{{type !== 'alert'}}">
+          <view class="left-btn-wrap" c-bind:tap="cancelTap"><text class="cancel-text" style="{{computedCancelStyle}}">{{cancelText}}</text></view>
+        </block>
+        <view class="btn-wrap"  c-bind:tap="confirmTap"><text class="confirm-text" style="{{computedConfirmStyle}}">{{confirmText}}</text></view>
+      </view>     
+    <!-- </slot> -->
+  </view>
+</cml-popup>
+</template>
+<script>
+import { obj2str } from '../../assets/js/utils'
+
+let IconMap = {
+  network: require("./images/network.png?inline"),
+  warn: require("./images/warn.png?inline"),
+  success: require("./images/success.png?inline")
+};
+class CDialog implements CDialogInterface {
+  props = {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    mask: {
+      type: Boolean,
+      default: false
+    },
+    title: {
+      type: String,
+      default: ""
+    },
+    content: {
+      type: String,
+      default: ""
+    },
+    type: {
+      type: String,
+      default: "alert" //alert confirm
+    },
+    showClose: {
+      type: Boolean,
+      default: false
+    },
+    closeSrc: {
+      type: String,
+      default: require("../../assets/img/close.png")
+    },
+    cancelText: {
+      type: String,
+      default: "取消"
+    },
+    confirmText: {
+      type: String,
+      default: "确定"
+    },
+    showIcon: {
+      type: Boolean,
+      default: true
+    },
+    iconType: {
+      type: String,
+      default: "warn" //warn  success
+    },
+    iconUrl: {
+      type: String,
+      default: "" //warn  success
+    },
+    iconStyle: {
+      type: Object,
+      default: {}
+    },
+    confirmStyle: {
+      type: Object,
+      default: {}
+    },
+    cancelStyle: {
+      type: Object,
+      default: {}
+    },
+    dialogStyle:{
+      type:Object,
+      default: {}
+    },
+    titleStyle:{
+      type:Object,
+      default: {}
+    },
+    contentStyle:{
+      type:Object,
+      default: {}
+    }
+  }
+
+  data = {
+  }
+
+  computed = {
+    iconSrc() {
+      return IconMap[this.iconType];
+    },
+    computedIconStyle() {
+      return obj2str(this.iconStyle || {});
+    },
+    computedConfirmStyle() {
+      return obj2str(this.confirmStyle || {});
+    },
+    computedCancelStyle() {
+      return obj2str(this.cancelStyle || {});
+    },
+    computedDialogStyle(){
+      return obj2str(this.dialogStyle || {});
+    },
+    computedTitleStyle(){
+      return obj2str(this.titleStyle || {});
+    },
+    computedContentStyle(){
+      return obj2str(this.contentStyle || {});
+    }
+
+
+  }
+
+  watch  = {
+  }
+
+  methods = {
+    cancelTap() {
+      this.$cmlEmit("show", { value: false });
+      this.$cmlEmit("cancel");
+    },
+    confirmTap() {
+      this.$cmlEmit("show", { value: false });
+      this.$cmlEmit("confirm");
+    },
+    closeTap() {
+      this.$cmlEmit("show", { value: false });
+      this.$cmlEmit("close");
+    }
+  }
+}
+
+export default new CDialog();
+</script>
+<style scoped lang="less">
+.dialog-content {
+  width: 540cpx;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4cpx;
+  position: relative;
+}
+.dialog-content-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40cpx 48cpx;
+}
+.dialog-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  width: 64cpx;
+  height: 64cpx;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.icon {
+  width: 60cpx;
+  height: 60cpx;
+}
+.custom-icon {
+  width: 100cpx;
+  height: 100cpx;
+}
+.icon-bg {
+  border-radius: 50cpx;
+  background-color: #f3f4f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100cpx;
+  height: 100cpx;
+}
+.icon-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32cpx;
+}
+.title-row {
+  overflow: hidden;
+  white-space: nowrap;
+  color: #333;
+  font-size: 32cpx;
+  font-weight: 400;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content-row {
+  margin-top: 16cpx;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666;
+  font-size: 28cpx;
+  line-height: 44cpx;
+  padding: 0 32cpx;
+}
+.btn-row {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1cpx;
+  border-color: #f0f0f0;
+  border-width: 1cpx;
+  border-style: solid;
+}
+.cancel-text {
+  font-size: 32cpx;
+  color: #999;
+}
+.confirm-text {
+  font-size: 32cpx;
+  color: #fc9153;
+}
+.btn-wrap {
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 30cpx;
+  display: flex;
+}
+.left-btn-wrap {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 30cpx;
+  display: flex;
+  border-right: 1cpx;
+  border-left: 1cpx;
+  border-color:#f0f0f0;
+}
+</style>
+<script cml-type="json">
+{
+    "base": {
+        "usingComponents": {
+          "cml-popup": "../c-popup/c-popup"
+        },
+        "component": true
+    }
+}
+</script>

@@ -1,0 +1,75 @@
+<template>
+    <image src="{{getBgImage}}"
+           style="object-fit:fill;width:20cpx;height:20cpx;{{angleStyle}}"></image>
+</template>
+
+<script>
+
+    class CTipAngle implements CTipAngleInterface {
+        props = {
+            direction: {
+                type: String,
+                default: "top"
+            },
+            angleStyle: {
+                type: String,
+                default: ""
+            },
+            angleImg: {
+                type: String,
+                default: ""
+            }
+        };
+        computed = {
+            getBgImage: function () {
+                let p = require('../../images/top.png');
+                switch (this.direction) {
+                    case 'top':
+                        p = this.angleImg || require('../../images/top.png');
+                        break;
+                    case 'right':
+                        p = this.angleImg || require('../../images/right.png');
+                        break;
+                    case 'bottom':
+                        p = this.angleImg || require('../../images/bottom.png');
+                        break;
+                    case 'left':
+                        p = this.angleImg || require('../../images/left.png');
+                        break;
+                }
+                console.log("getBgImage  ", p);
+                return p;
+            },
+
+            getStyle: function () {
+
+            }
+        }
+    }
+
+    export default new CTipAngle();
+</script>
+
+<style lang="less">
+    .angle {
+        width: 16 cpx;
+        height: 16 cpx;
+    }
+
+</style>
+
+<script cml-type="json">
+    {
+        "base"
+    :
+        {
+            "usingComponents"
+        :
+            {
+            }
+        }
+    }
+</script>
+
+
+

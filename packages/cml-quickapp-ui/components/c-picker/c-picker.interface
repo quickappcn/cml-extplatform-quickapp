@@ -1,0 +1,2 @@
+<include src="cml-ui/components/c-picker/c-picker.interface"></include>
+<script cml-type="quickapp" src="./c-picker.cml"></script>

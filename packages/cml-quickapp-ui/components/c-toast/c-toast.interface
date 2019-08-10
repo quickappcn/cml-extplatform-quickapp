@@ -1,0 +1,3 @@
+<include src="cml-ui/components/c-toast/c-toast.interface"></include>
+
+<script cml-type="tt" src="./c-toast.cml"></script>

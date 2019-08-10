@@ -1,0 +1,2 @@
+<include src="cml-ui/components/c-tabbar/c-tabbar.interface"></include>
+<script cml-type="quickapp" src="./c-tabbar.cml"></script>
