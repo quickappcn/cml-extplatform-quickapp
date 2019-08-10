@@ -17,6 +17,7 @@
     "cml-quickapp-plugin": "1.0.0",
     "cml-quickapp-runtime": "1.0.0",
     "cml-quickapp-ui-builtin": "1.0.0",
+    "cml-quickapp-ui": "1.0.0",
     "cml-quickapp-store": "1.0.0"
   },
   "main": "chameleon.config.js",
