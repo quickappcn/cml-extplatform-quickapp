@@ -50,9 +50,9 @@
       innerStyle() {
         let style = '';
         if (this.checked) {
-          style += `border:1cpx solid ${this.opencolor};`
+          style += `border:1px solid ${this.opencolor};`
         } else {
-          style += 'border:1cpx solid #ccc;'
+          style += 'border:1px solid #ccc;'
         }
         return style;
       },

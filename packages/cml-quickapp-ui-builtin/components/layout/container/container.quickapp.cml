@@ -13,22 +13,14 @@
       }
     }
     computed = {
-      isVertical() {
-        if (this.direction === 'column') {
-          return true;
-        } else if (this.direction === 'row') {
-          return false;
-        }
-      },
       containerStyle() {
-        let finalStyle = '';
-
-        if (this.isVertical) {
-          finalStyle = "flex-direction: column;"
+        let style = ''
+        if (this.direction === 'column') {
+          style += `flex-direction: column`
         } else {
-          finalStyle = 'flex-direction: row;'
+          style += `flex-direction: row`
         }
-        return finalStyle;
+        return style
       }
     }
   }
@@ -36,8 +28,9 @@
 </script>
 <style scoped>
   .c-container {
-    flex: 1;
-    display: flex;
+    /* flex: 1; */
+    width: 100%;
+    /* height: 100%; */
   }
 </style>
 <script cml-type="json">

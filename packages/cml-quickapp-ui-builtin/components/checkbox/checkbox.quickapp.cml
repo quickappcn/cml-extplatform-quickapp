@@ -80,11 +80,17 @@ class Checkbox implements CheckboxInterface   {
     }
   }
 
-  // watch  = {
-  //   checked(newChecked) {
-  //     this.innerChecked = newChecked;
-  //   }
-  // }
+  watch  = {
+    checked(newChecked) {
+      this.innerChecked = newChecked;
+    },
+    uncheckIcon() {
+      this.initImg();
+    },
+    checkedIcon() {
+      this.initImg();
+    }
+  }
 
   methods = {
     changeCheck () {
@@ -94,15 +100,25 @@ class Checkbox implements CheckboxInterface   {
         value: this.innerChecked,
         index: this.groupIndex
       }
-
-      this.$cmlEmit('changeevent', value);
       this.$cmlEmit('change', value);
+    },
+    initImg() {
+      if (this.uncheckIcon) {
+        this.uncheckImg = this.uncheckIcon;
+      }
+      if (this.checkedIcon) {
+        this.checkedImg = this.checkedIcon;
+      }
     }
   }
 
-  mounted() {
+  created() {
     let { checked } = this
     this.innerChecked = checked
+  }
+
+  mounted() {
+    this.initImg()
   }
 }
 

@@ -8,6 +8,7 @@ import {
 } from '../util/util'
 import {
   mergeDefault,
+  mergeHooks,
   mergeSimpleProps,
   mergeData,
   mergeWatch
@@ -146,7 +147,9 @@ class QuickAppVmAdapter extends BaseVmAdapter {
 
     let mergeMixins = function (parent, child) {
       for (let key in child) {
-        if (key === 'data') {
+        if (self.hooks.indexOf(key) > -1) {
+          mergeHooks(parent, child, key)
+        } else if (key === 'data') {
           mergeData(parent, child, key)
         } else if (testProps(key)) {
           mergeSimpleProps(parent, child, key)
