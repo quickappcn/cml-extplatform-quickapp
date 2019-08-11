@@ -1,6 +1,6 @@
 <template>
-  <origin-list onscroll="scroll" onscrollbottom="scrollBottom" style="{{mergeStyle}}">
-    <origin-list-item style="flex-direction: column;">
+  <origin-list class="list" onscroll="scroll" onscrollbottom="scrollBottom" style="{{listStyle}}">
+    <origin-list-item class="list-item" style="{{scrollStyle}}">
       <slot></slot>
     </origin-list-item>
   </origin-list>
@@ -44,11 +44,21 @@
       }
     }
     computed = {
-      mergeStyle() {
+      listStyle() {
         let style = ''
-        if (this.height <= 0) {
-          style += 'height: 600px;'
+        if (this.height > 0) {
+          style += `height: ${this.height}px;`
+        }
+        if (this.scrollDirection === 'vertical') {
+          style += 'flex-direction: column;'
         } else {
+          style += 'flex-direction: row;'
+        }
+        return style;
+      },
+      scrollStyle() {
+        let style = ''
+        if (this.height > 0) {
           style += `height: ${this.height}px;`
         }
         if (this.width <= 0) {
@@ -76,7 +86,14 @@
 
   export default new Scroller();
 </script>
-<style scoped>
+<style>
+  .list {
+    height: 600cpx;
+  }
+
+  .list-item {
+    /* height: 100%; */
+  }
 </style>
 <script cml-type="json">
   {

@@ -29,7 +29,7 @@ import richHandle from './richHandle.js';
         let richList = richHandle(richData);
         richList = richList.map(item => {
           if (item.color && item.font_size) {
-            item.style = `color:${item.color};font-size:${item.font_size}cpx;`
+            item.style = `color:${item.color};font-size:${item.font_size}px;`
           } else {
             item.style = ''
           }

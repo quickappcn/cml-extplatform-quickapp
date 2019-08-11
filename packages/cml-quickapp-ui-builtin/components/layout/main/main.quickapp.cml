@@ -1,6 +1,6 @@
 <template>
 <view class="c-main" style="{{mergeMainStyle}}"> 
-  <slot>  </slot>
+  <slot></slot>
 </view>
 </template>
 <script>
@@ -25,10 +25,10 @@ export default new CMain()
 </script>
 <style scoped>
 .c-main{
-  display: flex;
-  flex:1;
+  /* flex:1; */
   background-color: #e9eef3;
   color: #333;
+  width: 100%;
 }
 
 </style>

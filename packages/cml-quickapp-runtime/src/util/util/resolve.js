@@ -1,10 +1,30 @@
-import { merge, extend } from './util'
-import { type } from './type'
+import {
+  merge,
+  extend
+} from './util'
+import {
+  type
+} from './type'
 
-export function mergeDefault(parent, child, key) {  
+export function mergeDefault(parent, child, key) {
   parent[key] = child[key]
 }
 
+export function mergeHooks(parent, child, key) {
+
+  let hasKeyParent = parent.hasOwnProperty(key)
+  let isArrayChild = type(child[key]) === 'Array'
+
+  if (!hasKeyParent && !isArrayChild) {
+    parent[key] = [child[key]]
+  } else if (!hasKeyParent && isArrayChild) {
+    parent[key] = child[key]
+  } else if (hasKeyParent && !isArrayChild) {
+    parent[key].push(child[key])
+  } else if (hasKeyParent && isArrayChild) {
+    parent[key] = parent[key].concat(child[key])
+  }
+}
 export function mergeSimpleProps(parent, child, key) {
   let parentVal = parent[key]
   const childVal = child[key]
@@ -35,13 +55,11 @@ export function mergeWatch(parent, child, key) {
   }
   Object.keys(childVal).forEach(key => {
     if (key in parentVal) {
-      parentVal[key] = type(parentVal[key]) !== 'Array'
-        ? [parentVal[key], childVal[key]]
-        : parentVal[key].concat([childVal[key]])
+      parentVal[key] = type(parentVal[key]) !== 'Array' ?
+        [parentVal[key], childVal[key]] :
+        parentVal[key].concat([childVal[key]])
     } else {
       parentVal[key] = childVal[key]
     }
   })
 }
-
-
