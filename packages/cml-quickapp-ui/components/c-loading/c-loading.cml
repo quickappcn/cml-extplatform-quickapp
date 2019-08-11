@@ -1,0 +1,151 @@
+<template>
+  <view class="{{containerClassName}}">
+    <view class="{{targetClassName}}" ref="mask">
+      <slot></slot>
+    </view>
+    <view class="{{boxClassName}}" style="position:absolute" c-if="{{!!loading}}">
+      <!--无法计算高宽，无法遮罩-->
+      <!--<view class="{{targetMaskClassName}}"></view>-->
+      <view class="{{loadingWrapClassName}}">
+        <view class="{{loadingClassName}}">
+          <image src="{{icon}}" class="{{loadImgClassName}}" ref="loading" />
+          <text c-if="{{!!tip}}" class="{{loadTextClassName}}">{{tip}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+import difference from "./c-loadingfunc.interface";
+
+class CLoading implements CLoadingInterface {
+  props = {
+    tip: {
+      type: String,
+      default: "loading..."
+    },
+    prefixCls: {
+      type: String,
+      default: "cml-loading"
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    }
+  };
+  data = {
+    icon: require("../c-toast/images/loading.gif"),
+  };
+
+  watch = {
+
+  };
+  beforeDestory() {
+  }
+
+  mounted() {
+  }
+  computed = {
+    containerClassName() {
+      return `${this.prefixCls}-container`;
+    },
+    loadImgClassName() {
+      return `${this.prefixCls}-default`;
+    },
+    boxClassName() {
+      return !!this.loading ? `${this.prefixCls}-box` : "";
+    },
+    targetClassName() {
+      return `${this.prefixCls}-target`;
+    },
+    loadTextClassName() {
+      return `${this.prefixCls}-text`;
+    },
+    targetMaskClassName() {
+      return `${this.prefixCls}-target-mask`;
+    },
+    loadingClassName() {
+      return `${this.prefixCls}`;
+    },
+    loadingWrapClassName() {
+      return `${this.prefixCls}-wrap`;
+    }
+  };
+}
+
+export default new CLoading();
+</script>
+
+<style scoped lang="less">
+@import "../../assets/css/var.less";
+
+@loading-prefix-cls: ~"@{cml-prefix}-loading";
+@loading-default: @fontsize-large-xxx;
+
+.@{loading-prefix-cls} {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  padding: 26cpx;
+  color: #ccc;
+  background-color: rgba(37, 38, 45, 0.9);
+  border-radius: 2px;
+  z-index: 2000;
+
+  &-container {
+    display: flex;
+     align-items: center;
+     justify-content: center;
+    position:relative;
+  }
+
+  &-target {
+    display: flex;
+    flex:1;
+    position: relative;
+  }
+
+  &-box {
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex: 1;
+    position: absolute;
+  }
+
+  &-default {
+    width: @loading-default;
+    height: @loading-default;
+  }
+
+  &-target-mask {
+    position: absolute;
+     display: flex;
+     flex:1;
+    background-color: #ffffff;
+    opacity: 0.5;
+  }
+
+  &-wrap {
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-text {
+    color: #ccc;
+    margin-left: 16cpx;
+    font-size: @fontsize-medium;
+  }
+}
+</style>
+<script cml-type="json">
+{
+    "base": {
+        "component": true
+    }
+}
+</script>

@@ -1,0 +1,121 @@
+<template>
+<page title="c-actionsheet演示">
+    <view class="button-wrapper">
+      <text class="btn" c-bind:tap="showActionSheetActive">ActionSheet - active</text>
+      <text class="btn" c-bind:tap="showActionSheetPicker">ActionSheet - pickerStyle</text>
+      <text class="btn" c-bind:tap="showActionSheet">ActionSheet</text>
+    </view>
+  <c-actionsheet
+      show="{{actionShow}}"
+      title="{{title}}"
+      list="{{list}}"
+      active="{{active}}"
+      cancel-txt="取消"
+      picker-style="{{pickerStyle}}"
+      c-bind:cancel="cancel"
+      c-bind:select="select"></c-actionsheet>
+</page>
+</template>
+<script>
+import cml from 'cml-quickapp-api';
+class CActionsheet {
+
+  data = {
+    actionShow: false,
+    mask: true,
+    list: ["高铁", "火车", "飞机", "打车", "地铁"],
+    active: -1,
+    title: "出行方式",
+    pickerStyle: false
+  }
+
+  computed = {
+  }
+
+  watch  = {
+  }
+
+  methods = {
+    showActionSheet() {
+      console.log(`showActionSheet`);
+      this.pickerStyle = false;
+      this.actionShow = true;
+    },
+    showActionSheetActive() {
+      console.log(`showActionSheetActive`);
+      this.pickerStyle = false;
+      this.actionShow = true;
+    },
+    showActionSheetPicker() {
+      console.log(`showActionSheetPicker`);
+      this.pickerStyle = true;
+      this.actionShow = true;
+    },
+    cancel() {
+      this.actionShow = false;
+      // cml.showToast({
+      //   message: "Clicked 取消"
+      // });
+    },
+    select(e) {
+      this.actionShow = false;
+      this.active = +e.detail.index;
+      // cml.showToast({
+      //   message: "Clicked" + " " + e.detail.value
+      // });
+    }
+  }
+
+  beforeCreate() {
+  }
+
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+    this.active = 0
+  }
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new CActionsheet();
+</script>
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #f8f8f8;
+}
+.btn{
+  width: 750px;
+  height: 80px;
+  text-align: center;
+  margin-top: 20cpx;
+  background-color: #87CEFA;
+  color:#000000;
+}
+.button-wrapper {
+  flex-direction: column;
+}
+</style>
+<script cml-type="json">
+{
+    "base": {
+        "usingComponents": {
+            "c-actionsheet": "cml-quickapp-ui/components/c-actionsheet/c-actionsheet"
+        },
+        "navigationBarTitleText": "index",
+        "backgroundTextStyle": "dark",
+        "backgroundColor": "#E2E2E2"
+    }
+}
+</script>

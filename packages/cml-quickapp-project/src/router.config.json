@@ -37,6 +37,96 @@
       "path": "/pages/ui-builtin/index",
       "name": "ui-builtin",
       "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-actionsheet",
+      "path": "/pages/ui/example/c-actionsheet/c-actionsheet-demo",
+      "name": "c-actionsheet",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-checkbox-group",
+      "path": "/pages/ui/example/c-checkbox-group/c-checkbox-group-demo",
+      "name": "c-checkbox-group",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-dialog",
+      "path": "/pages/ui/example/c-dialog/c-dialog",
+      "name": "c-cdialog",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-loading",
+      "path": "/pages/ui/example/c-loading/c-loading-demo",
+      "name": "c-loading",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-picker",
+      "path": "/pages/ui/example/c-picker/c-picker-demo",
+      "name": "c-picker",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-picker-date",
+      "path": "/pages/ui/example/c-picker-date/c-picker-date",
+      "name": "c-picker-date",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-picker-item",
+      "path": "/pages/ui/example/c-picker-item/c-picker-item-demo",
+      "name": "c-picker-item",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-picker-panel",
+      "path": "/pages/ui/example/c-picker-panel/c-picker-panel-demo",
+      "name": "c-picker-panel",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-popup",
+      "path": "/pages/ui/example/c-popup/c-popup",
+      "name": "c-popup",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-radio-group",
+      "path": "/pages/ui/example/c-radio-group/c-radio-group-demo",
+      "name": "c-radio-group",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-refresh",
+      "path": "/pages/ui/example/c-refresh/c-refresh",
+      "name": "c-refresh",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-tab",
+      "path": "/pages/ui/example/c-tab/c-tab-demo",
+      "name": "c-tab",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-tabbar",
+      "path": "/pages/ui/example/c-tabbar/c-tabbar-demo",
+      "name": "c-tabbar",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-tip",
+      "path": "/pages/ui/example/c-tip/c-tip-demo",
+      "name": "c-tip",
+      "mock": "index.php"
+    },
+    {
+      "url": "/pages/ui/example/c-toast",
+      "path": "/pages/ui/example/c-toast/c-toast",
+      "name": "c-toast",
+      "mock": "index.php"
     }
   ]
 }

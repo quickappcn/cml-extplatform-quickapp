@@ -1,0 +1,2 @@
+<include src="cml-ui/components/c-tab-item/c-tab-item.interface"></include>
+<script cml-type="quickapp" src="./c-tab-item.cml"></script>

@@ -1,0 +1,83 @@
+<template>
+    <page title="c-loading演示">
+        <view class="button-wrapper" >
+            <cml-loading loading="{{loading}}" >
+                <view class="content"></view>
+            </cml-loading>
+            <text class="btn" c-bind:tap="changeLoading">更改loading态</text>
+        </view>
+    </page>
+</template>
+<script>
+class CLoading {
+  data = {
+      loading: true,
+  }
+
+
+  computed = {
+  }
+
+  watch  = {
+  }
+
+  methods = {
+      changeLoading() {
+          this.loading = !this.loading;
+      },
+  }
+
+  beforeCreate() {
+  }
+
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new CLoading();
+</script>
+<style scoped>
+.content {
+    width: 750cpx;
+    height: 300cpx;
+    background-color: peru;
+}
+.button-wrapper {
+    flex: 1;
+    background-color: #1b733e;
+    width: 750cpx;
+    height: 500cpx;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.btn{
+    width:750cpx;
+    height:80cpx;
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20cpx;
+    backgroundColor: #87CEFA;
+    color:#000000;
+}
+</style>
+<script cml-type="json">
+{
+        "base": {
+        "usingComponents": {
+            "cml-loading": "cml-quickapp-ui/components/c-loading/c-loading"
+        }
+    }
+}
+</script>
