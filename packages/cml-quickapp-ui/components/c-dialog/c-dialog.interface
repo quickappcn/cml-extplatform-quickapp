@@ -1,2 +1,2 @@
 <include src="cml-ui/components/c-dialog/c-dialog.interface"></include>
-<script cml-type="tt" src="./c-dialog.cml"></script>
+<script cml-type="quickapp" src="./c-dialog.cml"></script>
