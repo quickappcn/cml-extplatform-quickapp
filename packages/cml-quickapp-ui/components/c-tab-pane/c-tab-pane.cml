@@ -1,68 +1,69 @@
 <template>
-<view class="pane-root">
-  <view class="pane-wrap" style="{{paneWrap}}">
-    <slot>  </slot>
+  <view class="pane-root">
+    <view class="pane-wrap" style="{{paneWrap}}">
+      <slot> </slot>
+    </view>
   </view>
-</view>
 </template>
 <script>
-    import { cmlStyleTransfer } from '../../assets/js/utils'
-class CTabPane implements CTabPaneInterface {
+  import {
+    cmlStyleTransfer
+  } from '../../assets/js/utils'
+  class CTabPane implements CTabPaneInterface {
 
-  props = {
-    tabs:{ //label labelStyle prefixIcon  suffixIcon
-      type: Array,
-      default: [{}]
-    },
-    activeLabel:{
-      type:String,
-      default: ''
-    },
-    
-  }
-  data = {
-  }
-  computed = {
-    paneWrap(){
-      let width = this.tabs.length * 750;//总宽度；
-      //findIndex找不到返回 -1
-      
-      let foundIndex = this.tabs.findIndex((item,index,arr) => {
-        return this.activeLabel === item.label;
-      });
-      let leftIndex = foundIndex == -1 ? 0 : foundIndex;
+    props = {
+      tabs: { //label labelStyle prefixIcon  suffixIcon
+        type: Array,
+        default: [{}]
+      },
+      activeLabel: {
+        type: String,
+        default: ''
+      },
 
-      let leftOffset = leftIndex * 750;
+    }
+    data = {}
+    computed = {
+      paneWrap() {
+        let width = this.tabs.length * 750; //总宽度；
+        //findIndex找不到返回 -1
 
-      // cpx 转 px存在问题，需快应用方修复
-      let style = `width:${width}cpx;transform: translateX(${-leftOffset}cpx)`;
-      style = cmlStyleTransfer(style);
-      console.log(style);
-      return style;
+        let foundIndex = this.tabs.findIndex((item, index, arr) => {
+          return this.activeLabel === item.label;
+        });
+        let leftIndex = foundIndex == -1 ? 0 : foundIndex;
+
+        let leftOffset = leftIndex * 750;
+
+        // cpx 转 px存在问题，需快应用方修复
+        let style = `width:${width}px;transform: translateX(${-leftOffset}px)`;
+        style = cmlStyleTransfer(style);
+        console.log(style);
+        return style;
+      }
     }
   }
-}
-export default new CTabPane();
+  export default new CTabPane();
 </script>
 <style scoped>
-.pane-root{
-  width:750cpx;
-  overflow-x:hidden;
-  overflow-y:hidden;
-}
-.pane-wrap{
-  display:flex;
-  flex-direction:row;
-}
+  .pane-root {
+    width: 750cpx;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
 
+  .pane-wrap {
+    display: flex;
+    flex-direction: row;
+  }
 </style>
 <script cml-type="json">
-{
+  {
     "base": {
-        "usingComponents": {
-            "c-tab-pane-item": "../c-tab-pane-item/c-tab-pane-item"
-        },
-        "component": true
+      "usingComponents": {
+        "c-tab-pane-item": "../c-tab-pane-item/c-tab-pane-item"
+      },
+      "component": true
     }
-}
+  }
 </script>

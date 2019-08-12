@@ -1,61 +1,27 @@
 <template>
-  <app></app>
+  <app router-config="{{routerConfig}}"></app>
 </template>
 
 <script>
+  // import store from '../store/index.js'
+  import routerConfig from '../router.config.json';
+
   class App {
-    // data = {}
-    // methods = {}
-    // computed = {}
-    // watch = {}
-    // beforeCreate(e) {
-    //   console.log('App before Create');
-    // }
-    // created(e) {
-    //   console.log('App created');
-    // }
-    // beforeMount(e) {
-    //   console.log('App brefore Mount');
-    // }
-    // mounted() {
-    //   console.log('App mounted');
-    // }
-
-    // beforeDestroy() {
-    //   console.log('App before Destroy');
-    // }
-
-    // destroyed() {
-    //   console.log('App destroyed');
-    // }
+    data = {
+      routerConfig
+    }
+    created(res) {}
   }
+
   export default new App();
 </script>
-<style>
+
+<style scoped>
+
 </style>
+
 <script cml-type="json">
   {
-    "wx": {
-      "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "Chameleon",
-        "navigationBarTextStyle": "black"
-      }
-    },
-    "baidu": {
-      "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#ffffff",
-        "navigationBarTitleText": "Chameleon",
-        "navigationBarTextStyle": "black"
-      }
-    },
-    "alipay": {
-      "window": {
-        "defaultTitle": "Chameleon"
-      }
-    },
     "quickapp": {
       "package": "com.application.demo",
       "name": "demo",

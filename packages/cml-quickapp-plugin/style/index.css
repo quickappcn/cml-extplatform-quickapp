@@ -1,46 +1,29 @@
 .cml-base {
   text-align: left;
   font-size: 32px;
+  flex-direction: column;
 }
 
 .cml-base,
 .cml-base::before,
 .cml-base::after {
-  box-sizing: border-box;
-  text-size-adjust: none;
+  /* box-sizing: border-box; */
+  /* text-size-adjust: none; */
 }
 .cml-view {
-  box-sizing: border-box;
-  border: 0 solid black;
+  width: 100%;
+  /* border: 0 solid black; */
   margin: 0;
   padding: 0;
-  
-  position: relative;
-
-  display: flex;
   flex-direction: column;
 
-  flex: 0 0 auto;
+  /* flex: 0 0 auto; */
 }
 
 .cml-text {
-  box-sizing: border-box;
-  border: 0 solid black;
+  /* border: 0 solid black; */
   margin: 0;
   padding: 0;
-  
-  position: relative;
-  
-  display: block;
+  /* flex: 0 0 auto; */
 
-  flex: 0 0 auto;
-
-}
-
-.cml-border-1px,
-.cml-border-top-1px,
-.cml-border-right-1px,
-.cml-border-bottom-1px,
-.cml-border-left-1px {
-  position: relative;
 }

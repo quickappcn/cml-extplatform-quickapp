@@ -26,7 +26,7 @@
 以下列举下tabbar的一些默认值
 tabbar:{
       "tabbarStyle": "";
-      "tabLineStyle":"background-color:#FC9153;height:2cpx;", //当选择tabbar在top的时候，会显示出来一个下划线，用来设置下划线的颜色和高度；
+      "tabLineStyle":"background-color:#FC9153;height:2px;", //当选择tabbar在top的时候，会显示出来一个下划线，用来设置下划线的颜色和高度；
       "textStyle":'color:#000000', //文案默认style ,可以这里控制文案的大小，样式等
       "selectedTextStyle":'color:#61c7fc',//文案被选择style
       "position":"bottom", //tabbar的位置 top/bottom
@@ -37,8 +37,8 @@ tabbar:{
           "text": "detail",//tabbar的文案
           "icon": require("../../../assets/images/index/icon_API.png"),
           "selectedIcon": require("../../../assets/images/index/icon_API_HL.png"),
-          // "iconStyle":"width:50cpx;height:50cpx;",//默认的icon的宽高是40cpx;这里可以自定义
-          // "selectedIconStyle":"width:70cpx;height:70cpx;",//默认的icon的宽高是40cpx;这里可以自定义
+          // "iconStyle":"width:50px;height:50px;",//默认的icon的宽高是40px;这里可以自定义
+          // "selectedIconStyle":"width:70px;height:70px;",//默认的icon的宽高是40px;这里可以自定义
       ]
     },*/
   class Tabbar implements TabbarInterface {
@@ -84,7 +84,7 @@ tabbar:{
         let width = 750 / this.tabbar.list.length; //line的总宽度；
         let leftOffset = this.tapedIndex * width;
         let style =
-          `;width:${width}cpx;transform: translateX(${leftOffset}cpx);${this.tabbar.tabLineStyle || 'background-color:#FC9153;height:2cpx;'}`;
+          `;width:${width}px;transform: translateX(${leftOffset}px);${this.tabbar.tabLineStyle || 'background-color:#FC9153;height:2px;'}`;
         return style;
       },
       hasIcon() {
@@ -133,7 +133,7 @@ tabbar:{
       }
       let width = 750 / this.tabbar.length; //line的总宽度；
       let leftOffset = this.activeIndex * width;
-      this.tabLineStyle = `;width:${width}cpx;transform: translateX(${leftOffset}cpx);`;
+      this.tabLineStyle = `;width:${width}px;transform: translateX(${leftOffset}px);`;
     }
   }
 

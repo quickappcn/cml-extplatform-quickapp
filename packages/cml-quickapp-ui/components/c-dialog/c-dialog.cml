@@ -3,7 +3,7 @@
   <view class="dialog-content" style="{{computedDialogStyle}}">
     <!-- <slot name="header"></slot> -->
     <view class="dialog-close" c-if="{{showClose}}" c-bind:tap="closeTap">
-      <image src="{{closeSrc}}" style="width:22cpx;height:22cpx;"/>
+      <image src="{{closeSrc}}" style="width:22px;height:22px;"/>
     </view>
     <!-- <slot> -->
     <view class="dialog-content-wrap">

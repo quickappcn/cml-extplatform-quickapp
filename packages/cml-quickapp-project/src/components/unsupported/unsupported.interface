@@ -1,0 +1,89 @@
+<script cml-type="interface">
+type res = [String];
+interface UnsupportedInterface {
+  getUnsupportApis(): res;
+}
+
+</script>
+
+<script cml-type="web">
+
+class Method implements UnsupportedInterface {
+  getUnsupportApis() {
+    return [];
+  }
+}
+
+export default new Method();
+</script>
+
+<script cml-type="weex">
+
+class Method implements UnsupportedInterface {
+  getUnsupportApis() {
+    return ['设置页面标题', 'WebSocket', '地理位置'];
+  }
+}
+
+export default new Method();
+</script>
+
+<script cml-type="wx">
+
+class Method implements UnsupportedInterface {
+  getUnsupportApis() {
+    // 线上版微信小程序未配置demo请求的域名为可信域名，发版时去掉'网络请求'
+    // return ['网络请求', 'WebSocket'];
+    return []
+  }
+}
+
+export default new Method();
+</script>
+
+<script cml-type="alipay">
+
+class Method implements UnsupportedInterface {
+  getUnsupportApis() {
+    return ['启动参数', 'beatles-bridge能力']
+  }
+}
+
+export default new Method();
+</script>
+<script cml-type="baidu">
+
+class Method implements UnsupportedInterface {
+  getUnsupportApis() {
+    return ['beatles-bridge能力']
+  }
+}
+
+export default new Method();
+</script>
+
+<script cml-type="qq">
+
+class Method implements UnsupportedInterface {
+  getUnsupportApis() {
+    // 线上版微信小程序未配置demo请求的域名为可信域名，发版时去掉'网络请求'
+    // return ['网络请求', 'WebSocket'];
+    return []
+  }
+}
+
+export default new Method();
+</script>
+
+<script cml-type="quickapp">
+
+class Method implements UnsupportedInterface {
+  getUnsupportApis() {
+    // 线上版微信小程序未配置demo请求的域名为可信域名，发版时去掉'网络请求'
+    // return ['网络请求', 'WebSocket'];
+    return []
+  }
+}
+
+export default new Method();
+</script>
