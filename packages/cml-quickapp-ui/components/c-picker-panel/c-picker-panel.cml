@@ -48,11 +48,11 @@
     data = {}
     computed ={
       wraperStyle() {
-        let style = `height: ${this.height}cpx`;
+        let style = `height: ${this.height}px`;
         return cmlStyleTransfer(style);
       },
       headerStyle() {
-        let style = `height: ${this.headerHeight}cpx`;
+        let style = `height: ${this.headerHeight}px`;
         return cmlStyleTransfer(style);
       },
       computedCancelBtn(){

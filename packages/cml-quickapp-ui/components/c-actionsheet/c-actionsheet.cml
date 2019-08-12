@@ -86,7 +86,7 @@ class CActionsheet implements CActionsheetInterface {
       return this.cancelStyle;
     },
     actionContentStyle() {
-      return `height:${this.list.length * 100}cpx`;
+      return `height:${this.list.length * 100}px`;
     },
     textStyle() {
       return this.contentStyle;

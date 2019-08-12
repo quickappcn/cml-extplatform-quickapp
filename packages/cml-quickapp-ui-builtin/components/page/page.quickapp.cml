@@ -18,11 +18,6 @@
       }
     }
     // component级别无法监测路由变化
-    /* onBackPress() {
-      this.$cmlEmit('back', {
-        message: 'page back'
-      })
-    } */
     created() {
       this.$page.setTitleBar({
         text: this.title
