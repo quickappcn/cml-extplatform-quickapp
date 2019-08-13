@@ -17,9 +17,7 @@ import {
   enumerableKeys
 } from '../util/util'
 
-import {
-  type
-} from '../util/type'
+import {type, isPlainObject} from '../util/type'
 
 import lifecycle from '../util/lifecycle'
 
@@ -41,7 +39,6 @@ export default class QuickAppRuntimeCore {
 
     this.propsName = KEY.get(`${this.platform}.props`)
     this.instance = KEY.get(`${this.platform}.instance`)
-    this.__watchIndex__ = 0
   }
 
   setOptions(options) {
@@ -57,6 +54,8 @@ export default class QuickAppRuntimeCore {
       invariant(!!this.context, "【chameleon-runtime】runtime context should not undefined")
     }
 
+    const context = this.context
+
     this.extendContext()
     // 属性
     this.initData()
@@ -65,14 +64,18 @@ export default class QuickAppRuntimeCore {
     this.initInterface()
 
     // 数据劫持
-    // this.proxyHandler()
+    this.proxyHandler()
+
     // watch 属性mobx转换
-    this.watchesHandler()
+    initWatch(context, context.__cml_originOptions__.watch)
     return this
   }
 
   extendContext() {
     this.context['$cmlEventBus'] = EventBus
+    this.context['$set'] = function (target, propertyName, value) {
+      // target[propertyName] = value
+    }
   }
 
   initData() {
@@ -98,7 +101,7 @@ export default class QuickAppRuntimeCore {
   initInterface() {
     const context = this.context
     // 构造 watch 能力
-    // context.$watch = watchFnFactory(context)
+    context.$watch = watchFnFactory(context)
 
     // 构造 updated callback 收集能力
     context.$collect = updatedCbFactory(context)
@@ -107,7 +110,7 @@ export default class QuickAppRuntimeCore {
     context.$setData = setDataFactory(context, this)
 
     // 构造强制更新能力
-    // context.$forceUpdate = forceUpdateFactory(context)
+    context.$forceUpdate = forceUpdateFactory(context)
   }
 
   proxyHandler() {
@@ -122,51 +125,6 @@ export default class QuickAppRuntimeCore {
     proxy(context, context.__cml_ob_data__)
   }
 
-  /**
-   * watch 属性转换
-   * @param  {Object} context 上下文
-   * @return {[type]}       [description]
-   */
-  watchesHandler() {
-    const context = this.context
-    let options = context.__cml_originOptions__
-    let watches = options.watch
-    
-    if (type(watches) !== 'Object') {
-      return
-    }
-
-    enumerableKeys(watches).forEach((key, index) => {
-      const handler = watches[key]
-      if (type(handler) === 'Array') {
-        // mobx的reaction执行是倒序的，顾为保证watch正常次序，需倒序注册
-        for (let i = handler.length - 1; i >= 0; i--) {
-          this.addWatchFunc(context, handler[i], key)
-        }
-      } else {
-        this.addWatchFunc(context, handler, key)
-      }
-    })
-  }
-
-  addWatchFunc(context, handler, key) {
-    const handlerFunc  = handler.bind(context)
-    const handlerFuncName = 'CML_WATCH_FUNC_ADAPTER_' + `${Date.now()}_${this.__watchIndex__++}_` + handlerFunc.name.split(' ').join('_')
-    context[handlerFuncName] = handlerFunc
-    context._methods[handlerFuncName] = handlerFunc
-    context.$watch(key, handlerFuncName)
-  }
-
-  addPageHooks() {
-    const context = this.context
-    const originOptions = context.__cml_originOptions__
-    // 使用createComponent创建page时，页面的事件直接写在options里是不生效的，必须注入到this上
-    lifecycle.get(`${this.platform}.page.hooks`).forEach(key => {
-      if (typeof originOptions[key] === 'function') {
-        context[key] = originOptions[key]
-      }
-    })
-  }
   /**
    * 启动器
    * @param  {[type]} context [description]
@@ -188,13 +146,21 @@ export default class QuickAppRuntimeCore {
       let propKeys = enumerableKeys(properties)
       // setData 的数据不包括 props
       const obData = deleteProperties(context.__cml_ob_data__, propKeys)
-      
+
       return toJS(obData)
     }
 
     let _cached = false
     let cacheData
-    function sideEffect(curVal, reaction) {
+
+    function sideEffect(curVal, r = {}) {
+      if (type(r.schedule) !== 'Function') {
+        return
+      }
+      // 缓存reaction
+      context.__cml_reaction__ = r
+
+
       let diffV
       if (_cached) {
         diffV = diff(curVal, cacheData)
@@ -220,9 +186,9 @@ export default class QuickAppRuntimeCore {
         warn('runtimeCore start reaction error!')
       }
     }
-    
+
     const disposer = reaction(dataExprFn, sideEffect, options)
-  
+
     context.__cml_disposerList__.push(disposer)
   }
 
@@ -244,8 +210,7 @@ export default class QuickAppRuntimeCore {
  * @return {function}       vm.$watch
  */
 function watchFnFactory(context) {
-  return function (expr, handler) {
-    const callback = handler.handler || handler
+  return function (expr, handler, options = {}) {
     const exprType = typeof expr
     let curVal
     let oldVal
@@ -253,7 +218,7 @@ function watchFnFactory(context) {
       console.warn(new Error('watch expression must be a string or function'))
       return
     }
-    if (typeof callback !== 'function') {
+    if (typeof handler !== 'function') {
       console.warn(new Error('watch callback must be a function'))
       return
     }
@@ -265,26 +230,24 @@ function watchFnFactory(context) {
     function dataExprFn() {
       oldVal = curVal
       curVal = exprType === 'string' ? getByPath(context, expr) : expr.call(context)
-      // if (handler.deep) {
-      //   curVal = toJS(curVal, false)
-      // } else if (isObservableArray(curVal)) {
-      //   // 强制访问，让数组被观察
-      //   curVal.peek()
-      // }
-      return toJS(curVal)
+      if (options.deep) {
+        curVal = toJS(curVal)
+      } else if (isObservableArray(curVal)) {
+        // 转成纯数组
+        curVal = curVal.slice()
+      }
+      return curVal
     }
 
     function sideEffect(curVal, reaction) {
-      callback.call(context, curVal, oldVal)
-    }
-
-    const options = {
-      fireImmediately: !!handler.immediate,
-      delay: handler.sync ? 0 : 1
+      handler.call(context, curVal, oldVal)
     }
 
     // 返回清理函数
-    const disposer = reaction(dataExprFn, sideEffect, options)
+    const disposer = reaction(dataExprFn, sideEffect, {
+      fireImmediately: !!options.immediate,
+      delay: options.sync ? 0 : 1
+    })
 
     context.__cml_disposerList__.push(disposer)
     return disposerFactory(context.__cml_disposerList__, disposer)
@@ -357,9 +320,7 @@ function setDataFactory(context, self) {
     }
 
     update(diffV)
-    cacheData = {
-      ...data
-    }
+    cacheData = {...data}
   }
 
   function update(diff) {
@@ -431,46 +392,44 @@ function transformComputed(context) {
 
   const newComputed = {}
   origComputedKeys.forEach(key => {
-    newComputed[key] = computed(origComputed[key], {
-      context: context
-    })
+    newComputed[key] = computed(origComputed[key], {context: context})
   })
 
   return newComputed
 }
 
 /**
- * [autorunThrottle description]
- * @param  {[type]} fnc  [description]
- * @param  {[type]} name [description]
- * @return {function}      unwatch函数
+ * watch 属性转换
+ * @param  {Object} context 上下文
+ * @return {[type]}       [description]
  */
-function autorunThrottle(fnc, name) {
-  // 首次同步执行，之后异步处理
-  let isScheduled = false
-  let first = true
-  const r = new Reaction(name, function () {
+function initWatch(vm, watch) {
+  if (type(watch) !== 'Object') {
+    return
+  }
 
-    if (!isScheduled) {
-      isScheduled = true
-      if (first) {
-        reactionRunner()
-        first = false
-      } else {
-        setTimeout(reactionRunner, 0)
+  for (const key in watch) {
+    const handler = watch[key]
+    if (Array.isArray(handler)) {
+      // mobx的reaction执行是倒序的，顾为保证watch正常次序，需倒序注册
+      // 这里只解决了watch = {'a':[cb1,cb2]} 的倒序问题，对于$watch方式调用还是倒序
+      // 需要改成mobx.observe的方案
+      for (let i = handler.length - 1; i >= 0; i--) {
+        createWatcher(vm, key, handler[i])
       }
-    }
-  })
-
-  function reactionRunner() {
-    isScheduled = false
-    if (!r.isDisposed) {
-      r.track(() => {
-
-        fnc(r)
-      })
+    } else {
+      createWatcher(vm, key, handler)
     }
   }
-  r.schedule()
-  return r.getDisposer()
+}
+
+function createWatcher(vm, expOrFn, handler, options) {
+  if (isPlainObject(handler)) {
+    options = handler
+    handler = handler.handler
+  }
+  if (typeof handler === 'string') {
+    handler = vm[handler]
+  }
+  return vm.$watch(expOrFn, handler, options)
 }
