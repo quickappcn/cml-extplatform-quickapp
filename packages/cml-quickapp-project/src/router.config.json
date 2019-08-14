@@ -3,6 +3,12 @@
   "domain": "https://cmljs.org",
   "routes":[
     {
+      "url": "test",
+      "path": "/pages/test/test",
+      "name": "首页",
+      "mock": "index.php"
+    },
+    {
       "url": "/",
       "path": "/pages/index/index",
       "name": "首页",

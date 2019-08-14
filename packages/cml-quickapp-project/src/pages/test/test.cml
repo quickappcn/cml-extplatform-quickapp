@@ -1,0 +1,63 @@
+<template>
+<view>
+    <view><text>login.phone:{{login.phone}}</text></view>
+</view>
+</template>
+
+<script>
+import store from '../../store'
+const { mapState, mapMutations, mapActions, mapGetters } = store
+
+  class Home {
+    data = {
+    }
+
+    computed = {
+      ...mapState(['login'])
+    }
+
+    watch  = {
+      login(n, o) {
+        console.log('login change:', n)
+      }
+    }
+    methods = {
+      ...mapMutations(['changeLogin'])
+    }
+    mounted() {
+      this.$watch('login', function(v) {
+        console.log('this.$watch login change：', v)
+      })
+
+      setTimeout(() => {
+        console.log('-------- store.login', store.state.login)
+        console.log('-------- this.login', this.login)
+
+        this.changeLogin({
+          phone: '12132'
+        })
+
+        console.log('--------- after store.login', store.state.login)
+        console.log('--------- after this.login', this.login)
+        
+      }, 2000)
+    }
+  }
+  export default new Home();
+</script>
+
+<style scoped>
+  
+</style>
+
+
+<script cml-type="json">
+  {
+    "base": {
+      "usingComponents": {},
+      "navigationBarTitleText": "Chameleon Demos",
+      "backgroundTextStyle": "dark",
+      "backgroundColor": "#F0F2F7"
+    }
+  }
+</script>

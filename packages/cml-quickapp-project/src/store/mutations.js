@@ -1,5 +1,8 @@
 import index  from './index/mutations'
 
 export default {
-  ...index
+  ...index,
+  changeLogin(state, payload) {
+      state.login = payload
+  }
 }

@@ -3,7 +3,11 @@ import yanxuan from './yanxuan/state';
 
 const state = {
   index,
-  yanxuan
+  yanxuan,
+  login: {
+      phone: '11',
+      token: 'xxx'
+  }
 }
 
 export default state
