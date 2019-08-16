@@ -23,6 +23,7 @@ export class CmlPage extends BaseCtor {
           runtimeCore
             .setContext(this)
             .init()
+            // .start('page-view-render')
         }
       },
       needResolveAttrs: ['methods'],
@@ -31,5 +32,7 @@ export class CmlPage extends BaseCtor {
       polyHooks: lifecycle.get('quickapp.page.polyHooks'),
       usedHooks: lifecycle.get('quickapp.page.usedHooks')
     })
+
+    runtimeCore.setOptions(this.options)
   }
 }

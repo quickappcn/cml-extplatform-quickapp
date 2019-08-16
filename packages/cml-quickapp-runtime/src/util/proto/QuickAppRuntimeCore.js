@@ -91,11 +91,8 @@ export default class QuickAppRuntimeCore {
     //  effect computed
     context.__cml_computed__ = transformComputed(context)
 
-    if (this.platform === 'alipay') {
-      context.__cml_data__ = extend({}, context.data, context.props, context.__cml_computed__)
-    } else {
-      context.__cml_data__ = extend({}, context.data, context.__cml_computed__)
-    }
+    
+    context.__cml_data__ = extend({}, this.options.data, this.options.props, context.__cml_computed__)
   }
 
   initInterface() {
@@ -121,7 +118,7 @@ export default class QuickAppRuntimeCore {
     const origComputedKeys = origComputed ? enumerableKeys(origComputed) : []
     /* 计算属性在mobx里面是不可枚举的，所以篡改下*/
     enumerable(context.__cml_ob_data__, origComputedKeys)
-
+    
     proxy(context, context.__cml_ob_data__)
   }
 
@@ -146,7 +143,7 @@ export default class QuickAppRuntimeCore {
       let propKeys = enumerableKeys(properties)
       // setData 的数据不包括 props
       const obData = deleteProperties(context.__cml_ob_data__, propKeys)
-
+      
       return toJS(obData)
     }
 
@@ -159,7 +156,6 @@ export default class QuickAppRuntimeCore {
       }
       // 缓存reaction
       context.__cml_reaction__ = r
-
 
       let diffV
       if (_cached) {

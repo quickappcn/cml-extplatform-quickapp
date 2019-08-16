@@ -1,6 +1,10 @@
 <template>
 <view>
-    <view><text>login.phone:{{login.phone}}</text></view>
+    <view><text>a: {{a}}---</text></view>
+    <view><text>compA: {{compA}}----</text></view>
+    <view><text>login.phone: {{login.phone}}---</text></view>
+    <view><text>message: {{message}}---</text></view>
+    <input placeholder="input content" value="" c-bind:input="change"></input>
 </view>
 </template>
 
@@ -10,24 +14,43 @@ const { mapState, mapMutations, mapActions, mapGetters } = store
 
   class Home {
     data = {
+      a: 'default a',
+      title: ''
     }
 
     computed = {
-      ...mapState(['login'])
+      ...mapState(['login']),
+      compA() {
+        return this.a + ' computed'
+      },
+      message() {
+        return this.title + '#######'
+      }
     }
 
     watch  = {
       login(n, o) {
         console.log('login change:', n)
+      },
+      title() {
+        console.log('##### title change', [].slice.call(arguments))
+      },
+      a() {
+         console.log('##### a change', [].slice.call(arguments))
       }
     }
     methods = {
-      ...mapMutations(['changeLogin'])
+      ...mapMutations(['changeLogin']),
+      change(e) {
+        this.title = e.detail.value
+      }
     }
     mounted() {
       this.$watch('login', function(v) {
         console.log('this.$watch login change：', v)
       })
+
+      this.a = "change a "
 
       setTimeout(() => {
         console.log('-------- store.login', store.state.login)

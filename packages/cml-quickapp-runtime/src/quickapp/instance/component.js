@@ -21,6 +21,7 @@ export class CmlComponent extends BaseCtor {
           runtimeCore
             .setContext(this)
             .init()
+            // .start('component-view-render')
         }
       },
       hooks: lifecycle.get('quickapp.component.hooks'),
@@ -35,5 +36,7 @@ export class CmlComponent extends BaseCtor {
     this.options['options'] = {
       multipleSlots: true // 在组件定义时的选项中启用多slot支持
     }
+
+    runtimeCore.setOptions(this.options)
   }
 }
