@@ -1,2 +1,0 @@
-<include src="chameleon-ui-builtin/components/scroller/scroller.interface"></include>
-<script cml-type="quickapp" src="./scroller.quickapp.cml"></script>

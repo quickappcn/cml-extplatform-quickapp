@@ -10,7 +10,7 @@ module.exports = function(context) {
     // attributes.push(t.jsxAttribute(t.jsxIdentifier('class'), t.stringLiteral(extraClass)));
   } else if (classNodes.length === 1) {
     classNodes.forEach((itemNode) => {
-      const dealedClassNodeValue = `${itemNode.value.value} ${extraClass}`
+      const dealedClassNodeValue = `${extraClass} ${itemNode.value.value} `
       // const dealedClassNodeValue = `${itemNode.value.value}`
       itemNode.value.value = dealedClassNodeValue;
     })

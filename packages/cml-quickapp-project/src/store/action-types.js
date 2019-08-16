@@ -1,6 +1,5 @@
 
 import {checkDuplicate} from './utils';
-
 import * as index from './index/action-types';
 
 let list = [index];

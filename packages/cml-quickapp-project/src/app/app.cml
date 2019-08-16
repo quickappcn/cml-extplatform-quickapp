@@ -1,19 +1,21 @@
 <template>
-  <app router-config="{{routerConfig}}"></app>
+  <app store="{{store}}" router-config="{{routerConfig}}"></app>
 </template>
 
 <script>
-  // import store from '../store/index.js'
-  import routerConfig from '../router.config.json';
+import store from '../store/index.js'
+import routerConfig from '../router.config.json';
 
-  class App {
-    data = {
-      routerConfig
-    }
-    created(res) {}
+class App {
+  data = {
+    store,
+    routerConfig
   }
+  created(res) {
+  }
+}
 
-  export default new App();
+export default new App();
 </script>
 
 <style scoped>

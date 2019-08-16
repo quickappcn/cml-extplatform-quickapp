@@ -1,155 +1,314 @@
 <template>
-  <page title="Chameleon">
-    <view class="page-home">
-      <scroller height="{{-1}}">
-        <view class="logo-row">
-          <image class="logo-icon" src="{{homeLogo}}"></image>
-          <text class="logo-desc">Chameleon</text>
-        </view>
-        <view class="list">
-          <view class="list-cell" c-for="{{pageList}}" c-for-item="pageInfo" c-bind:tap="onItemSelected(pageInfo.url)">
-            <view class="content-item row">
-              <image class="content-item-left-icon" src="{{pageInfo.icon}}"></image>
-              <view class="text-group">
-                <text class="text-title">{{pageInfo.title}}</text>
-                <text class="text-desc">{{pageInfo.desc}}</text>
-              </view>
-              <image class="content-item-right-icon" src="{{arrowRight}}"></image>
+  <page title="TodoMVC">
+    <scroller height="{{-1}}">
+      <view class="scroller-wrap">
+        <text class="title">{{title}}</text>
+        <view class="main">
+          <view class="input-wrap border-bottom-1px">
+            <input class="input-area" placeholder="What needs to be done?" c-style="{{inputStyle}}" type="text"
+              value="{{value}}" c-bind:input="inputHandle" c-bind:blur="addHandle" />
+            <text class="add-btn" c-bind:tap="addHandle">Add</text>
+          </view>
+          <view class="list-wrap">
+            <c-todoitem c-for="{{showTodos}}" c-key="{{todoLength + index}}"
+              completed="{{item.completed}}" index="{{item.index}}" text="{{item.text}}"
+              c-bind:changestatus="changeStatus" c-bind:delete="delete" c-bind:top="top"></c-todoitem>
+          </view>
+          <text class="count">{{countText}}</text>
+          <view class="option-wrap">
+            <view class="filter">
+              <text class="{{filter === 0 ? 'filter-active' : 'filter-default'}}" c-bind:tap="changeFilter0">All</text>
+              <text class="{{filter === 1 ? 'filter-active' : 'filter-default'}}"
+                c-bind:tap="changeFilter1">Active</text>
+              <text class="{{filter === 2 ? 'filter-active' : 'filter-default'}}"
+                c-bind:tap="changeFilter2">Completed</text>
             </view>
+            <text class="clear-completed" c-bind:tap="clear">Clear completed</text>
           </view>
         </view>
-      </scroller>
-    </view>
+      </view>
+    </scroller>
   </page>
 </template>
 
 <script>
+  import store from "../../store";
+  const {
+    mapGetters,
+    mapMutations,
+    mapActions,
+    mapState
+  } = store;
+
+  import getterTypes from '../../store/getter-types.js';
+  import mutationTypes from '../../store/mutation-types.js';
+  import actionTypes from '../../store/action-types.js';
   import cml from 'cml-quickapp-api';
-
-  class Home {
+  class Index {
     data = {
-      pageList: [{
-        icon: require(`../../assets/images/home/home-ui.png`),
-        title: '组件',
-        desc: '基础内容、表单组建、导航、视图容器等',
-        url: '/pages/com/com'
-      }, {
-        icon: require(`../../assets/images/home/home-api.png`),
-        title: '接口',
-        desc: '界面、网络、数据、weex端扩展能力',
-        url: '/pages/api/api'
-      }, {
-        icon: require(`../../assets/images/home/home-api.png`),
-        title: '实例',
-        desc: '网易严选等更多实例',
-        url: '/pages/demo/demo'
-      }],
-      homeLogo: require(`../../assets/images/home/home-chameleon.png`),
-      arrowRight: require(`../../assets/images/home/arrow-right.png`)
+      title: 'todos',
+      winHeight: 0,
+      chameleon: require("../../assets/images/chameleon.png"),
+      checked: false,
+      value: '',
+      filter: 0 // 0:all,1:active,2:completed
     }
+    computed = {
+      ...mapGetters({
+        todos: getterTypes.INDEX_DESC_TODOS
+      }),
+      inputStyle() {
+        return 'border-width: 0;height:100cpx;font-size:32cpx;color:#333;padding-left: 80cpx;';
+      },
+      btnStyle() {
+        if (!this.value) {
+          return 'background: #999999;'
+        } else {
+          return 'background: #333333;'
+        }
+      },
 
-    methods = {
-      onItemSelected(url) {
-        cml.navigateTo({
-          path: url
-        });
+      countText() {
+        let count = 0;
+        this.todos.forEach(item => {
+          if (!item.completed) {
+            count++;
+          }
+        })
+        return `${count} items left`;
+      },
+      showTodos() {
+        let todos = []
+        if (this.filter === 0) {
+          todos = this.todos.map((item, index) => {
+            item.index = index;
+            return item;
+          });
+        }
+        if (this.filter === 1) {
+          let t = [];
+          this.todos.forEach((item, index) => {
+            if (!item.completed) {
+              item.index = index;
+              t.push(item);
+            }
+          })
+          todos = t
+        }
+        if (this.filter === 2) {
+          let t = [];
+          this.todos.forEach((item, index) => {
+            if (item.completed) {
+              item.index = index;
+              t.push(item);
+            }
+          })
+          todos = t;
+        }
+        return todos
+      },
+      todoLength() {
+        console.log('###### length = ', this.showTodos.length)
+        return this.showTodos.length + '';
       }
     }
+    watch = {
+
+    }
+    methods = {
+      ...mapActions([
+        actionTypes.INDEX_ADD_TODOS,
+        actionTypes.INDEX_CHANGE_TODOS_STATUS,
+        actionTypes.INDEX_DELETE_TODOS,
+        actionTypes.INDEX_TOP_TODOS,
+        actionTypes.INDEX_CHANGE_TODOS_CLEAR_COMPLETED
+      ]),
+      changeStatus(e) {
+        let {
+          index,
+          status
+        } = e.detail;
+        this[actionTypes.INDEX_CHANGE_TODOS_STATUS]({
+          index,
+          status
+        })
+      },
+      inputHandle(e) {
+        this.value = e.detail.value;
+      },
+      addHandle(e) {
+        if (!this.value) {
+          return;
+        }
+        this[actionTypes.INDEX_ADD_TODOS](this.value);
+        this.value = '';
+      },
+      delete(e) {
+        this[actionTypes.INDEX_DELETE_TODOS](e.detail.index)
+      },
+      top(e) {
+        this[actionTypes.INDEX_TOP_TODOS](e.detail.index)
+      },
+      clear() {
+        this[actionTypes.INDEX_CHANGE_TODOS_CLEAR_COMPLETED]();
+      },
+      changeFilter0() {
+        this.filter = 0;
+      },
+      changeFilter1() {
+        this.filter = 1;
+      },
+      changeFilter2() {
+        this.filter = 2;
+      }
+    }
+    beforeCreate(res) {}
+    created(res) {}
+    beforeMount(res) {}
+    mounted() {
+      cml.getSystemInfo().then((info) => {
+        this.winHeight = Number(info.viewportHeight)
+      })
+    }
+    beforeDestroy(res) {}
+    destroyed(res) {}
+
   }
-  export default new Home();
+
+  export default new Index();
 </script>
-
 <style scoped>
-  @import "../../assets/css/var.less";
 
-  .row {
+  .title {
+    align-self: center;
+    color: #61c7fc;
+    font-size: 72cpx;
+    margin-top: 160cpx;
+    margin-bottom: 20cpx;
+  }
+
+  .scroller-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+
+  .main {
+    width: 640cpx;
+    border: 1px solid;
+  }
+
+  .input-wrap {
+    position: relative;
+    height: 102cpx;
+    border-color: #ccc;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .input-area {
+    /* position: absolute;
+    left: 0;
+    top: 0; */
+    width: 500cpx;
+    height: 100cpx;
+    font-size: 32cpx;
+    border: 1cpx solid red;
+    height: 50cpx;
+  }
+
+  .add-btn {
+    /* position: absolute;
+    left: 10cpx;
+    top: 42cpx; */
+    height: 50cpx;
+    margin-left: 20cpx;
+    overflow: hidden;
+    background-color: blue;
+    color: #fff;
+    flex: 1;
+  }
+
+  .white-arrow {
+    width: 70cpx;
+    height: 70cpx;
+    background: #fff;
+    transform: rotate(45deg);
+  }
+
+  .option-wrap {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    width: 100%;
+    height: 50cpx;
+    margin-top: 10cpx;
   }
 
-  .page-home {
-    background-color: #F0F2F7;
-    flex: 1;
-  }
-
-  .logo-row {
-    align-items: center;
-  }
-
-  .logo-desc {
-    color: #A2ACC1;
-    font-size: 50cpx;
-    margin-bottom: 100cpx;
-  }
-
-  .logo-icon {
-    width: 210cpx;
-    height: 210cpx;
-    margin-top: 100cpx;
-    margin-bottom: 37cpx;
-  }
-
-  .list {
-    padding: 0 46cpx;
-    margin-bottom: 30cpx;
-  }
-
-  .content-item {
-    height: 280cpx;
-    background: #FFFFFF;
-    box-shadow: 0 2cpx 16cpx 0 rgba(146, 167, 215, 0.12);
-    border-radius: 4cpx;
-    background-color: white;
-    margin-bottom: 30cpx;
-  }
-
-
-  .content-item-left-icon {
-    width: 100cpx;
-    height: 100cpx;
-    margin-left: 40cpx;
-  }
-
-  .text-group {
-    padding: 0 55cpx;
-    flex: 1;
-  }
-
-  .text-title {
-    font-size: 32cpx;
-    color: #172742;
-    letter-spacing: 0;
-    text-align: left;
-    margin-bottom: 5cpx;
-  }
-
-  .text-desc {
+  .count {
     font-size: 24cpx;
-    color: #A2ACC1;
-    letter-spacing: 0;
-    height: 66cpx;
-    line-height: 33cpx;
-    text-align: left;
+    color: #999;
+    margin-top: 20cpx;
+    padding-left: 10cpx;
   }
 
-  .content-item-right-icon {
-    width: 35cpx;
-    height: 35cpx;
-    margin-right: 44cpx;
+  .filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filter-default {
+    font-size: 24cpx;
+    color: #999;
+    margin: 0 10cpx;
+    padding: 0 10cpx;
+  }
+
+  .filter-active {
+    font-size: 24cpx;
+    color: #999;
+    border: 1px solid #999;
+    border-radius: 8cpx;
+    padding: 0 10cpx;
+  }
+
+  .clear-completed {
+    font-size: 24cpx;
+    color: #999;
+    border: 1cpx solid;
   }
 </style>
-
-
 <script cml-type="json">
   {
     "base": {
-      "usingComponents": {},
-      "navigationBarTitleText": "Chameleon Demos",
+      "usingComponents": {
+        "c-checkbox": "/components/c-checkbox/c-checkbox",
+        "c-todoitem": "/components/c-todoitem/c-todoitem"
+      }
+    },
+    "wx": {
+      "navigationBarTitleText": "index",
       "backgroundTextStyle": "dark",
-      "backgroundColor": "#F0F2F7"
+      "backgroundColor": "#E2E2E2"
+    },
+    "alipay": {
+      "defaultTitle": "index",
+      "pullRefresh": false,
+      "allowsBounceVertical": "YES",
+      "titleBarColor": "#ffffff"
+    },
+    "baidu": {
+      "navigationBarBackgroundColor": "#ffffff",
+      "navigationBarTextStyle": "white",
+      "navigationBarTitleText": "index",
+      "backgroundColor": "#ffffff",
+      "backgroundTextStyle": "dark",
+      "enablePullDownRefresh": false,
+      "onReachBottomDistance": 50
     }
   }
 </script>
