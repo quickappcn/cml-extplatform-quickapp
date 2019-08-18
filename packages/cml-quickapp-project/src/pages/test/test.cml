@@ -1,42 +1,58 @@
 <template>
-<view>
+  <view>
     <view><text>a: {{a}}---</text></view>
-    <view><text>compA: {{compA}}----</text></view>
+    <view><text>computedA: {{computedA}}----</text></view>
+    <view><text>b: {{b}}----</text></view>
     <view><text>login.phone: {{login.phone}}---</text></view>
     <view><text>message: {{message}}---</text></view>
-    <input placeholder="input content" value="" c-bind:input="change"></input>
-</view>
+    <input placeholder="input content" value="{{title}}" c-bind:input="change"></input>
+  </view>
 </template>
 
 <script>
-import store from '../../store'
-const { mapState, mapMutations, mapActions, mapGetters } = store
+  import store from '../../store'
+  const {
+    mapState,
+    mapMutations,
+    mapActions,
+    mapGetters
+  } = store
 
   class Home {
     data = {
       a: 'default a',
-      title: ''
+      title: '',
+      b: ''
     }
 
     computed = {
       ...mapState(['login']),
-      compA() {
+      computedA() {
+        console.log('##### a has been computed')
         return this.a + ' computed'
       },
+      // computedB() {
+      //   console.log('##### b has been computed')
+      //   return this.b
+      // },
       message() {
-        return this.title + '#######'
+        console.log('##### message has been computed')
+        return 'message ' + this.title
       }
     }
 
-    watch  = {
+    watch = {
       login(n, o) {
         console.log('login change:', n)
       },
       title() {
-        console.log('##### title change', [].slice.call(arguments))
+        console.log('##### title has been watched, title = ', this.title)
       },
       a() {
-         console.log('##### a change', [].slice.call(arguments))
+        console.log('##### a has been watched, this.a = ', this.a)
+      },
+      b() {
+        console.log('####### b has been watched,  b = ', this.b)
       }
     }
     methods = {
@@ -46,15 +62,17 @@ const { mapState, mapMutations, mapActions, mapGetters } = store
       }
     }
     mounted() {
-      this.$watch('login', function(v) {
+      this.$watch('login', function (v) {
         console.log('this.$watch login change：', v)
       })
-
-      this.a = "change a "
 
       setTimeout(() => {
         console.log('-------- store.login', store.state.login)
         console.log('-------- this.login', this.login)
+
+        this.a = "change a "
+        this.b = 'change b'
+        this.title = 'changed title';
 
         this.changeLogin({
           phone: '12132'
@@ -62,7 +80,7 @@ const { mapState, mapMutations, mapActions, mapGetters } = store
 
         console.log('--------- after store.login', store.state.login)
         console.log('--------- after this.login', this.login)
-        
+
       }, 2000)
     }
   }
@@ -70,7 +88,7 @@ const { mapState, mapMutations, mapActions, mapGetters } = store
 </script>
 
 <style scoped>
-  
+
 </style>
 
 
