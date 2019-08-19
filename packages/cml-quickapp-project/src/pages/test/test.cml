@@ -43,7 +43,7 @@
 
     watch = {
       login(n, o) {
-        console.log('login change:', n)
+        console.log('##### Store watched, this.login = ', this.login)
       },
       title() {
         console.log('##### watched, this.title = ', this.title)
@@ -63,7 +63,10 @@
     }
     mounted() {
       this.$watch('login', function (v) {
-        console.log('this.$watch login change：', v)
+        console.log('##### this.$watch => login ', v)
+      })
+      this.$watch('title', function (v) {
+        console.log('##### this.$watch => title ', v)
       })
 
       setTimeout(() => {

@@ -39,6 +39,7 @@ export default class QuickAppRuntimeCore {
 
     this.propsName = KEY.get(`${this.platform}.props`)
     this.instance = KEY.get(`${this.platform}.instance`)
+    this.__watchIndex__ = 0
   }
 
   setOptions(options) {
@@ -67,6 +68,8 @@ export default class QuickAppRuntimeCore {
     this.proxyHandler()
 
     // watch 属性mobx转换
+    // this.watchesHandler()
+
     initWatch(context, context.__cml_originOptions__.watch)
     return this
   }
@@ -122,6 +125,53 @@ export default class QuickAppRuntimeCore {
     proxy(context, context.__cml_ob_data__)
     // proxy(context, this._data)
     // proxy(context, this._props)
+  }
+
+  
+  /**
+   * watch 属性转换
+   * @param  {Object} context 上下文
+   * @return {[type]}       [description]
+   */
+  watchesHandler() {
+    const context = this.context
+    let options = context.__cml_originOptions__
+    let watches = options.watch
+    
+    if (type(watches) !== 'Object') {
+      return
+    }
+
+    enumerableKeys(watches).forEach((key, index) => {
+      const handler = watches[key]
+      if (type(handler) === 'Array') {
+        // mobx的reaction执行是倒序的，顾为保证watch正常次序，需倒序注册
+        for (let i = handler.length - 1; i >= 0; i--) {
+          this.addWatchFunc(context, handler[i], key)
+        }
+      } else {
+        this.addWatchFunc(context, handler, key)
+      }
+    })
+  }
+
+  addWatchFunc(context, handler, key) {
+    const handlerFunc  = handler.bind(context)
+    const handlerFuncName = 'CML_WATCH_FUNC_ADAPTER_' + `${Date.now()}_${this.__watchIndex__++}_` + handlerFunc.name.split(' ').join('_')
+    context[handlerFuncName] = handlerFunc
+    context._methods[handlerFuncName] = handlerFunc
+    context.$watch(key, handlerFuncName)
+  }
+
+  addPageHooks() {
+    const context = this.context
+    const originOptions = context.__cml_originOptions__
+    // 使用createComponent创建page时，页面的事件直接写在options里是不生效的，必须注入到this上
+    lifecycle.get(`${this.platform}.page.hooks`).forEach(key => {
+      if (typeof originOptions[key] === 'function') {
+        context[key] = originOptions[key]
+      }
+    })
   }
 
   /**
@@ -428,6 +478,6 @@ function createWatcher(vm, expOrFn, handler, options) {
   }
   if (typeof handler === 'string') {
     handler = vm[handler]
-  }
+  }  // const handlerFuncName = 'CML_WATCH_FUNC_ADAPTER_' + `${Date.now()}_${this.__watchIndex__++}_` + handlerFunc.name.split(' ').join('_')
   return vm.$watch(expOrFn, handler, options)
 }
