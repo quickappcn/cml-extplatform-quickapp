@@ -1,99 +1,93 @@
 <template>
+  <view>
     <view c-if="{{show}}">
-        <c-picker-panel
-            show="{{show}}"
-            height="{{height}}"
-            header-height="{{headerHeight}}"
-            cancel-btn-style="{{cancelBtnStyle}}"
-            confirm-btn-style="{{confirmBtnStyle}}"
-            c-bind:cancel="cancel"
-            c-bind:confirm="confirm">
-            <c-picker-item
-                text-align="{{textAlign}}"
-                height="{{dataScrollerHeight}}"
-                list="{{list}}"
-                item-style="{{itemStyle}}"
-                default-index="{{defaultIndex}}"
-                c-bind:selectchange="selectchange">
-            </c-picker-item>
-        </c-picker-panel>
+      <c-picker-panel show="{{show}}" height="{{height}}" header-height="{{headerHeight}}"
+        cancel-btn-style="{{cancelBtnStyle}}" confirm-btn-style="{{confirmBtnStyle}}" c-bind:cancel="cancel"
+        c-bind:confirm="confirm">
+        <c-picker-item text-align="{{textAlign}}" height="{{dataScrollerHeight}}" list="{{list}}"
+          item-style="{{itemStyle}}" default-index="{{defaultIndex}}" c-bind:selectchange="selectchange">
+        </c-picker-item>
+      </c-picker-panel>
     </view>
+  </view>
 </template>
 <script>
-class CPicker implements CPickerInterface {
+  class CPicker implements CPickerInterface {
 
-  props = {
-    show: {
+    props = {
+      show: {
         type: Boolean,
         default: false
-    },
-    height: {
+      },
+      height: {
         type: Number,
         default: 500
-    },
-    headerHeight: {
+      },
+      headerHeight: {
         type: Number,
         default: 100
-    },
-    textAlign: {
+      },
+      textAlign: {
         type: String,
         default: "center"
-    },
-    dataScrollerHeight: {
+      },
+      dataScrollerHeight: {
         type: Number,
         default: 400
-    },
-    list: {
+      },
+      list: {
         type: Array,
         default: ['']
-    },
-    defaultIndex: {
+      },
+      defaultIndex: {
         type: Number,
         default: 0
-    },
-    cancelBtnStyle: {
+      },
+      cancelBtnStyle: {
         type: String,
         default: ''
-    },
-    confirmBtnStyle: {
+      },
+      confirmBtnStyle: {
         type: String,
         default: ''
-    },
-    itemStyle: {
+      },
+      itemStyle: {
         type: String,
         default: ''
+      }
     }
-  }
-  
-  computed = {
-  }
-  
-  methods = {
-    cancel(){
-        this.$cmlEmit('cancel');
-    },
-    confirm(){
-        this.$cmlEmit('confirm');
-    },
-    selectchange(e){
-        this.$cmlEmit('selectchange',e.detail);
-    }
-  }
-}
 
-export default new CPicker();
+    computed = {}
+
+    methods = {
+      cancel(detail) {
+        this.$cmlEmit('cancel', detail);
+      },
+      confirm(detail) {
+        this.$cmlEmit('confirm', detail);
+      },
+      selectchange(e) {
+        this.$cmlEmit('selectchange', e.detail);
+      }
+    }
+    mounted() {
+      console.log('#### show = ', this.show)
+    }
+  }
+
+  export default new CPicker();
 </script>
 <style scoped>
 
 </style>
 <script cml-type="json">
-{
+  {
     "base": {
-        "usingComponents": {
-            "c-picker-panel":"../c-picker-panel/c-picker-panel",
-            "c-picker-item": "../c-picker-item/c-picker-item"
-        },
-        "component": true
+      "usingComponents": {
+        "c-picker-panel": "../c-picker-panel/c-picker-panel",
+        "c-picker-item": "../c-picker-item/c-picker-item"
+      },
+      "component": true
     }
-}
+  }
 </script>

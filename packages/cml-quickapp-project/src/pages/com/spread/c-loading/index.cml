@@ -6,7 +6,7 @@
         <view class="content"></view>
       </c-loading>
       <view class="button-wrapper">
-        <button class="button" text="更改loading态" c-bind:onclick="changeLoading"></button>
+        <button text="更改loading态" c-bind:onclick="changeLoading"></button>
       </view>
     </view>
   </page>

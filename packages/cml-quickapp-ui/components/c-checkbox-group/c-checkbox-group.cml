@@ -1,8 +1,6 @@
 <template>
 <view class="cml-checkbox-group" style="{{ horizontalStyle }}">
   <checkbox c-for="{{ option }}"
-    data-index="{{ index }}"
-    data-uid="{{ item.uid }}"
     checked="{{ item.checked }}"
     label="{{ item.label }}"
     group-index="{{ index }}"

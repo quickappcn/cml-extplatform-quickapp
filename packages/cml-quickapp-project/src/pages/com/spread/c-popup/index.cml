@@ -5,8 +5,8 @@
   <c-popup show="{{show2}}" mask="{{mask}}" c-bind:close="closePopup" position="{{position}}">
     <view style="{{contentStyle}}"><text style="font-size: 28cpx;">content</text></view>
   </c-popup>
-  <button c-bind:onclick="showPopup" class="btn" text="show popup"></button>
-  <button c-bind:onclick="showPopup2" class="btn" text="left/top/right/bottom/center"></button>
+  <button c-bind:onclick="showPopup" text="show popup"></button>
+  <button c-bind:onclick="showPopup2" text="left/top/right/bottom/center"></button>
 </page>
 </template>
 <script>

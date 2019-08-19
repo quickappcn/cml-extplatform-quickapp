@@ -2,8 +2,6 @@
 <view class="cml-radio-group" style="{{ horizontalStyle }}">
   <radio c-for="{{radioList}}"
     color="{{item.color || color}}"
-    data-index="{{ index }}"
-    data-uid="{{ item.uid }}" 
     checked="{{ item.checked }}" 
     label="{{ item.label }}"
     group-index="{{ index }}"

@@ -31,7 +31,7 @@ class CPicker {
   }
 
   computed = {}
-  watch  = {}
+  watch = {}
 
   methods = {
     selectchange(e) {
