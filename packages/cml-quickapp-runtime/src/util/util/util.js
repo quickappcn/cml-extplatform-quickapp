@@ -185,15 +185,25 @@ export function proxy(target, source, mapKeys, readonly) {
     readonly = mapKeys
     mapKeys = null
   }
+
+  const targetDescriptors = Object.getOwnPropertyDescriptors(target)
+  
   enumerableKeys(source).forEach((key, index) => {
+    const targetGetter = targetDescriptors[key] && targetDescriptors[key].get
+    const targetSetter = targetDescriptors[key] && targetDescriptors[key].set
+
     const descriptor = {
       get () {
+        typeof targetGetter === 'function' && targetGetter()
+
         return source[key]
       },
       configurable: true,
       enumerable: true
     }
     !readonly && (descriptor.set = function(val) {
+      typeof targetSetter === 'function' && targetSetter()
+
       source[key] = val
     })
     Object.defineProperty(target, mapKeys ? mapKeys[index] : key, descriptor)
