@@ -1,5 +1,5 @@
 <template>
-  <origin-input style="{{computedStyle}}" value="{{value}}" type="{{type}}" disabled="{{disabled}}"
+  <origin-input style="border: 1cpx solid #999;border-radius: 4cpx;padding: 10cpx;{computedStyle}}" value="{{value}}" type="{{type}}" disabled="{{disabled}}"
     placeholder="{{placeholder}}" maxlength="{{maxlength}}" onchange="inputEvent" onblur="blurEvent"
     onfocus="focusEvent" data-modelkey="{{dataModelkey}}"></origin-input>
 </template>
@@ -56,11 +56,13 @@
       },
       maxValue: { //type=number 最大值
         type: Number,
-        default: Infinity
+        default: Infinity,
+        required: false
       },
       minValue: { //type=number 最小值
         type: Number,
-        default: -Infinity
+        default: -Infinity,
+        required: false
       },
       dataModelkey: {
         type: String,

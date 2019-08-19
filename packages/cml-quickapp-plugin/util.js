@@ -11,6 +11,15 @@ _.getModelKey = function(modelKey) {
   return modelKey;
 }
 
+// 判断是否直接转为快应用的 div
+_.isDivComp = function(tag) {
+  const divComList = ['view', 'cover-view', 'scroller', ''];
+  return divComList.indexOf(tag) >= 0
+}
+_.isBlockCom = function(tag) {
+  const blockComList = ['carousel-item']
+  return blockComList.indexOf(tag) >= 0
+}
 // 驼峰化单词
 _.camelize = function(str) {
   return str.replace(/[-_\s]+(.)/g, function(match, key) {

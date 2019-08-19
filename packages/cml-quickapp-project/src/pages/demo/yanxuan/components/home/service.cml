@@ -18,7 +18,7 @@ export default new Service();
   .service{
     width: 750cpx;
     height: 72cpx;
-    background: #ffecdd;
+    background-color: #ffecdd;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

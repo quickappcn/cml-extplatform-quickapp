@@ -1,8 +1,7 @@
 <template>
   <origin-list class="scroll-container" onscrollbottom="onScrollBottom" onscroll="onScroll" style="{{ wrapperStyle }}"
     ref="c-list">
-    <slot>
-    </slot>
+    <slot></slot>
   </origin-list>
 </template>
 <script>
@@ -32,7 +31,7 @@
       }
     }
     data = {
-      cmtstyle: 'height: 400px;'
+      cmtstyle: ''
     }
     computed = {
       wrapperStyle() {
@@ -56,12 +55,12 @@
           console.error('list组件必须传递高度属性')
           return
         }
-        // if (this.height === -1) {
-        //   let rectData = await cml.getRect('c-list', this)
-        //   let windowRect = await cml.getSystemInfo()
-        //   let height = windowRect.viewportHeight - rectData.top;
-        //   this.cmtstyle = `height:${height}cpx;`
-        // }
+        if (this.height === -1) {
+          let rectData = await cml.getRect('c-list', this)
+          let windowRect = await cml.getSystemInfo()
+          let height = windowRect.viewportHeight - rectData.top;
+          this.cmtstyle = `height:${height}cpx;`
+        }
       }, 200)
     }
   }

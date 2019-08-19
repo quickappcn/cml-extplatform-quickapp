@@ -24,6 +24,7 @@ export class CmlApp extends BaseCtor {
           runtimeCore
             .setContext(this)
             .init()
+            // .start('app-view-render')
         }
       },
       needResolveAttrs: ['methods'],
@@ -32,5 +33,7 @@ export class CmlApp extends BaseCtor {
       polyHooks: lifecycle.get('quickapp.app.polyHooks'),
       usedHooks: lifecycle.get('quickapp.app.usedHooks')
     })
+
+    runtimeCore.setOptions(this.options)
   }
 }

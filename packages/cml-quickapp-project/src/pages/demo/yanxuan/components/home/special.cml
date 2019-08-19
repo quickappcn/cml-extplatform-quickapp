@@ -43,7 +43,7 @@
 <style scoped>
   .special{
     width: 750cpx;
-    background: rgb(226, 179, 128);
+    background-color: rgb(226, 179, 128);
   }
   .special-door{
     width: 750cpx;

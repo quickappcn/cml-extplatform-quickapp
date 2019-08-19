@@ -1,22 +1,13 @@
 <template>
-  <textarea
-    style="{{computedStyle}}"
-    value="{{inputValue}}"
-    placeholder="{{placeholder}}"
-    disabled="{{disabled}}"
-    maxlength="{{maxlength}}"
-    rows="{{rows}}"
-    focus="{{focus}}"
-    @blur="blurEvent"
-    @focus="focusEvent"
-    @change="confirmEvent"
-  ></textarea>
+  <origin-textarea style="{{computedStyle}}" value="{{inputValue}}" placeholder="{{placeholder}}" disabled="{{disabled}}"
+    maxlength="{{maxlength}}" rows="{{rows}}" focus="{{focus}}" @blur="blurEvent" @focus="focusEvent"
+    @change="confirmEvent"></origin-textarea>
 </template>
 <script>
   /*
   event: cinput cblur cfocus cconfirm
   */
- class Textarea implements TextareaInterface {
+  class Textarea implements TextareaInterface {
     props = {
       cStyle: {
         type: String,
@@ -29,12 +20,12 @@
       //textarea的内容
       value: {
         type: String,
-        default: '' 
+        default: ''
       },
       //textarea的placerholder
       placeholder: {
         type: String,
-        default: '' 
+        default: ''
       },
       //是否禁用textarea输入
       disabled: {
@@ -67,38 +58,38 @@
     }
     data = {
       inputValue: '',
-      defaultStyle: 'color:rgba(0, 0, 0, 0.87);font-size:37.5px;placeholder-color:rgba(0, 0, 0, 0.38);'
+      defaultStyle: 'border: 1px solid #999;border-radius: 4px;padding: 10px;color:rgba(0, 0, 0, 0.87);font-size:37.5px;placeholder-color:rgba(0, 0, 0, 0.38);'
     }
     computed = {
       computedStyle() {
         let style = this.defaultStyle + (this.cStyle || this.cstyle);
 
-        if(style[style.length-1] !== ';') {
-          style +=';'
+        if (style[style.length - 1] !== ';') {
+          style += ';'
         }
         return style;
       }
     }
     watch = {
-      value: function(newVal, oldVal) {
+      value: function (newVal, oldVal) {
         this.inputValue = newVal;
       }
     }
     methods = {
       inputEvent(e) {
         this.inputValue = e.value || ''
-        console.log('e',e)
-        this.$cmlEmit('input',{
+        console.log('e', e)
+        this.$cmlEmit('input', {
           value: this.inputValue
         })
       },
       blurEvent() {
-        this.$cmlEmit('blur',{
+        this.$cmlEmit('blur', {
           value: this.inputValue
         })
       },
       focusEvent() {
-        this.$cmlEmit('focus',{
+        this.$cmlEmit('focus', {
           value: this.inputValue
         })
       },
@@ -107,7 +98,7 @@
         // this.$cmlEmit('confirm',{
         //   value: this.inputValue
         // })
-        this.$cmlEmit('input',{
+        this.$cmlEmit('input', {
           value: this.inputValue
         })
       }
@@ -121,6 +112,5 @@
 </style>
 
 <script cml-type="json">
-{
-}
+  {}
 </script>
