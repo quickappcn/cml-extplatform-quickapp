@@ -1,5 +1,5 @@
 <template>
-  <origin-textarea style="{{computedStyle}}" value="{{inputValue}}" placeholder="{{placeholder}}" disabled="{{disabled}}"
+  <origin-textarea style="border: 1px solid #999;border-radius: 4px;padding: 10px;color:rgba(0, 0, 0, 0.87);font-size:37.5px;placeholder-color:rgba(0, 0, 0, 0.38);{{cstyle || cStyle}}" value="{{inputValue}}" placeholder="{{placeholder}}" disabled="{{disabled}}"
     maxlength="{{maxlength}}" rows="{{rows}}" focus="{{focus}}" @blur="blurEvent" @focus="focusEvent"
     @change="confirmEvent"></origin-textarea>
 </template>
@@ -58,17 +58,16 @@
     }
     data = {
       inputValue: '',
-      defaultStyle: 'border: 1px solid #999;border-radius: 4px;padding: 10px;color:rgba(0, 0, 0, 0.87);font-size:37.5px;placeholder-color:rgba(0, 0, 0, 0.38);'
     }
     computed = {
-      computedStyle() {
-        let style = this.defaultStyle + (this.cStyle || this.cstyle);
+      // computedStyle() {
+      //   let style = this.defaultStyle + (this.cStyle || this.cstyle);
 
-        if (style[style.length - 1] !== ';') {
-          style += ';'
-        }
-        return style;
-      }
+      //   if (style[style.length - 1] !== ';') {
+      //     style += ';'
+      //   }
+      //   return style;
+      // }
     }
     watch = {
       value: function (newVal, oldVal) {

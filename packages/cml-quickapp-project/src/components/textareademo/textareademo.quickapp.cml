@@ -28,7 +28,7 @@
       </view>
       <view class="input-wrap">
         <text class="title-text">placeholderColor web端不支持</text>
-        <textarea placeholder="placeholderColor web端不支持" placer-holder-color="#ff0000;"></textarea>
+        <textarea placeholder="placeholderColor web端不支持" placer-holder-color="#ff0000"></textarea>
       </view>
       <view class="end-item">
         <text class="title-text">自定义样式</text>
