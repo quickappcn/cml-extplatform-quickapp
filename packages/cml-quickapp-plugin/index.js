@@ -224,7 +224,9 @@ module.exports = class QuickAppPlugin {
               var cmldefine = manifest.cmldefine;
               var cmlrequire = manifest.cmlrequire;
               require('${cmlUtils.handleRelativePath(entryName, 'src/js/common.js')}');
-              module.exports = cmlrequire('${childrenObj.script.modId}').default
+              var _ = cmlrequire('${childrenObj.script.modId}').default;
+              console.log('####', _);
+              module.exports = _;
             </script>
             `
           }

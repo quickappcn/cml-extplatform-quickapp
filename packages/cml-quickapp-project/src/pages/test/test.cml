@@ -1,10 +1,10 @@
 <template>
   <view>
-    <view><text>a: {{a}}---</text></view>
-    <view><text>computedA: {{computedA}}----</text></view>
-    <view><text>b: {{b}}----</text></view>
-    <view><text>login.phone: {{login.phone}}---</text></view>
-    <view><text>message: {{message}}---</text></view>
+    <view><text>a: {{a}}</text></view>
+    <view><text>computedA: {{computedA}}</text></view>
+    <view><text>b: {{b}}</text></view>
+    <view><text>login.phone: {{login.phone}}</text></view>
+    <view><text>message: {{message}}</text></view>
     <input placeholder="input content" value="{{title}}" c-bind:input="change"></input>
   </view>
 </template>
@@ -28,16 +28,16 @@
     computed = {
       ...mapState(['login']),
       computedA() {
-        console.log('##### a has been computed')
-        return this.a + ' computed'
+        console.log('##### computed => this.a = ', this.a)
+        return 'computed ' + this.a
       },
       // computedB() {
       //   console.log('##### b has been computed')
       //   return this.b
       // },
       message() {
-        console.log('##### message has been computed')
-        return 'message ' + this.title
+        console.log('##### computed => this.title = ', this.title)
+        return 'computed ' + this.title
       }
     }
 
@@ -46,13 +46,13 @@
         console.log('login change:', n)
       },
       title() {
-        console.log('##### title has been watched, title = ', this.title)
+        console.log('##### watched, this.title = ', this.title)
       },
       a() {
-        console.log('##### a has been watched, this.a = ', this.a)
+        console.log('##### watched, this.a = ', this.a)
       },
       b() {
-        console.log('####### b has been watched,  b = ', this.b)
+        console.log('####### watched, this.b = ', this.b)
       }
     }
     methods = {
@@ -70,9 +70,9 @@
         console.log('-------- store.login', store.state.login)
         console.log('-------- this.login', this.login)
 
-        this.a = "change a "
-        this.b = 'change b'
-        this.title = 'changed title';
+        this.a = "new a "
+        this.b = 'new b'
+        this.title = 'new title';
 
         this.changeLogin({
           phone: '12132'

@@ -92,7 +92,7 @@ export default class QuickAppRuntimeCore {
     context.__cml_computed__ = transformComputed(context)
 
     
-    context.__cml_data__ = extend({}, this.options.data, this.options.props, context.__cml_computed__)
+    context.__cml_data__ = extend({}, context.data, context.props, context.__cml_computed__)
   }
 
   initInterface() {
@@ -120,6 +120,8 @@ export default class QuickAppRuntimeCore {
     enumerable(context.__cml_ob_data__, origComputedKeys)
     
     proxy(context, context.__cml_ob_data__)
+    // proxy(context, this._data)
+    // proxy(context, this._props)
   }
 
   /**
