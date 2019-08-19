@@ -1,5 +1,5 @@
 <template>
-  <origin-input style="border: 1cpx solid #999;border-radius: 4cpx;padding: 10cpx;{computedStyle}}" value="{{value}}" type="{{type}}" disabled="{{disabled}}"
+  <origin-input style="border: 1cpx solid #999;border-radius: 4cpx;padding: 10cpx;placeholder-color: {{placerHolderColor}};{{cStyle || cstyle}}" value="{{value}}" type="{{type}}" disabled="{{disabled}}"
     placeholder="{{placeholder}}" maxlength="{{maxlength}}" onchange="inputEvent" onblur="blurEvent"
     onfocus="focusEvent" data-modelkey="{{dataModelkey}}"></origin-input>
 </template>
@@ -70,16 +70,15 @@
       }
     }
     data = {
-      inputValue: ""
+      inputValue: "",
     }
     computed = {
       isInputNumber() {
         return this.type === 'number';
       },
-      computedStyle() {
-        // props 必须经过计算属性，否则没有经过 cpx 转换
-        return `placeholder-color: ${this.placerHolderColor};${this.cStyle || this.cstyle}`
-      }
+      // computedStyle() {
+      //   return`${this.defaultStyle};placeholder-color: ${this.placerHolderColor};` + this.cstyle || this.cStyle
+      // }
     }
     // mounted() {
     //   this.inputValue = this.value;

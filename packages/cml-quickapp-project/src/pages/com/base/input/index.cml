@@ -41,7 +41,7 @@
         <input placeholder="键盘右下键按钮go web端不支持" return-key-type="go"></input>
 
         <text class="title-text">placeholderColor web端不支持</text>
-        <input placeholder="placeholderColor web端不支持" placer-holder-color="#ff0000;"></input>
+        <input placeholder="placeholderColor web端不支持" placer-holder-color="#ff0000"></input>
 
         <text class="title-text">自定义样式</text>
         <view class="end-item">
