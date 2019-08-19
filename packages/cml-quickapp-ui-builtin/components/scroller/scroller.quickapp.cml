@@ -1,9 +1,10 @@
 <template>
-  <origin-list class="list" onscroll="scroll" onscrollbottom="scrollBottom" style="{{listStyle}}">
+  <!-- <origin-list class="list" onscroll="scroll" onscrollbottom="scrollBottom" style="{{listStyle}}">
     <origin-list-item class="list-item" style="{{scrollStyle}}" type="scroller">
       <slot></slot>
     </origin-list-item>
-  </origin-list>
+  </origin-list> -->
+  <slot></slot>
 </template>
 <script>
   class Scroller implements ScrollerInterface {

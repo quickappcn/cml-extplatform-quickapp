@@ -32,17 +32,17 @@
         icon: require(`../../assets/images/home/home-ui.png`),
         title: '组件',
         desc: '基础内容、表单组建、导航、视图容器等',
-        url: '/pages/com/com'
+        url: '/pages/com/index'
       }, {
         icon: require(`../../assets/images/home/home-api.png`),
         title: '接口',
         desc: '界面、网络、数据、weex端扩展能力',
-        url: '/pages/api/api'
+        url: '/pages/api/index'
       }, {
         icon: require(`../../assets/images/home/home-api.png`),
         title: '实例',
         desc: '网易严选等更多实例',
-        url: '/pages/demo/demo'
+        url: '/pages/demo/index'
       }],
       homeLogo: require(`../../assets/images/home/home-chameleon.png`),
       arrowRight: require(`../../assets/images/home/arrow-right.png`)
@@ -99,7 +99,7 @@
 
   .content-item {
     height: 280cpx;
-    background: #FFFFFF;
+    background-color: #FFFFFF;
     box-shadow: 0 2cpx 16cpx 0 rgba(146, 167, 215, 0.12);
     border-radius: 4cpx;
     background-color: white;

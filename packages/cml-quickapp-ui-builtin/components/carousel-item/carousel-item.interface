@@ -1,2 +1,0 @@
-<include src="chameleon-ui-builtin/components/carousel-item/carousel-item.interface"></include>
-<script cml-type="quickapp" src="./carousel-item.quickapp.cml"></script>

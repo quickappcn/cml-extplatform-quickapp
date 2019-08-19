@@ -1,19 +1,23 @@
+const { isDivComp, isBlockCom } = require('../util')
+
 module.exports = function(context) {
     let { tagName, node } = context;
+    let newtagName = ''
     // origin-tag原生组件替换
     if(/^origin\-/.test(tagName)) {
-      let newtagName = tagName.replace(/^origin\-/,'');
-      node.openingElement.name.name = newtagName;
-      node.closingElement.name.name = newtagName;
+      newtagName = tagName.replace(/^origin\-/,'');
     }
     // 部分组件替换
-    if(tagName === 'cover-view' || tagName === 'view' || tagName === 'scroller') {
-      let newtagName = 'div';
-      node.openingElement.name.name = newtagName;
-      node.closingElement.name.name = newtagName;
+    if(isDivComp(tagName)) {
+      newtagName = 'div';
+    }
+    if (isBlockCom(tagName)) {
+      newtagName = 'block';
     }
     if(tagName === 'cell') {
-      let newtagName = 'list-item';
+      newtagName = 'list-item';
+    }
+    if (newtagName !== '') {
       node.openingElement.name.name = newtagName;
       node.closingElement.name.name = newtagName;
     }

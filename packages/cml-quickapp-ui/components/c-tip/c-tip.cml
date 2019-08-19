@@ -1,15 +1,17 @@
 <template>
-  <view class="tip" c-if="{{show}}" style="{{tipStyle}}">
-    <c-tip-angle direction="{{direction}}" angle-style="{{angleStyle}}" angle-img="{{angleImg}}"></c-tip-angle>
-    <view class="tip-wrap">
-      <view class="tip-close" c-bind:tap="closeTap">
-        <image src="{{closeUrl}}" style="width:24px;height:24px;" />
-      </view>
-      <view class="tip-content">
-        <slot></slot>
+  <block>
+    <view class="tip" c-if="{{show}}" style="{{tipStyle}}">
+      <c-tip-angle direction="{{direction}}" angle-style="{{angleStyle}}" angle-img="{{angleImg}}"></c-tip-angle>
+      <view class="tip-wrap">
+        <view class="tip-close" c-bind:tap="closeTap">
+          <image src="{{closeUrl}}" style="width:24px;height:24px;" />
+        </view>
+        <view class="tip-content">
+          <slot></slot>
+        </view>
       </view>
     </view>
-  </view>
+  </block>
 </template>
 <script>
   class CTip implements CTipInterface {
@@ -166,7 +168,7 @@
   @tip-color: rgba(74, 76, 91, 0.8);
 
   .tip {
-    position: absolute;
+    /* position: absolute; */
     display: flex;
     align-items: center;
   }

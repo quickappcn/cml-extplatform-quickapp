@@ -48,7 +48,7 @@ export default new Classlist();
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0 20cpx;
-    background: #ffecdd;
+    background-color: #ffecdd;
   }
   .classList-item {
     width: 110cpx;

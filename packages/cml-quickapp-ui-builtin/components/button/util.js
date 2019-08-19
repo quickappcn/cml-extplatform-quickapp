@@ -1,5 +1,4 @@
 export function transCls(base, ctx) {
-  // cml-view cml-btn
   const { type, disabled, size, hover, hasWidth} = ctx;
 
   let classList = [base]
