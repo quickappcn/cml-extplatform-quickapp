@@ -20,7 +20,7 @@
     methods = {
       change() {
         cml.navigateTo({
-          "path": "/pages/demo/yanxuan/pages/list/list"
+          "path": "/pages/demo/yanxuan/pages/list/index"
         });
       }
     }
