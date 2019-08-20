@@ -11,7 +11,7 @@
       <text class="tip-btn" c-bind:tap="showTip1">Show tip</text>
     </view>
 
-    <view style="align-items: center">
+    <view style="align-items: center;padding: 100cpx 0;position: relative;" >
       <view style="{{tipStyle}}">
         <c-tip show="{{showtip2}}" direction="{{direction}}" c-bind:close="closeTip2">
           <text style="color: #fff">Awesome!</text>

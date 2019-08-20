@@ -1,6 +1,6 @@
 <template>
   <view class="map">
-    <map></map>
+    <_map></_map>
   </view>
 </template>
 
@@ -21,7 +21,7 @@ export default new Map();
 {
   "base": {
     "usingComponents": {
-        "map": "../../components/map/map"
+        "_map": "../../components/map/map"
     }
   },
   "wx": {

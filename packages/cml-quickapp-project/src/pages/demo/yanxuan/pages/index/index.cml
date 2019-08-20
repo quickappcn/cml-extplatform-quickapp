@@ -7,7 +7,7 @@
     </view>
 
     <view class="footer-zhanwei">
-      <c-tabbar c-model="{{currentCom}}" tabbar="{{tabbar}}" c-bind:input="xxx"></c-tabbar>
+      <c-tabbar c-model="{{currentCom}}" tabbar="{{tabbar}}" c-bind:input="toggleTab"></c-tabbar>
     </view>
   </page>
 </template>
@@ -68,19 +68,19 @@
       }
     }
     methods = {
-      xxx(e) {
+      toggleTab(e) {
         this.currentCom = e.detail.value
       }
     }
 
-    created() {
-      const {
-        special,
-        disscountPriceImgUrl
-      } = homePageData.data;
-      this.special = special;
-      this.disscountPriceImgUrl = disscountPriceImgUrl;
-    }
+    // created() {
+    //   const {
+    //     special,
+    //     disscountPriceImgUrl
+    //   } = homePageData.data;
+    //   this.special = special;
+    //   this.disscountPriceImgUrl = disscountPriceImgUrl;
+    // }
 
     mounted() {
       cml.getSystemInfo().then((info) => {

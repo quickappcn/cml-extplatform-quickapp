@@ -45,7 +45,7 @@
           <text class="coupon-get">去领取</text>
         </view>
         <view class="map">
-          <map></map>
+          <_map></_map>
         </view>
       </myscroller>
     </view>
@@ -280,7 +280,7 @@
     "base": {
       "usingComponents": {
         "myscroller": "./myscroller/myscroller",
-        "map": "../../components/map/map"
+        "_map": "../../components/map/map"
       },
       "navigationBarTitleText": "详情页",
       "backgroundTextStyle": "dark",
