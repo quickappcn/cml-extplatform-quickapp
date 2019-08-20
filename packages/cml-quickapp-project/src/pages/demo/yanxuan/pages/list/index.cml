@@ -1,16 +1,11 @@
 <template>
   <page title="列表">
     <view class="container">
-      <scroller
-        scroll-direction="{{scrollDirection}}"
-        bottom-offset="{{bottomOffset}}"
-        c-bind:scrolltobottom="onBottom"
-        c-bind:customscroll="onScroll"
-        height="{{-1}}"
-      >
+      <scroller scroll-direction="{{scrollDirection}}" bottom-offset="{{bottomOffset}}" c-bind:scrolltobottom="onBottom"
+        c-bind:customscroll="onScroll" height="{{-1}}">
         <view>
           <view class="bannerImg">
-            <image src="{{topImg}}" class="topImg"/>
+            <image src="{{topImg}}" class="topImg" />
           </view>
           <view class="scroll-content">
             <view class="scroll-content-title">
@@ -22,16 +17,10 @@
 
             <view class="scroll-content-list">
 
-              <view
-                class="scroll-content-list-item"
-                c-for="{{list}}"
-                c-for-index="i"
-                c-for-item="item"
-                c-bind:tap="change"
-                data-idx="{{i}}"
-              >
+              <view class="scroll-content-list-item" c-for="{{list}}" c-for-index="i" c-for-item="item"
+                c-bind:tap="change" data-idx="{{i}}">
                 <view class="scroll-content-list-item-content">
-                  <image src="{{item.imgUrl}}" class="scroll-content-list-item-content-img"/>
+                  <image src="{{item.imgUrl}}" class="scroll-content-list-item-content-img" />
                   <view class="scroll-content-list-item-content-des">
                     <text class="des">{{item.des}}</text>
                   </view>
@@ -48,9 +37,9 @@
         <view class="no-more-text" c-if="{{ page >= sumPage }}">
           <text>没有更多了</text>
         </view>
-          <view c-else class="loading-text" style="{{ loadingTextStyle }}">
-            <text>加载中...</text>
-          </view>
+        <view c-else class="loading-text" style="{{ loadingTextStyle }}">
+          <text>加载中...</text>
+        </view>
       </scroller>
     </view>
   </page>
@@ -91,7 +80,10 @@
 
       },
       getData() {
-        const {topImgUrl, list} = listData.data;
+        const {
+          topImgUrl,
+          list
+        } = listData.data;
         this.list = [...this.list, ...list];
         this.topImg = topImgUrl;
         this.page = this.page + 1;
@@ -122,7 +114,8 @@
     height: 370cpx;
   }
 
-  .scroll-content-title, .scroll-content-des {
+  .scroll-content-title,
+  .scroll-content-des {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -231,7 +224,7 @@
 <script cml-type="json">
   {
     "base": {
-      "usingComponents":{
+      "usingComponents": {
         "c-refresh": "cml-quickapp-ui/components/c-refresh/c-refresh"
       },
       "navigationBarTitleText": "列表",
