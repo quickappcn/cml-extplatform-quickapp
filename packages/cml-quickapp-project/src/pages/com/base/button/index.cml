@@ -40,9 +40,9 @@
         </button>
       </view>
 
-      <view class="section-title">
+      <!-- <view class="section-title">
         <text class="section-title-text">尺寸</text>
-      </view>
+      </view> -->
       <view class="button-list" style="align-items: center">
         <text class="button-text">big</text>
         <button text="确定" c-bind:onclick='testclick' ></button>

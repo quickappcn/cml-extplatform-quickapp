@@ -22,7 +22,7 @@
       },
       size: {
         type: String,
-        default: "stretch"
+        default: "auto"
       },
       width: {
         type: Number,
@@ -264,12 +264,12 @@
     height: 44cpx;
   }
 
+  .cml-btn-auto {
+    align-self: auto;
+  }
+  
   .cml-btn-stretch {
     align-self: stretch;
-  }
-
-  .cml-btn-auto {
-    align-self: flex-start;
   }
 
   .btn-text {
