@@ -1,7 +1,7 @@
 <template>
-<view class="c-aside" style="{{mergeAsideStyle}}">
+<div class="c-aside" style="{{mergeAsideStyle}}">
   <slot></slot>
-</view>
+</div>
 </template>
 <script>
 class CAside implements AsideInterface {

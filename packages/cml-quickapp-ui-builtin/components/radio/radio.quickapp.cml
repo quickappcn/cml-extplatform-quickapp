@@ -1,14 +1,14 @@
 <template>
-  <view class="cml-radio">
-    <view class="cml-radio-wrap" c-bind:tap="changeSelect">
+  <div class="cml-radio">
+    <div class="cml-radio-wrap" c-bind:tap="changeSelect">
       <text c-if="{{position === 'right'}}" class="cml-radio-label">{{ label }}</text>
-      <view class="cml-radio-select" style="{{ radioStyle }}">
-        <view class="{{ radioClass }}" style="{{ radioInnerStyle }}">
-        </view>
-      </view>
+      <div class="cml-radio-select" style="{{ radioStyle }}">
+        <div class="{{ radioClass }}" style="{{ radioInnerStyle }}">
+        </div>
+      </div>
       <text c-if="{{position === 'left'}}" class="cml-radio-label">{{ label }}</text>
-    </view>
-  </view>
+    </div>
+  </div>
 </template>
 <script>
   class Radio implements RadioInterface {

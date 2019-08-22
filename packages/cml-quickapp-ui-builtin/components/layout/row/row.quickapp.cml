@@ -1,12 +1,12 @@
 <template>
-  <view class="{{ rowClass }}" style="{{ rowStyle }}">
+  <div class="{{ rowClass }}" style="{{ rowStyle }}">
     <slot></slot>
-  </view>
+  </div>
 </template>
 <script>
   class CRow implements RowInterface {
     props = {
-      // start/end/center/space-around/space-between
+      // start/end/center/space-around/space-between justify: {
       justify: {
         type: String,
         default: 'center'

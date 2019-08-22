@@ -1,9 +1,9 @@
 <template>
-  <view class="{{btnClasses}}" style="{{mrBtnStyle}}" onclick="clickHandler" ontouchstart="touchstart"
+  <div class="{{btnClasses}}" style="{{mrBtnStyle}}" onclick="clickHandler" ontouchstart="touchstart"
     ontouchend="touchend">
     <text c-if="{{text}}" class="{{textClasses}}" style="{{mrTextStyle}}">{{text}}</text>
     <block c-else></block>
-  </view>
+  </div>
 </template>
 
 <script>
@@ -98,7 +98,7 @@
         return this.width !== -1
       },
       btnClasses() {
-        return transCls('cml-view cml-btn', this)
+        return transCls('cml-btn', this)
       },
       textClasses() {
         return transCls('btn-text', this)

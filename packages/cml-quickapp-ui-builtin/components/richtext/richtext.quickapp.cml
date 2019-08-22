@@ -1,11 +1,11 @@
 <template>
-  <view class="rich-text">
+  <div class="rich-text">
     <text for="{{richList}}" style="{{$item.style}}">{{$item.text}}</text>
-  </view>
+  </div>
 </template>
 <script>
-import richHandle from './richHandle.js';
- class Richtext implements RichtextInterface {
+  import richHandle from './richHandle.js';
+  class Richtext implements RichtextInterface {
     props = {
       richData: {
         type: Object,
@@ -44,20 +44,19 @@ import richHandle from './richHandle.js';
   }
 
   export default new Richtext();
-
 </script>
 
 <style scoped>
-.rich-text { 
-  display: flex;
-  flex-direction: row;
-}
+  .rich-text {
+    display: flex;
+    flex-direction: row;
+  }
 </style>
 
 <script cml-type="json">
-{
-  "web": {
-    "component": true
+  {
+    "web": {
+      "component": true
+    }
   }
-}
 </script>

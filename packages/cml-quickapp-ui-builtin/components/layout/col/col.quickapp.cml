@@ -1,7 +1,7 @@
 <template>
-<view class="flex-item" style="{{ colStyle }}">
+<div class="flex-item" style="{{ colStyle }}">
   <slot></slot>
-</view>
+</div>
 </template>
 <script>
   class CCol implements ColInterface   {
