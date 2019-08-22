@@ -19,10 +19,10 @@
       </view>
       <text style="padding: 10px;border: 1px solid #fc9153;border-radius: 4px;color: #fc9153;font-size: 24px;" c-bind:tap="showTip2">chameleon-ui</text>
     </view>
-    <button c-bind:onclick="showTip2Top" text="top"></button>
-    <button c-bind:onclick="showTip2Bottom" text="bottom"></button>
-    <button c-bind:onclick="showTip2Left" text="left"></button>
-    <button c-bind:onclick="showTip2Right" text="right"></button>
+    <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showTip2Top" text="top"></button>
+    <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showTip2Bottom" text="bottom"></button>
+    <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showTip2Left" text="left"></button>
+    <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showTip2Right" text="right"></button>
   </page>
 </template>
 <script>

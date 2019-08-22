@@ -2,13 +2,13 @@
   <page title="c-toast演示">
     <view class="container">
       <c-header title="c-toast"></c-header>
-      <c-toast duration="{{duration}}" show="{{show}}" c-bind:show="changeShow" message="{{message}}" type="{{type}}"
+      <c-toast duration="{{duration}}" show="{{show}}" btn-style="margin-top: 20px;align-self: center"  c-bind:show="changeShow" message="{{message}}" type="{{type}}"
         need-icon="{{needIcon}}" mask="{{mask}}"></c-toast>
-      <button c-bind:onclick="showLoading" text="loading toast"></button>
-      <button c-bind:onclick="showMask" text="loading toast with mask"></button>
-      <button c-bind:onclick="showSuccess" text="success toast"></button>
-      <button c-bind:onclick="showWarn" text="warn toast"></button>
-      <button c-bind:onclick="showWithout" text="toast without icon"></button>
+      <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showLoading" text="loading toast"></button>
+      <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showMask" text="loading toast with mask"></button>
+      <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showSuccess" text="success toast"></button>
+      <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showWarn" text="warn toast"></button>
+      <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showWithout" text="toast without icon"></button>
     </view>
   </page>
 </template>

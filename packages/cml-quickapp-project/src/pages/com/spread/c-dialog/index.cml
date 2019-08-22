@@ -20,9 +20,9 @@
       <text class="custom-content">自定义内容</text>
       <text class="custom-footer" slot="footer">自定义底部</text>
     </c-dialog> -->
-    <button c-bind:onclick="showAlert" text="alert dialog"></button>
-    <button c-bind:onclick="showConfirm" text="confirm dialog"></button>
-    <button c-bind:onclick="showCloseIcon" text="show close dialog"></button>
+    <button btn-style="margin-top: 20px;align-self: center" c-bind:onclick="showAlert"  text="alert dialog"></button>
+    <button btn-style="margin-top: 20px;align-self: center" c-bind:onclick="showConfirm"  text="confirm dialog"></button>
+    <button btn-style="margin-top: 20px;align-self: center" c-bind:onclick="showCloseIcon"  text="show close dialog"></button>
     <!-- <c-button c-bind:onclick="showCustom" text="show custom dialog"></c-button> -->
   </view>
 </page>

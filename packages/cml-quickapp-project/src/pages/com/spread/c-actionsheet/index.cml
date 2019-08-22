@@ -1,9 +1,9 @@
 <template>
 <page title="c-actionsheet演示">
   <c-header title="c-actionsheet"></c-header>
-  <button c-bind:onclick="showActionSheet" text="ActionSheet"></button>
-  <button c-bind:onclick="showActionSheetActive" text="ActionSheet - active"></button>
-  <button c-bind:onclick="showActionSheetPicker" text="ActionSheet - pickerStyle"></button>
+  <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showActionSheet" text="ActionSheet"></button>
+  <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showActionSheetActive" text="ActionSheet - active"></button>
+  <button btn-style="margin-top: 20px;align-self: center"  c-bind:onclick="showActionSheetPicker" text="ActionSheet - pickerStyle"></button>
   <c-actionsheet
       show="{{actionShow}}"
       title="{{title}}"
