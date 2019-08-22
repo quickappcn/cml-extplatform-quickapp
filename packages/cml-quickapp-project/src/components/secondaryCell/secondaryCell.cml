@@ -5,8 +5,7 @@
     <view class="btn-group" c-for="{{list}}" c-for-item="cellInfo">
       <text class="btn-tip">{{cellInfo.title}}</text>
       <button size="none" type="blue" text="{{cellInfo.btnText}}"
-        btn-style="height:100cpx;width:658cpx;margin: 24cpx 0 30cpx;" data-index="{{index}}"
-        c-bind:onclick="onBtnClick(index)"></button>
+        btn-style="height:100px;width:658px;margin-top: 24px;margin-bottom:30px" c-bind:onclick="onBtnClick(index)"></button>
     </view>
   </view>
 </template>
@@ -14,7 +13,7 @@
 <style scoped>
   .secondary-cell {
     background-color: white;
-    padding: 40cpx 46cpx 70cpx;
+    padding: 40px 46cpx 70cpx;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

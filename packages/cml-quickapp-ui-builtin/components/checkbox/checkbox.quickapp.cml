@@ -1,15 +1,15 @@
 <template>
-<view class="cml-checkbox">
-  <view class="cml-checkbox-wrap" c-bind:tap="changeCheck">
+<div class="cml-checkbox">
+  <div class="cml-checkbox-wrap" c-bind:tap="changeCheck">
     <text c-if="{{position === 'right'}}" class="cml-checkbox-label" >{{ label }}</text>
-    <view class="cml-checkbox-check" style="{{ checkStyle }}">
-      <view class="{{ checkClass }}">
+    <div class="cml-checkbox-check" style="{{ checkStyle }}">
+      <div class="{{ checkClass }}">
         <image class="inner-icon" src="{{ checkImg }}" />
-      </view>
-    </view>
+      </div>
+    </div>
     <text c-if="{{position === 'left'}}" class="cml-checkbox-label" >{{ label }}</text>
-  </view>
-</view>
+  </div>
+</div>
 </template>
 <script>
 class Checkbox implements CheckboxInterface   {

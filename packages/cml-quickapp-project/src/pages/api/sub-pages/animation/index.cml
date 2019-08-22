@@ -55,6 +55,9 @@
     }
     methods = {
       rotate() {
+        cml.showToast({
+          message: '正在努力适配中，请耐心等候'
+        })
         return;
         let animationCreation = animation;
         while (this.current_rotate !== 360) {
@@ -71,6 +74,9 @@
         this.current_rotate = 0
       },
       scale() {
+        cml.showToast({
+          message: '正在努力适配中，请耐心等候'
+        })
         return;
         this.current_scale = this.current_scale === 2 ? 1 : 2
         this.animationData = animation
@@ -83,6 +89,9 @@
           .export()
       },
       translate() {
+        cml.showToast({
+          message: '正在努力适配中，请耐心等候'
+        })
         return;
         this.current_translate = this.current_translate === 50 ? -50 : 50;
         this.animationData = animation
@@ -95,6 +104,9 @@
           .export()
       },
       transform() {
+        cml.showToast({
+          message: '正在努力适配中，请耐心等候'
+        })
         return;
         this.current_transform = this.current_transform[0] === 0 ? [45, 1.2] : [0, 1];
         this.animationData = animation
@@ -115,6 +127,9 @@
           .export()
       },
       backgroundColor() {
+        cml.showToast({
+          message: '正在努力适配中，请耐心等候'
+        })
         return;
         this.current_color = this.current_color === '#F0AD4E' ? '#D9534F' : '#F0AD4E';
         this.animationData = animation
@@ -127,6 +142,9 @@
           .export()
       },
       opacity() {
+        cml.showToast({
+          message: '正在努力适配中，请耐心等候'
+        })
         return;
 
         this.current_opacity = this.current_opacity === 1 ? 0.1 : 1;
@@ -140,6 +158,9 @@
           .export()
       },
       width() {
+        cml.showToast({
+          message: '正在努力适配中，请耐心等候'
+        })
         return;
 
         this.current_width = this.current_width === 250 ? 125 : 250;
@@ -153,6 +174,9 @@
           .export()
       },
       height() {
+        cml.showToast({
+          message: '正在努力适配中，请耐心等候'
+        })
         return;
 
         this.current_height = this.current_height === 250 ? 125 : 250;
@@ -167,6 +191,9 @@
           .export()
       },
       composite() {
+        cml.showToast({
+          message: '正在努力适配中，请耐心等候'
+        })
         return;
 
         this.current_transform = this.current_transform[0] === 0 ? [45, 1.5] : [0, 1];

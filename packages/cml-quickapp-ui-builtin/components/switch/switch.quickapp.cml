@@ -1,13 +1,13 @@
 <template>
-  <view class="cml-switch">
-    <view class="cml-switch-wrap" c-bind:tap="changeSwitch">
-      <view class="cml-switch-icon" style="{{ switchStyle }}">
-        <view class="inner-icon {{switchClass}}" style="{{ innerStyle }}">
-        </view>
-      </view>
+  <div class="cml-switch">
+    <div class="cml-switch-wrap" c-bind:tap="changeSwitch">
+      <div class="cml-switch-icon" style="{{ switchStyle }}">
+        <div class="inner-icon {{switchClass}}" style="{{ innerStyle }}">
+        </div>
+      </div>
       <text class="cml-switch-label">{{ label }}</text>
-    </view>
-  </view>
+    </div>
+  </div>
 </template>
 <script>
   class Switch implements SwitchInterface {
