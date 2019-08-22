@@ -1,6 +1,6 @@
 <template>
-  <!--<div class="picker-content" style="contentHeight">-->
   <div class="picker-content" style="height: {{height}}px;">
+    <div class="indicator" style="top: {{height / 2 - 36}}"></div>
     <list class="picker-list" onscroll="onListScroll" id="picker-list">
       <block for="{{list}}">
         <list-item type="first">
@@ -14,6 +14,7 @@
   import {
     cmlStyleTransfer
   } from '../../assets/js/utils'
+  const PICKER_ITEM_HEIGHT = 72
   class CPickerItem implements CPickerItemInterface {
     props = {
       list: {
@@ -49,19 +50,14 @@
       computedItemStyle() {
         return cmlStyleTransfer(`${this.itemStyle};`);
       },
-      contentHeight() {
-        return cmlStyleTransfer(`height: ${this.height}px;`);
-      }
-
     }
     methods = {
-
       onListScroll(obj) {
         this.scrollY.first += obj.scrollY;
         if (this.scrollY.first < 0) {
           this.scrollY.first = 0;
         }
-        const index = Math.round(this.scrollY.first / 56);
+        const index = Math.round(this.scrollY.first / PICKER_ITEM_HEIGHT);
         this.selectedIndex.first = index;
         this.$cmlEmit("selectchange", {
           index: this.selectedIndex.first
@@ -74,7 +70,6 @@
         } else {
           return "item-normal-" + this.textAlign
         }
-
       }
     }
     mounted() {
@@ -82,12 +77,12 @@
         index: this.defaultIndex
       })
       // 支持滑动到底部，黑科技
-      let size = Math.floor(this.height / 56) - 1;
+      let size = Math.floor(this.height / PICKER_ITEM_HEIGHT) - 1;
       if (size <= 0) {
         return;
       }
-      let empty = new Array(size);
-      for (let i = 0; i < size; i++) {
+      let empty = new Array(size - 1);
+      for (let i = 0; i < size - 1; i++) {
         empty[i] = "";
       }
       this.list = this.list.concat(empty);
@@ -100,13 +95,16 @@
 <style scoped>
   .picker-content {
     width: 100%;
-    margin-top: 59cpx;
-    margin-bottom: 59cpx;
-    padding-left: 60cpx;
-    padding-right: 60cpx;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    position: relative;
+    padding-top: 108cpx;
+  }
+
+  .indicator {
+    position: absolute;
+    width: 100%;
+    height: 72cpx;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
   }
 
   .picker-list {
@@ -115,7 +113,7 @@
 
   .item-select-left {
     width: 100%;
-    height: 56cpx;
+    height: 72cpx;
     font-size: 40cpx;
     color: #333333;
     padding: 11cpx;
@@ -124,7 +122,7 @@
 
   .item-select-center {
     width: 100%;
-    height: 56cpx;
+    height: 72cpx;
     font-size: 40cpx;
     color: #333333;
     padding: 11cpx;
@@ -133,7 +131,7 @@
 
   .item-select-right {
     width: 100%;
-    height: 56cpx;
+    height: 72cpx;
     font-size: 40cpx;
     color: #333333;
     padding: 11cpx;
@@ -142,7 +140,7 @@
 
   .item-normal-left {
     width: 100%;
-    height: 56cpx;
+    height: 72cpx;
     font-size: 36cpx;
     color: #999999;
     padding: 11cpx;
@@ -151,7 +149,7 @@
 
   .item-normal-center {
     width: 100%;
-    height: 56cpx;
+    height: 72cpx;
     font-size: 36cpx;
     color: #999999;
     padding: 11cpx;
@@ -160,7 +158,7 @@
 
   .item-normal-right {
     width: 100%;
-    height: 56cpx;
+    height: 72cpx;
     font-size: 36cpx;
     color: #999999;
     padding: 11cpx;
