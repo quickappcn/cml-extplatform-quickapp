@@ -1,6 +1,6 @@
 <template>
-  <origin-textarea style="border: 1px solid #999;border-radius: 4px;padding: 10px;color:rgba(0, 0, 0, 0.87);font-size:37.5px;placeholder-color:rgba(0, 0, 0, 0.38);{{cstyle || cStyle}}" value="{{inputValue}}" placeholder="{{placeholder}}" disabled="{{disabled}}"
-    maxlength="{{maxlength}}" rows="{{rows}}" focus="{{focus}}" @blur="blurEvent" @focus="focusEvent"
+  <origin-textarea style="height: {{75 * rows}}px;border: 1px solid #999;border-radius: 4px;padding: 10px;placeholder-color:{{placerHolderColor}};{{cStyle}}" value="{{inputValue}}" placeholder="{{placeholder}}" disabled="{{disabled}}"
+    maxlength="{{maxlength}}" @blur="blurEvent" @focus="focusEvent"
     @change="confirmEvent"></origin-textarea>
 </template>
 <script>
@@ -73,6 +73,9 @@
       value: function (newVal, oldVal) {
         this.inputValue = newVal;
       }
+    }
+    mounted() {
+      console.log('#### cStyle = ', this.cStyle)
     }
     methods = {
       inputEvent(e) {
