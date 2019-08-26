@@ -1,172 +1,156 @@
 <template>
-<div class="cml-checkbox">
-  <div class="cml-checkbox-wrap" c-bind:tap="changeCheck">
-    <text c-if="{{position === 'right'}}" class="cml-checkbox-label" >{{ label }}</text>
-    <div class="cml-checkbox-check" style="{{ checkStyle }}">
-      <div class="{{ checkClass }}">
-        <image class="inner-icon" src="{{ checkImg }}" />
+  <div class="cml-checkbox">
+    <div class="cml-checkbox-wrap" c-bind:tap="changeCheck">
+      <text c-if="{{position === 'right'}}" class="cml-checkbox-label">{{ label }}</text>
+      <div class="cml-checkbox-check" style="{{ checkStyle }}">
+        <div class="{{ checkClass }}">
+          <image class="inner-icon" src="{{ checkImg }}" />
+        </div>
       </div>
+      <text c-if="{{position === 'left'}}" class="cml-checkbox-label">{{ label }}</text>
     </div>
-    <text c-if="{{position === 'left'}}" class="cml-checkbox-label" >{{ label }}</text>
   </div>
-</div>
 </template>
 <script>
-class Checkbox implements CheckboxInterface   {
-  props = {
-    checked: {
-      type: Boolean,
-      default: false
-    },
-    label: {
-      type: String,
-      default: ''
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    position: {
-      type: String,
-      default: 'left'
-    },
-    groupIndex: {
-      type: Number,
-      default: -1
-    },
-    checkedIcon: {
-      type: String,
-      default: ''
-    },
-    uncheckIcon: {
-      type: String,
-      default: ''
-    },
-    cstyle: {
-      type: String,
-      default: ''
+  class Checkbox implements CheckboxInterface {
+    props = {
+      checked: {
+        type: Boolean,
+        default: false
+      },
+      label: {
+        type: String,
+        default: ''
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      position: {
+        type: String,
+        default: 'left'
+      },
+      groupIndex: {
+        type: Number,
+        default: -1
+      },
+      checkedIcon: {
+        type: String,
+        default: ''
+      },
+      uncheckIcon: {
+        type: String,
+        default: ''
+      },
+      cstyle: {
+        type: String,
+        default: ''
+      }
     }
-  }
-  data = {
-    checkedImg: require('./images/selected.png'),
-    uncheckImg: require('./images/unselected.png'),
-    innerChecked: false
-  }
-
-  computed = {
-    checkStyle () {
-      let style = '';
-      if (this.disabled) {
-        style += 'opacity:0.5;'
-      }
-      if (this.position == 'left') {
-        style += 'margin-right:13px;'
-      } else {
-        style += 'margin-left:13px;'
-      }
-      return style;
-    },
-    checkImg () {
-      return this.innerChecked? this.checkedImg: this.uncheckImg;
-    },
-    checkClass () {
-      if (this.disabled) {
-        return  'cml-checkbox-disabled'
-      }
-      return this.innerChecked? 'cml-checkbox-checked': 'cml-checkbox-uncheck';
-    },
-    innerChecked() {
-      return this.checked
+    data = {
+      checkedImg: require('./images/selected.png'),
+      uncheckImg: require('./images/unselected.png'),
+      innerChecked: false
     }
-  }
 
-  watch  = {
-    checked(newChecked) {
-      this.innerChecked = newChecked;
-    },
-    uncheckIcon() {
-      this.initImg();
-    },
-    checkedIcon() {
-      this.initImg();
+    computed = {
+      checkStyle() {
+        let style = '';
+        if (this.disabled) {
+          style += 'opacity:0.5;'
+        }
+        if (this.position == 'left') {
+          style += 'margin-right:13px;'
+        } else {
+          style += 'margin-left:13px;'
+        }
+        return style;
+      },
+      checkImg() {
+        return this.checked ? this.checkedImg : this.uncheckImg;
+      },
+      checkClass() {
+        if (this.disabled) {
+          return 'cml-checkbox-disabled'
+        }
+        return this.checked ? 'cml-checkbox-checked' : 'cml-checkbox-uncheck';
+      },
     }
-  }
 
-  methods = {
-    changeCheck () {
-      if (this.disabled) return;
-      this.innerChecked = !this.innerChecked
-      let value = {
-        value: this.innerChecked,
-        index: this.groupIndex
+    methods = {
+      changeCheck() {
+        if (this.disabled) return;
+        this.checked = !this.checked
+        let value = {
+          value: this.checked,
+          index: this.groupIndex
+        }
+        this.$cmlEmit('change', value);
+      },
+      initImg() {
+        if (this.uncheckIcon) {
+          this.uncheckImg = this.uncheckIcon;
+        }
+        if (this.checkedIcon) {
+          this.checkedImg = this.checkedIcon;
+        }
       }
-      this.$cmlEmit('change', value);
-    },
-    initImg() {
-      if (this.uncheckIcon) {
-        this.uncheckImg = this.uncheckIcon;
-      }
-      if (this.checkedIcon) {
-        this.checkedImg = this.checkedIcon;
-      }
+    }
+
+    mounted() {
+      this.initImg()
     }
   }
 
-  created() {
-    let { checked } = this
-    this.innerChecked = checked
-  }
-
-  mounted() {
-    this.initImg()
-  }
-}
-
-export default new Checkbox();
+  export default new Checkbox();
 </script>
 <style scoped>
-.cml-checkbox {
-  margin: 10cpx;
-}
-.cml-checkbox-wrap {
-  padding:11cpx 0;
-  word-break: break-word;
-  word-wrap: break-word;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  line-height: 1.5;
-  position: relative;
-}
-.cml-checkbox-checked {
-  width:32cpx;
-  height:32cpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.cml-checkbox-uncheck {
-  width:32cpx;
-  height:32cpx;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
+  .cml-checkbox {
+    margin: 10cpx;
+  }
 
-.cml-checkbox-label {
-  color:#666;
-  font-weight: 400;
-  font-size: 32cpx;
-}
-.inner-icon {
-  width:32cpx;
-  height:32cpx;
-}
+  .cml-checkbox-wrap {
+    padding: 11cpx 0;
+    word-break: break-word;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    line-height: 1.5;
+    position: relative;
+  }
+
+  .cml-checkbox-checked {
+    width: 32cpx;
+    height: 32cpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cml-checkbox-uncheck {
+    width: 32cpx;
+    height: 32cpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cml-checkbox-label {
+    color: #666;
+    font-weight: 400;
+    font-size: 32cpx;
+  }
+
+  .inner-icon {
+    width: 32cpx;
+    height: 32cpx;
+  }
 </style>
 <script cml-type="json">
-{
-  "base": {
-    "component": true
+  {
+    "base": {
+      "component": true
+    }
   }
-}
 </script>
