@@ -4,7 +4,13 @@
   "routes":[
     {
       "url": "test",
-      "path": "/pages/test/test",
+      "path": "/pages/test/index",
+      "name": "首页",
+      "mock": "index.php"
+    },
+    {
+      "url": "index",
+      "path": "/pages/index/index",
       "name": "首页",
       "mock": "index.php"
     }

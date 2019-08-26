@@ -1,0 +1,51 @@
+<template>
+  <view class="wrap">
+    <view class="event" c-bind:tap="handleElementTap"><text>无参数</text></view>
+    <view class="event" c-bind:tap="handleElementTap()"><text>空参数()</text></view>
+    <view class="event" c-bind:tap="handleElementTap(1, 2, 3)"><text>不带$event参数</text></view>
+    <view class="event" c-bind:tap="handleElementTap(1, 2, $event, 3, 'message' + message )">
+      <text>带$event参数</text>
+    </view>
+    <view class="event" c-bind:tap="triggerCustomEvent"><text>触发自定义事件</text></view>
+    <text>c-model: {{message}}</text>
+    <input c-model="{{message}}"></input>
+  </view>
+</template>
+
+<style>
+  .wrap {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .event {
+    border: 1cpx solid blue;
+    margin: 20cpx 0;
+    padding: 20cpx;
+    justify-content: center;
+    width: 100%;
+    border-radius: 5cpx;
+  }
+</style>
+
+<script>
+  class Test {
+    data = {
+      message: 'hello world'
+    }
+    methods = {
+      handleElementTap() {
+        console.log('##### args = ', [].slice.call(arguments))
+      },
+      triggerCustomEvent() {
+        this.$cmlEmit('myevent', {
+          message: 'hello world'
+        })
+      }
+    }
+  }
+  export default new Test()
+</script>
+<script cml-type="json">
+  {}
+</script>

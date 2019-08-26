@@ -5,7 +5,8 @@
     <view><text>b: {{b}}</text></view>
     <view><text>login.phone: {{login.phone}}</text></view>
     <view><text>message: {{message}}</text></view>
-    <input placeholder="input content" value="{{title}}" c-bind:input="change"></input>
+    <input placeholder="input content" value="{{title}}" c-bind:input="change(1, 'item', false, $event, 'index' + 1234)"></input>
+    <com onmyevent="myEvent"></com>
   </view>
 </template>
 
@@ -57,8 +58,11 @@
     }
     methods = {
       ...mapMutations(['changeLogin']),
-      change(e) {
-        this.title = e.detail.value
+      change(a, b, c, $event) {
+        this.title = $event.detail.value
+      },
+      myEvent() {
+        console.log('#### myevent triggered')
       }
     }
     mounted() {
@@ -98,7 +102,9 @@
 <script cml-type="json">
   {
     "base": {
-      "usingComponents": {},
+      "usingComponents": {
+        "com": "../index/index"
+      },
       "navigationBarTitleText": "Chameleon Demos",
       "backgroundTextStyle": "dark",
       "backgroundColor": "#F0F2F7"

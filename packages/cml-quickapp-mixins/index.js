@@ -2,8 +2,8 @@ const utils = require('./src/utils')
 const wxStyleHandle = require('chameleon-css-loader/proxy/proxyMiniapp.js')
 const _ = module.exports = {};
 _.eventProxyName = '_cmlEventProxy';
-_.modelEventProxyName = '_cmlModelEventProxy';// c-model的事件代理
-_.inlineStatementEventProxy = '_cmlInline';// 内联语句的事件代理
+_.modelEventProxyName = '_cmlModelEventProxy'; // c-model的事件代理
+_.inlineStatementEventProxy = '_cmlInline'; // 内联语句的事件代理
 _.eventEmitName = '$cmlEmit'; // 触发事件的方法
 _.mergeStyleName = '$cmlMergeStyle';
 _.animationProxy = '_animationCb';
@@ -19,7 +19,10 @@ _.mergeStyle = function (...args) {
     let obj = {};
     str.split(';').filter(item => !!item.trim())
       .forEach(item => {
-        let {key, value} = utils.getStyleKeyValue(item);
+        let {
+          key,
+          value
+        } = utils.getStyleKeyValue(item);
         key = key.replace(/\s+/, '')
         value = value.replace(/\s+/, '')
         obj[key] = value
@@ -46,7 +49,7 @@ _.mergeStyle = function (...args) {
 _.trim = function (value) {
   return value.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 };
-_.isReactive = function(value) {
+_.isReactive = function (value) {
   let reg = /(?:^'([^']*?)'$)/;
   return _.trim(value).match(reg);
 }
@@ -54,17 +57,13 @@ _.isReactive = function(value) {
 _.mixins = {
   methods: {
     // 支持事件传参
-    [_.inlineStatementEventProxy](e) {
-      let { dataset } = e.currentTarget || e.target;
-      let eventKey = e.type.toLowerCase();
-      let originFuncName = dataset && dataset[`event${eventKey}`] && dataset[`event${eventKey}`][0];
-      let inlineArgs = dataset && dataset[`event${eventKey}`] && dataset[`event${eventKey}`].slice(1);
+    [_.inlineStatementEventProxy](originFuncName, inlineArgs) {
       let argsArr = [];
       // 由于百度对于 data-arg="" 在dataset.arg = true 值和微信端不一样所以需要重新处理下这部分逻辑
       if (inlineArgs) {
         argsArr = inlineArgs.reduce((result, arg, index) => {
           if (arg === "$event") {
-            let newEvent = utils.getNewEvent(e);
+            let newEvent = utils.getNewEvent(arguments[arguments.length - 1]);
             result.push(newEvent);
           } else {
             result.push(arg)
@@ -79,29 +78,19 @@ _.mixins = {
       }
     },
     [_.modelEventProxyName](e) {
-      let { dataset } = e.currentTarget || e.target;
+      let {
+        dataset
+      } = e.currentTarget || e.target;
       let modelKey = dataset && dataset.modelkey
       if (modelKey) {
-        /* quickapp onchange event is not standard object
-          {
-            name: 'text | email | date | time | number | password',
-            value: '',
-            checked: true | false,
-            text: ''
-          }
-        */
         this[modelKey] = e.value;
       }
 
     },
-    [_.eventProxyName](e) {
-      let { dataset } = e.currentTarget || e.target;
-      let eventKey = e.type.toLowerCase();
-      let originFuncName = dataset && dataset[`event${eventKey}`] && dataset[`event${eventKey}`][0];
-      
+    [_.eventProxyName](originFuncName, inlineArgs) {
       if (originFuncName && this[originFuncName] && _.isType(this[originFuncName], 'Function')) {
-        let newEvent = utils.getNewEvent(e);
-        
+        let newEvent = utils.getNewEvent(arguments[arguments.length - 1]);
+
         this[originFuncName](newEvent)
       } else {
         console.log(`can not find method ${originFuncName}`)
@@ -113,13 +102,18 @@ _.mixins = {
     [_.animationProxy](...args) {
       let animationValue = args[0];
       // animationValue:{cbs:{0:cb0,1:cb1,length:2},index}
-      let animation = this[animationValue];// 引用值
+      let animation = this[animationValue]; // 引用值
       if (!animation) {
-        return ;
+        return;
       }
-      const { cbs, index } = animation;
+      const {
+        cbs,
+        index
+      } = animation;
       // 配合 解决百度端动画bug
-      if (cbs === undefined || index === undefined) {return ;}
+      if (cbs === undefined || index === undefined) {
+        return;
+      }
       let cb = cbs[index];
       if (cb && typeof cb === 'function') {
         cb();
@@ -127,7 +121,7 @@ _.mixins = {
       delete animation.index;
       animation.index = index + 1;
     },
-    [_.eventEmitName]: function(eventKey, detail) {
+    [_.eventEmitName]: function (eventKey, detail) {
       // Todo quickapp only supports this.on(customEvent, callback)
       this.$emit(eventKey, detail)
     },
