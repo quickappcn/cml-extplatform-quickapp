@@ -1,48 +1,50 @@
 <template>
-  <page title="button">
-    <scroller height="{{-1}}">
-      <c-header title="button"></c-header>
-      <view class="section-title">
-        <text class="section-title-text">类型样式</text>
-      </view>
-      <view class="button-list" style="align-items: center">
-        <text class="button-text" style="margin-top: 40cpx;margin-bottom: 16cpx;">default/blue</text>
-        <button text="确定" c-bind:onclick='testclick'></button>
+  <view>
+    <page title="button">
+      <scroller height="{{-1}}">
+        <c-header title="button"></c-header>
+        <view class="section-title">
+          <text class="section-title-text">类型样式</text>
+        </view>
+        <view class="button-list" style="align-items: center">
+          <text class="button-text">default/blue</text>
+          <button text="确定" c-bind:onclick='testclick'></button>
 
-        <text class="button-text" style="margin-top: 40cpx;margin-bottom: 16cpx;">disabled</text>
-        <button type="blue" text="确定" disabled="{{true}}" c-bind:onclick='testclick'>
-        </button>
+          <text class="button-text">disabled</text>
+          <button type="blue" text="确定" disabled="{{true}}" c-bind:onclick='testclick'>
+          </button>
 
-        <text class="button-text" style="margin-top: 40cpx;margin-bottom: 16cpx;">orange</text>
-        <button type="orange" text="确定" c-bind:onclick='testclick'>
-        </button>
+          <text class="button-text">orange</text>
+          <button type="orange" text="确定" c-bind:onclick='testclick'>
+          </button>
 
-        <text class="button-text" style="margin-top: 40cpx;margin-bottom: 16cpx;">red && disabled</text>
-        <button type="red" text="确定" disabled="{{true}}" c-bind:onclick='testclick'>
-        </button>
+          <text class="button-text">red && disabled</text>
+          <button type="red" text="确定" disabled="{{true}}" c-bind:onclick='testclick'>
+          </button>
 
-        <text class="button-text" style="margin-top: 40cpx;margin-bottom: 16cpx;">green</text>
-        <button type="green" text="确定" c-bind:onclick='testclick'>
-        </button>
-      </view>
+          <text class="button-text">green</text>
+          <button type="green" text="确定" c-bind:onclick='testclick'>
+          </button>
+        </view>
 
-      <!-- <view class="section-title">
-        <text class="section-title-text">尺寸</text>
-      </view> -->
-      <view class="button-list" style="align-items: center">
-        <text class="button-text" style="margin-top: 40cpx;margin-bottom: 16cpx;">big</text>
-        <button text="确定" c-bind:onclick='testclick'></button>
+        <view class="section-title">
+          <text class="section-title-text">尺寸</text>
+        </view>
+        <view class="button-list" style="align-items: center">
+          <text class="button-text">big</text>
+          <button text="确定" c-bind:onclick='testclick'></button>
 
-        <text class="button-text" style="margin-top: 40cpx;margin-bottom: 16cpx;">medium</text>
-        <button type="orange" text="确定" size="medium" c-bind:onclick='testclick'>
-        </button>
+          <text class="button-text">medium</text>
+          <button type="orange" text="确定" size="medium" c-bind:onclick='testclick'>
+          </button>
 
-        <text class="button-text" style="margin-top: 40cpx;margin-bottom: 16cpx;">small</text>
-        <button type="red" text="确定" size="small" disabled="{{true}}" c-bind:onclick='testclick'>
-        </button>
-      </view>
-    </scroller>
-  </page>
+          <text class="button-text">small</text>
+          <button type="red" text="确定" size="small" disabled="{{true}}" c-bind:onclick='testclick'>
+          </button>
+        </view>
+      </scroller>
+    </page>
+  </view>
 </template>
 <script>
   import cml from 'cml-quickapp-api'
