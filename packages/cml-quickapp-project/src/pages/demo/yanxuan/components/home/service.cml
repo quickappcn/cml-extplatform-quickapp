@@ -7,17 +7,18 @@
 </template>
 
 <script>
-  class Service {
 
-  }
+class Service {
 
-  export default new Service();
+}
+
+export default new Service();
 </script>
 <style scoped>
-  .service {
+  .service{
     width: 750cpx;
     height: 72cpx;
-    background-color: #ffecdd;
+    background: #ffecdd;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -25,12 +26,11 @@
     align-items: center;
     padding: 0 20cpx;
   }
-
-  .service-item {
+  .service-item{
     color: #B4282D;
     font-size: 28cpx;
   }
 </style>
 <script cml-type="json">
-  {}
+ { }
 </script>

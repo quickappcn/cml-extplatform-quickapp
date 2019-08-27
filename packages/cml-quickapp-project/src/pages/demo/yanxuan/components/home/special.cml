@@ -22,43 +22,37 @@
   import homeData from '../../assets/getHomeImgList.json'
   class Special {
     data = {
-      special: homeData.data.special,
-      disscountPriceImgUrl: homeData.data.disscountPriceImgUrl
+      special: '',
+      disscountPriceImgUrl: ''
     }
     methods = {
       test() {
         cml.navigateTo({
-          "path": "/pages/demo/yanxuan/pages/list/index"
+          "path": "/pages/demo/yanxuan/pages/list/list"
         })
       }
     }
-    // created() {
-    //   const {
-    //     special,
-    //     disscountPriceImgUrl
-    //   } = homeData.data;
-    //   this.special = special;
-    //   this.disscountPriceImgUrl = disscountPriceImgUrl;
-    // }
+    created() {
+      const {special, disscountPriceImgUrl} = homeData.data;
+      this.special = special;
+      this.disscountPriceImgUrl = disscountPriceImgUrl;
+    }
   }
   export default new Special();
 </script>
 <style scoped>
-  .special {
+  .special{
     width: 750cpx;
-    background-color: rgb(226, 179, 128);
+    background: rgb(226, 179, 128);
   }
-
-  .special-door {
-    width: 750cpx;
-    height: 330cpx;
-  }
-
-  .special-door-img {
+  .special-door{
     width: 750cpx;
     height: 330cpx;
   }
-
+  .special-door-img{
+    width: 750cpx;
+    height: 330cpx;
+  }
   .special-info {
     width: 750cpx;
     padding-bottom: 40cpx;
@@ -66,26 +60,21 @@
     flex-direction: row;
     justify-content: flex-start;
   }
-
-  .special-info-left,
-  .special-info-left-img,
-  .special-info-right {
+  .special-info-left, .special-info-left-img,.special-info-right {
     width: 375cpx;
     height: 392cpx;
   }
-
-  .special-info-right {
+  .special-info-right{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-
-  .special-info-right-top,
-  .special-info-right-bottom {
+  .special-info-right-top,.special-info-right-bottom{
     width: 375cpx;
     height: 196cpx;
   }
+
 </style>
 <script cml-type="json">
-  {}
+ { }
 </script>
