@@ -52,7 +52,7 @@
     methods = {
       godetail() {
         cml.navigateTo({
-          "path": "/pages/demo/yanxuan/pages/detail/detail"
+          "path": "/pages/demo/yanxuan/pages/detail/_detail"
         });
       }
     }

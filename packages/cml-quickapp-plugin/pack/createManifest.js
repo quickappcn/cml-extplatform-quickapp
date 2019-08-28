@@ -4,7 +4,6 @@ const path = require('path');
 const cmlUtils = require('chameleon-tool-utils');
 
 module.exports = function(jsonNode, compiler) {
-
   let manifestObj = jsonNode.convert;
   if(manifestObj.pages) {
     delete manifestObj.pages
@@ -23,8 +22,8 @@ module.exports = function(jsonNode, compiler) {
         }
         if(!resultRouter.pages[key]) {
           resultRouter.pages[key] = {
-            component: value,
-            path: key + '/' + value
+            component: '_' + value,
+            path: key + '/' + '_' + value
           };
         }
       }
@@ -42,8 +41,8 @@ module.exports = function(jsonNode, compiler) {
             let value = matches[2];
             if(!resultRouter.pages[key]) {
               resultRouter.pages[key] = {
-                component: value,
-                path: key + '/' + value
+                component: '_' + value,
+                path: key + '/' + '_' + value
               };
             }
           }

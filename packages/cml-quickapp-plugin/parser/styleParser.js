@@ -4,6 +4,9 @@ const weexPlus = require('chameleon-css-loader/postcss/weex-plus.js')
 const fs = require('fs');
 const path = require('path');
 let css = '';
+function replaceBackground(source) {
+  return source.replace(/background\s*\:/g, 'background-color:')
+}
 module.exports = function (source) {
   let isQuickappInjectBaseStyle = cml.config.get().baseStyle.quickapp;
   let options = {
@@ -15,7 +18,7 @@ module.exports = function (source) {
       css = fs.readFileSync(quickAppBaseStylePath, "utf8")
     }
     source = css + '\n' + source
-    return postcss([cpx(options), weexPlus()]).process(source).css;
+    return replaceBackground(postcss([cpx(options), weexPlus()]).process(source).css);
   }
-  return postcss([cpx(options), weexPlus()]).process(source).css;
+  return replaceBackground(postcss([cpx(options), weexPlus()]).process(source).css);
 }

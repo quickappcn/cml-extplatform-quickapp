@@ -23,9 +23,13 @@ import cml from 'cml-quickapp-api';
 import routerConfig from '../../router.config.json'
 let routes = routerConfig.routes;
 
+const makeNewFile = (filePath) => {
+  const sp = filePath.split('/');
+  return sp.slice(0, sp.length - 1).join('/') + '/_' + sp[sp.length - 1]
+}
 let routeObj = {}
 routes.forEach(route => {
-  routeObj[route['name']] = route
+  routeObj[route['name']] = {...route, path: makeNewFile(route.path)}
 })
 
 class Home {

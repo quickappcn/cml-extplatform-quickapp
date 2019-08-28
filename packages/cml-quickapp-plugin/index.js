@@ -1,6 +1,5 @@
 const templateParser = require("./parser/templateParser.js");
 const styleParser = require("./parser/styleParser.js");
-const pkg = require("./package.json");
 const cmlUtils = require("chameleon-tool-utils");
 const path = require("path");
 const copyDefault = require('./pack/copyDefault.js');
@@ -9,6 +8,13 @@ const resolve = require('resolve');
 const fs = require('fs');
 const apiContent = fs.readFileSync(path.join(__dirname, '/api/index.js'), 'utf-8');
 
+const makeNewFile = (filePath) => {
+  // ./xxx ./a/b/c /a/b/c
+  const dirname = path.dirname(filePath);
+  const basename = path.basename(filePath);
+
+  return dirname + '/_' + basename
+}
 module.exports = class QuickAppPlugin {
   constructor(options) {
     let { cmlType, media} = options;
@@ -101,13 +107,13 @@ module.exports = class QuickAppPlugin {
           let targetEntry = cmlUtils.getPureEntryName(componentFiles[key], self.cmlType, cml.projectRoot);
           let sourceEntry = cmlUtils.getPureEntryName(currentNode.realPath, self.cmlType, cml.projectRoot);
           let relativePath = cmlUtils.handleRelativePath(sourceEntry, targetEntry);
-          components += `<import name='${key}' src='${relativePath}'></import>\n`
+          components += `<import name='${key}' src='${makeNewFile(relativePath)}'></import>\n`
         })
         // 记录引入的组件
         currentNode.importComponents = components;
       } else if(uximports) {
         uximports.forEach(item=>{
-          components += `<import name='${item.name}' src='${item.src}'></import>\n`
+          components += `<import name='${item.name}' src='${makeNewFile(item.src)}'></import>\n`
         })
         // 记录引入的组件
         currentNode.importComponents = components;
@@ -197,8 +203,10 @@ module.exports = class QuickAppPlugin {
         if(~['page','component'].indexOf(currentNode.nodeType)) {
           let output = '';
           let entryName = cmlUtils.getPureEntryName(currentNode.realPath, self.cmlType, cml.projectRoot);
+          const dirname = path.dirname(entryName)
+          const basename = path.basename(entryName)
           // 统一加上src
-          entryName = 'src/' + entryName;
+          entryName = path.join('src', dirname, '_' + basename)
           let filePath = entryName + '.ux';
           let childrenObj = {};
           currentNode.childrens.forEach(item=>{

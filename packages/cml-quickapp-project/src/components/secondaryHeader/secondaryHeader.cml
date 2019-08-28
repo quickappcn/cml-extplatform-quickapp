@@ -1,5 +1,5 @@
 <template>
-  <view height="{{0}}" class="secondary-header">
+  <view class="secondary-header">
     <text class="header-title">{{title}}</text>
     <text class="header-subtitle">{{subtitle}}</text>    
   </view>

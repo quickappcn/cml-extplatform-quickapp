@@ -6,7 +6,7 @@
         bottom-offset="{{20}}"
         height="{{scrollHeight}}"
       >
-        <component is="{{currentCom}}"></component>
+        <component is="{{currentCom}}" shrinkcomponents="home,classify,topic,shop,my"></component>
       </scroller>
     </view>
 

@@ -74,7 +74,7 @@
     methods = {
       change(e) {
         cml.navigateTo({
-          "path": "/pages/demo/yanxuan/pages/detail/detail",
+          "path": "/pages/demo/yanxuan/pages/detail/_detail",
           query: {
             a: 1,
             b: 'test'

@@ -293,7 +293,7 @@ class Home {
     },
     chooseImage({type = ''}) {
       cml.navigateTo({
-        path: '/pages/api/sub-pages/chooseImage',
+        path: '/pages/api/sub-pages/_chooseImage',
         query: {
           type
         }
@@ -369,12 +369,12 @@ class Home {
     },
     goAnimation() {
       cml.navigateTo({
-        path: '/pages/api/sub-pages/animation'
+        path: '/pages/api/sub-pages/_animation'
       });
     },
     request({method = ''}) {
       cml.navigateTo({
-        path: '/pages/api/sub-pages/request',
+        path: '/pages/api/sub-pages/_request',
         query: {
           method
         }
@@ -382,12 +382,12 @@ class Home {
     },
     webSocket() {
       cml.navigateTo({
-        path: '/pages/api/sub-pages/webSocket'
+        path: '/pages/api/sub-pages/_webSocket'
       });
     },
     navigateTo() {
       cml.navigateTo({
-        path: '/pages/api/sub-pages/navigate',
+        path: '/pages/api/sub-pages/_navigate',
         query: {
           method: 'navigateTo'
         }
@@ -395,7 +395,7 @@ class Home {
     },
     redirectTo() {
       cml.redirectTo({
-        path: '/pages/api/sub-pages/navigate',
+        path: '/pages/api/sub-pages/_navigate',
         query: {
           method: 'redirectTo'
         }
