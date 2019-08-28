@@ -1,0 +1,25 @@
+<template>
+  <scroller height="{{-1}}">
+    <slot></slot>
+  </scroller>
+</template>
+
+<script>
+
+class PolyScroller implements PolyScrollerInterface {
+}
+
+export default new PolyScroller();
+</script>
+
+<style >
+
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {}
+  }
+}
+</script>
