@@ -1,1033 +1,336 @@
 <template>
-  <view>
-  <poly-scroller class="flex-page">
-    <view class="flex-header">
-      <text class="flex-header__title">FlexBox 布局</text>
-    </view>
-    <view class="flex-body">
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> flex-direction属性：</text>
-          <text class="flex-panel__title-text color-brown"> 定义主轴的方向（即项目的排列方向）</text>
-          <text class="flex-panel__title-text color-brown"> row | row-reverse | column | column-reverse</text>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> row（w3c默认）</text>
-          <view class="flex-panel__content-main row ">
-            <view class="item item-block darkseagreen">
-              <view class="item-wrap">
-                <text class="item-text-inner">项</text>
-                <text class="item-text">零</text>
-              </view>
-            </view>
-            <view class="item item-block lightskyblue">
-              <text class="item-text">1</text>
-            </view>
-            <view class="item item-block lightpink">
-              <text class="item-text">2</text>
+  <page title="TodoMVC">
+    <scroller height="{{-1}}">
+      <view class="scroller-wrap">
+        <text class="title">{{title}}</text>
+        <view class="main">
+          <view class="input-wrap border-bottom-1px">
+            <input class="input-area" placeholder="What needs to be done?" c-style="{{inputStyle}}" type="text"
+              value="{{value}}" c-bind:input="inputHandle" c-bind:blur="addHandle" />
+            <view class="add-btn" c-bind:tap="addHandle">
+              <view class="black-arrow" style="{{btnStyle}}"></view>
+              <view class="white-arrow"></view>
             </view>
           </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> row-reverse</text>
-          <view class="flex-panel__content-main row-reverse ">
-            <view class="item item-block darkseagreen">
-              <text class="item-text">0</text>
-            </view>
-            <view class="item item-block lightskyblue">
-              <text class="item-text">1</text>
-            </view>
-            <view class="item item-block lightpink">
-              <text class="item-text">2</text>
-            </view>
+          <view class="list-wrap">
+            <c-todoitem class="border-bottom-1px" c-for="{{showTodos}}" c-key="{{todoLength + index}}"
+              completed="{{item.completed}}" index="{{item.index}}" text="{{item.text}}"
+              c-bind:changestatus="changeStatus" c-bind:delete="delete" c-bind:top="top"></c-todoitem>
           </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> column（chameleon默认）</text>
-          <view class="flex-panel__content-main ">
-            <view class="item item-block darkseagreen">
-              <text class="item-text">0</text>
+          <text class="count">{{countText}}</text>
+          <view class="option-wrap">
+            <view class="filter">
+              <text class="{{filter === 0 ? 'filter-active' : 'filter-default'}}" c-bind:tap="changeFilter0">All</text>
+              <text class="{{filter === 1 ? 'filter-active' : 'filter-default'}}"
+                c-bind:tap="changeFilter1">Active</text>
+              <text class="{{filter === 2 ? 'filter-active' : 'filter-default'}}"
+                c-bind:tap="changeFilter2">Completed</text>
             </view>
-            <view class="item item-block lightskyblue">
-              <text class="item-text">1</text>
-            </view>
-            <view class="item item-block lightpink">
-              <text class="item-text">2</text>
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> column-reverse</text>
-          <view class="flex-panel__content-main column-reverse ">
-            <view class="item item-block darkseagreen">
-              <text class="item-text">0</text>
-            </view>
-            <view class="item item-block lightskyblue">
-              <text class="item-text">1</text>
-            </view>
-            <view class="item item-block lightpink">
-              <text class="item-text">2</text>
-            </view>
+            <text class="clear-completed" c-bind:tap="clear">Clear completed</text>
           </view>
         </view>
       </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> flex-wrap属性：</text>
-          <text class="flex-panel__title-text color-brown"> 定义主轴的项目如何换行 </text>
-          <text class="flex-panel__title-text color-brown"> nowrap | wrap | wrap-reverse</text>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> nowrap（默认）</text>
-          <view class="flex-panel__content-main row ">
-            <view c-for="{{list}}" class="item item-block lightskyblue">
-              <text class="item-text">{{item}}</text>
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> wrap</text>
-          <view class="flex-panel__content-main row wrap ">
-            <view c-for="{{list}}" class="item item-block lightskyblue">
-              <text class="item-text">{{item}}</text>
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> wrap-reverse</text>
-          <view class="flex-panel__content-main row wrap-reverse ">
-            <view c-for="{{list}}" class="item item-block lightskyblue">
-              <text class="item-text">{{item}}</text>
-            </view>
-          </view>
-        </view>
-      </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> flex-flow 属性：（weex不支持）</text>
-          <text class="flex-panel__title-text color-brown"> flex-direction 和 flex-wrap 的简写</text>
-          <text class="flex-panel__title-text color-brown"> w3c 默认值为 row nowrap，chameleon 默认值为 column nowrap</text>
-        </view>
-      </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> justify-content属性：</text>
-          <text class="flex-panel__title-text color-brown"> 定义主轴上项目的对齐方式 </text>
-          <text class="flex-panel__title-text color-brown"> flex-start | flex-end | center | space-between |
-            space-around</text>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-start（默认）</text>
-          <view class="flex-panel__content-main row">
-            <view class="item w_120 h_40 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_40 lightskyblue">
-
-            </view>
-            <view class="item w_200 h_40 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-end</text>
-          <view class="flex-panel__content-main row justify-flex-end ">
-            <view class="item w_120 h_40 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_40 lightskyblue">
-
-            </view>
-            <view class="item w_200 h_40 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> center</text>
-          <view class="flex-panel__content-main row justify-center ">
-            <view class="item w_120 h_40 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_40 lightskyblue">
-
-            </view>
-            <view class="item w_200 h_40 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> space-between</text>
-          <view class="flex-panel__content-main row justify-space-between ">
-            <view class="item w_120 h_40 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_40 lightskyblue">
-
-            </view>
-            <view class="item w_200 h_40 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> space-around</text>
-          <view class="flex-panel__content-main row justify-space-around ">
-            <view class="item w_120 h_40 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_40 lightskyblue">
-
-            </view>
-            <view class="item w_200 h_40 lightpink">
-
-            </view>
-          </view>
-        </view>
-      </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> align-items属性：</text>
-          <text class="flex-panel__title-text color-brown"> 定义侧轴上项目的对齐方式 </text>
-          <text class="flex-panel__title-text color-brown"> flex-start | flex-end | center | baseline | stretch</text>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-start</text>
-          <view class="flex-panel__content-main row h_200 align-flex-start ">
-            <view class="item w_60 h_100 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_80 lightskyblue">
-
-            </view>
-            <view class="item w_60 h_60 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-end</text>
-          <view class="flex-panel__content-main row h_200 align-flex-end ">
-            <view class="item w_60 h_100 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_80 lightskyblue">
-
-            </view>
-            <view class="item w_60 h_60 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> center</text>
-          <view class="flex-panel__content-main row h_200 align-center ">
-            <view class="item w_60 h_100 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_80 lightskyblue">
-
-            </view>
-            <view class="item w_60 h_60 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> baseline（weex不支持）</text>
-          <view class="flex-panel__content-main row h_200 align-baseline ">
-            <view class="item item-block w_60 h_100 darkseagreen">
-              <text class="item-text">0</text>
-            </view>
-            <view class="item item-block w_60 h_80 lightskyblue">
-              <text class="item-text">1</text>
-            </view>
-            <view class="item item-block w_60 h_60 lightpink">
-              <text class="item-text">2</text>
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title">stretch（默认）</text>
-          <view class="flex-panel__content-main row h_200">
-            <view class="item w_60 darkseagreen">
-
-            </view>
-            <view class="item w_60 lightskyblue">
-
-            </view>
-            <view class="item w_60 lightpink">
-
-            </view>
-          </view>
-        </view>
-      </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> align-content 属性：（weex不支持）</text>
-          <text class="flex-panel__title-text color-brown"> 定义多根轴线的对齐方式 </text>
-          <text class="flex-panel__title-text color-brown"> flex-start | flex-end | center | space-between |
-            space-around | stretch </text>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-start </text>
-          <view class="flex-panel__content-main row wrap align-content-flex-start h_240">
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-end </text>
-          <view class="flex-panel__content-main row wrap align-content-flex-end h_240">
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> center </text>
-          <view class="flex-panel__content-main row wrap align-content-center h_240">
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> space-between </text>
-          <view class="flex-panel__content-main row wrap align-content-space-between h_240">
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> space-around </text>
-          <view class="flex-panel__content-main row wrap align-content-space-around h_240">
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_120 h_40 darkseagreen"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-            <view class="item w_200 h_40 lightpink"></view>
-            <view class="item w_60 h_40 lightskyblue"></view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> stretch（默认） </text>
-          <view class="flex-panel__content-main row wrap h_240 align-content-stretch">
-            <view class="item w_120 darkseagreen"></view>
-            <view class="item w_60 lightskyblue"></view>
-            <view class="item w_200 lightpink"></view>
-            <view class="item w_60 lightskyblue"></view>
-            <view class="item w_120 darkseagreen"></view>
-            <view class="item w_120 darkseagreen"></view>
-            <view class="item w_200 lightpink"></view>
-            <view class="item w_60 lightskyblue"></view>
-            <view class="item w_120 darkseagreen"></view>
-            <view class="item w_60 lightskyblue"></view>
-            <view class="item w_200 lightpink"></view>
-            <view class="item w_60 lightskyblue"></view>
-          </view>
-        </view>
-      </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> order 属性：（weex不支持）</text>
-          <text class="flex-panel__title-text color-brown"> 定义项目的排列顺序，默认为0</text>
-        </view>
-        <view class="flex-panel__content">
-          <view class="flex-panel__content-main row ">
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-            <view class="item item-block lightskyblue order_1">
-              <text class="color-white">1</text>
-            </view>
-            <view class="item item-block lightskyblue order_2">
-              <text class="color-white">2</text>
-            </view>
-            <view class="item item-block lightskyblue order_3">
-              <text class="color-white">3</text>
-            </view>
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <view class="flex-panel__content-main row ">
-            <view class="item item-block lightskyblue order_1">
-              <text class="color-white">1</text>
-            </view>
-            <view class="item item-block lightskyblue order_2">
-              <text class="color-white">2</text>
-            </view>
-            <view class="item item-block lightskyblue order_3">
-              <text class="color-white">3</text>
-            </view>
-            <view class="item item-block lightskyblue order_4">
-              <text class="color-white">4</text>
-            </view>
-            <view class="item item-block lightskyblue order_-1">
-              <text class="color-white">-1</text>
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <view class="flex-panel__content-main">
-            <view class="item item-block lightskyblue order_1">
-              <text class="color-white">1</text>
-            </view>
-            <view class="item item-block lightskyblue order_2">
-              <text class="color-white">2</text>
-            </view>
-            <view class="item item-block lightskyblue order_-1">
-              <text class="color-white">-1</text>
-            </view>
-          </view>
-        </view>
-      </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> flex-grow 属性：（weex不支持）</text>
-          <text class="flex-panel__title-text color-brown"> 定义项目的放大比例，默认为0</text>
-        </view>
-        <view class="flex-panel__content">
-          <view class="flex-panel__content-main row">
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <view class="flex-panel__content-main row">
-            <view class="item item-block lightskyblue flex-grow_1">
-              <text class="color-white">1</text>
-            </view>
-            <view class="item item-block lightskyblue flex-grow_1">
-              <text class="color-white">1</text>
-            </view>
-            <view class="item item-block lightskyblue flex-grow_1">
-              <text class="color-white">1</text>
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <view class="flex-panel__content-main row ">
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-            <view class="item item-block lightskyblue flex-grow_1">
-              <text class="color-white">1</text>
-            </view>
-            <view class="item item-block lightskyblue flex-grow_2">
-              <text class="color-white">2</text>
-            </view>
-          </view>
-        </view>
-      </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> flex-shrink 属性：（weex不支持）</text>
-          <text class="flex-panel__title-text color-brown"> 定义项目的缩小比例，w3c默认为1，chameleon默认为0</text>
-        </view>
-        <view class="flex-panel__content">
-          <view class="flex-panel__content-main row">
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-            <view class="item item-block lightskyblue flex-shrink_1">
-              <text class="color-white">1</text>
-            </view>
-            <view class="item item-block lightskyblue flex-shrink_2">
-              <text class="color-white">2</text>
-            </view>
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-            <view class="item item-block lightskyblue">
-              <text class="color-white">0</text>
-            </view>
-          </view>
-        </view>
-      </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> flex-basis 属性：（weex不支持）</text>
-          <text class="flex-panel__title-text color-brown"> 定义项目的尺寸，默认值为auto，即项目的本来大小</text>
-        </view>
-        <view class="flex-panel__content">
-          <view class="flex-panel__content-main row">
-            <view class="item item-block lightskyblue">
-              <text class="color-white">auto</text>
-            </view>
-            <view class="item item-block lightskyblue flex-basis_auto">
-              <text class="color-white">auto</text>
-            </view>
-            <view class="item item-block lightskyblue flex-basis_25">
-              <text class="color-white">25%</text>
-            </view>
-            <view class="item item-block lightskyblue flex-basis_50">
-              <text class="color-white">50%</text>
-            </view>
-          </view>
-        </view>
-      </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> flex 属性：（weex的flex属性就是flex-grow）</text>
-          <text class="flex-panel__title-text color-brown"> flex-grow, flex-shrink 和 flex-basis的简写</text>
-          <text class="flex-panel__title-text color-brown"> w3c 默认值为0 1 auto，chameleon 默认值为0 0 auto</text>
-        </view>
-      </view>
-      <view class="flex-panel">
-        <view class="flex-panel__title">
-          <text class="flex-panel__title-text weight_700"> align-self 属性：</text>
-          <text class="flex-panel__title-text color-brown"> 允许子项目自定义对齐方式，可覆盖align-items属性</text>
-          <text class="flex-panel__title-text color-brown"> auto | flex-start | flex-end | center | baseline | stretch
-          </text>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> auto（默认，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch）</text>
-          <view class="flex-panel__content-main row h_200">
-            <view class="item w_60 darkseagreen">
-
-            </view>
-            <view class="item w_60 lightskyblue">
-
-            </view>
-            <view class="item w_60 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-start</text>
-          <view class="flex-panel__content-main row h_200">
-            <view class="item w_60 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_80 lightskyblue align-self-flex-start">
-
-            </view>
-            <view class="item w_60 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-end</text>
-          <view class="flex-panel__content-main row h_200">
-            <view class="item w_60 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_80 lightskyblue align-self-flex-end">
-
-            </view>
-            <view class="item w_60 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-center</text>
-          <view class="flex-panel__content-main row h_200">
-            <view class="item w_60 darkseagreen">
-
-            </view>
-            <view class="item w_60 h_80 lightskyblue align-self-center">
-
-            </view>
-            <view class="item w_60 lightpink">
-
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-baseline（weex不支持）</text>
-          <view class="flex-panel__content-main row h_200">
-            <view class="item item-block w_60 h_100 darkseagreen align-self-baseline">
-              <text class="item-text">0</text>
-            </view>
-            <view class="item item-block w_60 h_80 lightskyblue align-self-baseline">
-              <text class="item-text">1</text>
-            </view>
-            <view class="item item-block w_60 h_60 lightpink align-self-baseline">
-              <text class="item-text">2</text>
-            </view>
-          </view>
-        </view>
-        <view class="flex-panel__content">
-          <text class="flex-item__title"> flex-stretch</text>
-          <view class="flex-panel__content-main row h_200">
-            <view class="item w_60 darkseagreen">
-
-            </view>
-            <view class="item w_60 lightskyblue align-self-stretch">
-
-            </view>
-            <view class="item w_60 lightpink">
-
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </poly-scroller>
-</view>
+    </scroller>
+  </page>
 </template>
+
 <script>
-  class Row {
+  import store from "../../store";
+  const {
+    mapGetters,
+    mapMutations,
+    mapActions,
+    mapState
+  } = store;
+
+  import getterTypes from '../../store/getter-types.js';
+  import mutationTypes from '../../store/mutation-types.js';
+  import actionTypes from '../../store/action-types.js';
+  import cml from 'cml-quickapp-api';
+  class Index {
     data = {
-      list: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+      title: 'todos',
+      winHeight: 0,
+      chameleon: require("../../assets/images/chameleon.png"),
+      checked: false,
+      value: '',
+      filter: 0 // 0:all,1:active,2:completed
     }
+    computed = {
+      ...mapGetters({
+        todos: getterTypes.INDEX_DESC_TODOS
+      }),
+      inputStyle() {
+        return 'border-width: 0;height:100cpx;font-size:32cpx;color:#333;padding-left: 80cpx;';
+      },
+      btnStyle() {
+        if (!this.value) {
+          return 'background: #999999;'
+        } else {
+          return 'background: #333333;'
+        }
+      },
+
+      countText() {
+        let count = 0;
+        this.todos.forEach(item => {
+          if (!item.completed) {
+            count++;
+          }
+        })
+        return `${count} items left`;
+      },
+      showTodos() {
+        if (this.filter === 0) {
+          let t = this.todos.map((item, index) => {
+            item.index = index;
+            return item;
+          });
+          return t;
+        }
+        if (this.filter === 1) {
+          let t = [];
+          this.todos.forEach((item, index) => {
+            if (!item.completed) {
+              item.index = index;
+              t.push(item);
+            }
+          })
+          return t;
+        }
+        if (this.filter === 2) {
+          let t = [];
+          this.todos.forEach((item, index) => {
+            if (item.completed) {
+              item.index = index;
+              t.push(item);
+            }
+          })
+          return t;
+        }
+      },
+      todoLength() {
+        return this.showTodos.length + '';
+      }
+    }
+    watch = {
+
+    }
+    methods = {
+      ...mapActions([
+        actionTypes.INDEX_ADD_TODOS,
+        actionTypes.INDEX_CHANGE_TODOS_STATUS,
+        actionTypes.INDEX_DELETE_TODOS,
+        actionTypes.INDEX_TOP_TODOS,
+        actionTypes.INDEX_CHANGE_TODOS_CLEAR_COMPLETED
+      ]),
+      changeStatus(e) {
+        let {
+          index,
+          status
+        } = e.detail;
+        this[actionTypes.INDEX_CHANGE_TODOS_STATUS]({
+          index,
+          status
+        })
+      },
+      inputHandle(e) {
+        this.value = e.detail.value;
+      },
+      addHandle(e) {
+        if (!this.value) {
+          return;
+        }
+        this[actionTypes.INDEX_ADD_TODOS](this.value);
+        this.value = '';
+      },
+      delete(e) {
+        this[actionTypes.INDEX_DELETE_TODOS](e.detail.index)
+      },
+      top(e) {
+        this[actionTypes.INDEX_TOP_TODOS](e.detail.index)
+      },
+      clear() {
+        this[actionTypes.INDEX_CHANGE_TODOS_CLEAR_COMPLETED]();
+      },
+      changeFilter0() {
+        this.filter = 0;
+      },
+      changeFilter1() {
+        this.filter = 1;
+      },
+      changeFilter2() {
+        this.filter = 2;
+      }
+    }
+    beforeCreate(res) {}
+    created(res) {}
+    beforeMount(res) {}
+    mounted() {
+      cml.getSystemInfo().then((info) => {
+        this.winHeight = Number(info.viewportHeight)
+      })
+    }
+    beforeDestroy(res) {}
+    destroyed(res) {}
+
   }
-  export default new Row();
+
+  export default new Index();
 </script>
 <style scoped>
-  .flex-page {
-    background-color: #f8f8f8;
-  }
-
-  .flex-header {
-    display: flex;
-    align-items: center;
-    padding: 40cpx;
-    height: 200cpx;
-  }
-
-  .flex-header__title {
-    color: #333;
-    font-size: 40cpx;
-    font-weight: 700;
-    height: 60cpx;
-    flex-direction: row;
-
-    background-color: antiquewhite;
-  }
-
-  .flex-panel__title {
-    margin: 2cpx;
-    box-shadow: 0px 3px 5px #888888;
-    background-color: lightgray;
-
-    /* 
-   * https://stackoverflow.com/questions/47095596/body-overflow-x-hidden-breaks-position-sticky
-   */
-    position: sticky;
+  .page-container {
+    position: absolute;
     top: 0;
-    z-index: 999;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
 
-  .flex-panel__content {
-    margin-top: 20cpx;
+  .title {
+    align-self: center;
+    color: #61c7fc;
+    font-size: 72cpx;
+    margin-top: 160cpx;
+    margin-bottom: 20cpx;
+  }
+
+  .scroller-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main {
+    width: 640cpx;
+  }
+
+  .input-wrap {
+    position: relative;
+    height: 102cpx;
+    border-color: #ccc;
+  }
+
+  .input-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 600cpx;
+    height: 100cpx;
+    font-size: 32cpx;
+  }
+
+  .add-btn {
+    position: absolute;
+    left: 10cpx;
+    top: 42cpx;
+    width: 40cpx;
+    height: 22cpx;
     overflow: hidden;
   }
 
-  .flex-panel__content-main {
-    background-color: lightslategrey;
-  }
-
-  .weight_700 {
-    font-weight: 700;
-  }
-
-  .flex-body {
-    background: #fff;
-    box-shadow: 0 10cpx 300cpx 0 rgba(0, 0, 0, .11);
-  }
-
-  .flex-panel {
-    padding-top: 60cpx;
-  }
-
-  .flex-item__title {
-    background-color: antiquewhite;
-  }
-
-  .item {
-    margin: 8cpx;
-    border: 2cpx solid #fff;
-
-
-  }
-
-  .item-block {
-    height: 60cpx;
-    width: 100cpx;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .item-wrap {
-    flex-direction: row;
-    align-items: baseline;
-  }
-
-  .item-text-inner {
-    color: #fff;
-  }
-
-  .item-text {
-    width: 44cpx;
-    height: 44cpx;
-    border: 2cpx solid #fff;
-    border-radius: 22cpx;
-
-    color: #fff;
-    text-align: center;
-  }
-
-  .border-none {
-    border: 0;
-  }
-
-  /** flex-direction **/
-  .row {
-    flex-direction: row;
-  }
-
-  .row-reverse {
-    flex-direction: row-reverse;
-  }
-
-  .column-reverse {
-    flex-direction: column-reverse;
-  }
-
-  /** flex-wrap **/
-  .nowrap {
-    flex-wrap: nowrap;
-    /* default */
-  }
-
-  .wrap {
-    flex-wrap: wrap;
-  }
-
-  .wrap-reverse {
-    flex-wrap: wrap-reverse;
-  }
-
-  /** justify-content **/
-  .justify-flex-start {
-    justify-content: flex-start;
-    /* default */
-  }
-
-  .justify-flex-end {
-    justify-content: flex-end;
-  }
-
-  .justify-center {
-    justify-content: center;
-  }
-
-  .justify-space-between {
-    justify-content: space-between;
-  }
-
-  .justify-space-around {
-    justify-content: space-around;
-  }
-
-  /** align-items **/
-  .align-flex-start {
-    align-items: flex-start;
-  }
-
-  .align-flex-end {
-    align-items: flex-end;
-  }
-
-  .align-center {
-    align-items: center;
-  }
-
-  .align-baseline {
-    align-items: baseline;
-  }
-
-  .align-stretch {
-    align-items: stretch;
-    /* default */
-  }
-
-  /** align-content **/
-  .align-content-flex-start {
-    align-content: flex-start;
-    /* default */
-  }
-
-  .align-content-flex-end {
-    align-content: flex-end;
-  }
-
-  .align-content-center {
-    align-content: center;
-  }
-
-  .align-content-space-between {
-    align-content: space-between;
-  }
-
-  .align-content-space-around {
-    align-content: space-around;
-  }
-
-  .align-content-stretch {
-    align-content: stretch;
-  }
-
-  /* order */
-  .order_0 {
-    order: 0;
-    /* default */
-  }
-
-  .order_1 {
-    order: 1;
-  }
-
-  .order_2 {
-    order: 2;
-  }
-
-  .order_3 {
-    order: 3;
-  }
-
-  .order_4 {
-    order: 4;
-  }
-
-  .order_-1 {
-    order: -1;
-  }
-
-
-  /* flex-grow */
-  .flex-grow_0 {
-    flex-grow: 0;
-    /* default */
-  }
-
-  .flex-grow_1 {
-    flex-grow: 1;
-  }
-
-  .flex-grow_2 {
-    flex-grow: 2;
-  }
-
-  /* flex-shrink */
-  .flex-shrink_0 {
-    flex-shrink: 0;
-  }
-
-  .flex-shrink_1 {
-    flex-shrink: 1;
-    /* default */
-  }
-
-  .flex-shrink_2 {
-    flex-shrink: 2;
-  }
-
-  /* flex-basis */
-  .flex-basis_auto {
-    flex-basis: auto;
-    /* default */
-  }
-
-  .flex-basis_25 {
-    flex-basis: 187.5cpx;
-    /* 750cpx屏幕的25 %*/
-  }
-
-  .flex-basis_50 {
-    flex-basis: 375cpx;
-    /* 750cpx屏幕的50 %*/
-  }
-
-  /** align-self **/
-  .align-self-flex-start {
-    align-self: auto;
-    /* default , inherit parent */
-  }
-
-  .align-self-flex-start {
-    align-self: flex-start;
-  }
-
-  .align-self-flex-end {
-    align-self: flex-end;
-  }
-
-  .align-self-center {
-    align-self: center;
-  }
-
-  .align-self-baseline {
-    align-self: baseline;
-  }
-
-  .align-self-stretch {
-    align-self: stretch;
-  }
-
-  .antiquewhite {
-    background-color: antiquewhite;
-  }
-
-  .lightpink {
-    background-color: lightpink;
-  }
-
-  .lightskyblue {
-    background-color: lightskyblue;
-  }
-
-  .silver {
-    background-color: silver;
-  }
-
-  .darkseagreen {
-    background-color: darkseagreen;
-  }
-
-  .lightslategrey {
-    background-color: lightslategrey;
-  }
-
-  .cadetblue {
-    background-color: cadetblue;
-  }
-
-  .lightgray {
-    background-color: lightgray;
-  }
-
-  .color-white {
-    color: white;
-  }
-
-  .color-brown {
-    color: brown;
-  }
-
-  .h_240 {
-    height: 240cpx;
-  }
-
-  .h_200 {
-    height: 200cpx;
-  }
-
-  .h_120 {
-    height: 120cpx;
-  }
-
-  .h_100 {
-    height: 100cpx;
-  }
-
-  .h_80 {
-    height: 80cpx;
-  }
-
-  .h_60 {
-    height: 60cpx;
-  }
-
-  .h_40 {
-    height: 40cpx;
-  }
-
-  .w_200 {
-    width: 200cpx;
-  }
-
-  .w_120 {
-    width: 120cpx;
-  }
-
-  .w_80 {
+  .add-btn::after {
+    content: "";
+    position: absolute;
+    left: -10cpx;
+    right: -10cpx;
+    bottom: -10cpx;
+    top: -10cpx;
+  }
+
+  .black-arrow {
+    position: absolute;
+    left: -20cpx;
+    top: -80cpx;
     width: 80cpx;
+    height: 80cpx;
+    background: #333;
+    transform: rotate(45deg);
+    transition-property: background;
+    transition-duration: .2s;
+    transition-delay: 0s;
+    transition-timing-function: ease-in-out;
   }
 
-  .w_60 {
-    width: 60cpx;
+  .white-arrow {
+    position: absolute;
+    left: -15cpx;
+    top: -74cpx;
+    width: 70cpx;
+    height: 70cpx;
+    background: #fff;
+    transform: rotate(45deg);
   }
 
-  .w_40 {
-    width: 40cpx;
+  .option-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 50cpx;
+    margin-top: 10cpx;
+  }
+
+  .count {
+    font-size: 24cpx;
+    color: #999;
+    margin-top: 20cpx;
+    padding-left: 10cpx;
+  }
+
+  .filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filter-default {
+    font-size: 24cpx;
+    color: #999;
+    margin: 0 10cpx;
+  }
+
+  .filter-active {
+    font-size: 24cpx;
+    color: #999;
+    border: 1px solid #999;
+    border-radius: 8cpx;
+    padding: 0 5cpx;
+  }
+
+  .clear-completed {
+    font-size: 24cpx;
+    color: #999;
   }
 </style>
-
 <script cml-type="json">
   {
     "base": {
       "usingComponents": {
-        "poly-scroller": "../../components/polyScroller/polyScroller"
+        "c-checkbox": "/components/c-checkbox/c-checkbox",
+        "c-todoitem": "/components/c-todoitem/c-todoitem"
       }
+    },
+    "wx": {
+      "navigationBarTitleText": "index",
+      "backgroundTextStyle": "dark",
+      "backgroundColor": "#E2E2E2"
+    },
+    "alipay": {
+      "defaultTitle": "index",
+      "pullRefresh": false,
+      "allowsBounceVertical": "YES",
+      "titleBarColor": "#ffffff"
+    },
+    "baidu": {
+      "navigationBarBackgroundColor": "#ffffff",
+      "navigationBarTextStyle": "white",
+      "navigationBarTitleText": "index",
+      "backgroundColor": "#ffffff",
+      "backgroundTextStyle": "dark",
+      "enablePullDownRefresh": false,
+      "onReachBottomDistance": 50
     }
   }
 </script>

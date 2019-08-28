@@ -1,6 +1,6 @@
 {
   "mode": "hash",
-  "domain": "https://www.chameleon.com",
+  "domain": "https://api.chameleon.com",
   "routes":[
     {
       "url": "/",
