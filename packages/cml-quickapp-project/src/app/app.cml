@@ -23,8 +23,8 @@
 <script cml-type="json">
   {
     "quickapp": {
-      "package": "com.application.demo",
-      "name": "demo",
+      "package": "com.application.flexbox",
+      "name": "flexbox",
       "versionName": "1.0.0",
       "versionCode": "1",
       "minPlatformVersion": "1020",
