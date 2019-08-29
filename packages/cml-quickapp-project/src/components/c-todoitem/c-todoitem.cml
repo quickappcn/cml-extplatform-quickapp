@@ -5,7 +5,7 @@
   </view>
   <text class="{{completed ? 'completed-show' : 'text-show'}}" c-bind:tap="checkclick">{{text}}</text>
   <view class="delete-btn" c-bind:tap="delete">
-    <image src="{{closeImg}}" style="width:30cpx;height:30cpx;" />
+    <image src="{{closeImg}}" style="width:30px;height:30px;" />
   </view>
 </view>
 </template>
@@ -36,11 +36,11 @@ class CTodoitem   {
     innerStyle() {
       if (this.moveDis) {
         return this.$cmlStyle({
-          left: `${this.moveDis}cpx`
+          left: `${this.moveDis}px`
         })
       } else {
         return this.$cmlStyle({
-          left: `${this.currenLeft}cpx`
+          left: `${this.currenLeft}px`
         })
       }
     }

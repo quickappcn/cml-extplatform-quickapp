@@ -1,123 +1,157 @@
 <template>
-  <view class="checkbox-wrap" style="{{wrapStyle}}" c-bind:tap="click">
-    <view class="box" style="{{boxStyle}}"></view>
-  </view>
-</template>
-<script>
-class CCheckbox   {
-  props = {
-    checked: {
-      type: Boolean,
-      default: false
-    },
-    color: {
-      type: String,
-      default: '#61c7fc'
-    },
-    width: {
-      type: Number,
-      default: 50
-    }
-  }
-  data = {
-  }
+    <view class="cml-checkbox">
+      <view class="cml-checkbox-wrap" c-bind:tap="changeCheck">
+        <text c-if="{{position === 'right'}}" class="cml-checkbox-label">{{ label }}</text>
+        <view class="cml-checkbox-check" style="{{ checkStyle }}">
+          <view class="{{ checkClass }}">
+            <image class="inner-icon" src="{{ checkImg }}" />
+          </view>
+        </view>
+        <text c-if="{{position === 'left'}}" class="cml-checkbox-label">{{ label }}</text>
+      </view>
+    </view>
+  </template>
 
-  computed = {
-    wrapStyle() {
-      return this.$cmlStyle({
-        'width': this.width  + 'cpx',
-        'height': this.width  + 'cpx',
-        'border-radius': this.width  + 'cpx',
-        'border': `1px solid ${this.color}`
-      })
-    },
-    boxStyle() {
-      if (this.checked) {
-        return this.$cmlStyle({
-          'width': this.width * 0.8 + 'cpx',
-          'height': this.width * 0.8 + 'cpx',
-          'background': this.color,
-          'border-radius': this.width + 'cpx'
-        })
-      } else {
-        return this.$cmlStyle({
-          'width': '0',
-          'height': '0',
-          'border-radius': this.width + 'cpx',
-          'background': this.color
-        })
+  <script>
+    class Checkbox implements CheckboxInterface {
+      props = {
+        checked: {
+          type: Boolean,
+          default: false
+        },
+        label: {
+          type: String,
+          default: ''
+        },
+        disabled: {
+          type: Boolean,
+          default: false
+        },
+        position: {
+          type: String,
+          default: 'left'
+        },
+        groupIndex: {
+          type: Number,
+          default: -1
+        },
+        checkedIcon: {
+          type: String,
+          default: ''
+        },
+        uncheckIcon: {
+          type: String,
+          default: ''
+        },
+        cstyle: {
+          type: String,
+          default: ''
+        }
+      }
+      data = {
+        checkedImg: require('./images/selected.png'),
+        uncheckImg: require('./images/unselected.png'),
+        innerChecked: false
+      }
+  
+      computed = {
+        checkStyle() {
+          let style = '';
+          if (this.disabled) {
+            style += 'opacity:0.5;'
+          }
+          if (this.position == 'left') {
+            style += 'margin-right:13px;'
+          } else {
+            style += 'margin-left:13px;'
+          }
+          return style;
+        },
+        checkImg() {
+          return this.checked ? this.checkedImg : this.uncheckImg;
+        },
+        checkClass() {
+          if (this.disabled) {
+            return 'cml-checkbox-disabled'
+          }
+          return this.checked ? 'cml-checkbox-checked' : 'cml-checkbox-uncheck';
+        },
+      }
+  
+      methods = {
+        changeCheck() {
+          if (this.disabled) return;
+          this.checked = !this.checked
+          let value = {
+            value: this.checked,
+            index: this.groupIndex
+          }
+          this.$cmlEmit('checkclick', value);
+        },
+        initImg() {
+          if (this.uncheckIcon) {
+            this.uncheckImg = this.uncheckIcon;
+          }
+          if (this.checkedIcon) {
+            this.checkedImg = this.checkedIcon;
+          }
+        }
+      }
+  
+      mounted() {
+        this.initImg()
       }
     }
-  }
-
-  watch  = {
-  }
-
-  methods = {
-    click() {
-      this.$cmlEmit('checkclick')
+  
+    export default new Checkbox();
+  </script>
+  <style scoped>
+    .cml-checkbox {
+      margin: 10cpx;
     }
-  }
-
-  beforeCreate() {
-  }
-
-  created() {
-  }
-
-  beforeMount() {
-  }
-
-  mounted() {
-  }
-
-  beforeDestroy() {
-  }
-
-  destroyed() {
-  }
-}
-
-export default new CCheckbox();
-</script>
-<style scoped>
-.checkbox-wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-.checkbox-wrap::after{
-  content: "";
-  position: absolute;
-  left: -5cpx;
-  right: -5cpx;
-  top: -5cpx;
-  bottom: -5cpx;
-}
-.box {
-  transition-property: width, height;
-  transition-duration: 0.1s;
-  transition-delay: 0s;
-  transition-timing-function: ease-in-out;
-  transition: all .1s ease-in-out;
-}
-</style>
-<script cml-type="json">
-{
-  "base": {
-    "usingComponents": {
+  
+    .cml-checkbox-wrap {
+      padding: 11cpx 0;
+      word-break: break-word;
+      word-wrap: break-word;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      line-height: 1.5;
+      position: relative;
     }
-  },
-  "wx": {
-    "component": true
-  },
-  "alipay": {
-    "component": true
-  },
-  "baidu": {
-    "component": true
-  }
-}
-</script>
+  
+    .cml-checkbox-checked {
+      width: 32cpx;
+      height: 32cpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .cml-checkbox-uncheck {
+      width: 32cpx;
+      height: 32cpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .cml-checkbox-label {
+      color: #666;
+      font-weight: 400;
+      font-size: 32cpx;
+    }
+  
+    .inner-icon {
+      width: 32cpx;
+      height: 32cpx;
+    }
+  </style>
+  <script cml-type="json">
+    {
+      "base": {
+        "component": true
+      }
+    }
+  </script>

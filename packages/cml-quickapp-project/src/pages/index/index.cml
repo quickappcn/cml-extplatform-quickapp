@@ -4,7 +4,7 @@
       <view class="scroller-wrap">
         <text class="title">{{title}}</text>
         <view class="main">
-          <view class="input-wrap border-bottom-1px">
+          <view class="input-wrap">
             <input class="input-area" placeholder="What needs to be done?" c-style="{{inputStyle}}" type="text"
               value="{{value}}" c-bind:input="inputHandle" c-bind:blur="addHandle" />
             <view class="add-btn" c-bind:tap="addHandle">
@@ -13,7 +13,7 @@
             </view>
           </view>
           <view class="list-wrap">
-            <c-todoitem class="border-bottom-1px" c-for="{{showTodos}}" c-key="{{todoLength + index}}"
+            <c-todoitem c-for="{{showTodos}}" c-key="{{todoLength + index}}"
               completed="{{item.completed}}" index="{{item.index}}" text="{{item.text}}"
               c-bind:changestatus="changeStatus" c-bind:delete="delete" c-bind:top="top"></c-todoitem>
           </view>
@@ -61,13 +61,13 @@
         todos: getterTypes.INDEX_DESC_TODOS
       }),
       inputStyle() {
-        return 'border-width: 0;height:100cpx;font-size:32cpx;color:#333;padding-left: 80cpx;';
+        return 'border-width: 0;height:100px;font-size:32px;color:#333;padding-left: 80px;';
       },
       btnStyle() {
         if (!this.value) {
-          return 'background: #999999;'
+          return 'background-color: #999999;'
         } else {
-          return 'background: #333333;'
+          return 'background-color: #333333;'
         }
       },
 
@@ -212,18 +212,14 @@
   }
 
   .input-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 600cpx;
-    height: 100cpx;
+    width: 100%;
     font-size: 32cpx;
   }
 
   .add-btn {
     position: absolute;
-    left: 10cpx;
-    top: 42cpx;
+    right: 10cpx;
+    top: 30cpx;
     width: 40cpx;
     height: 22cpx;
     overflow: hidden;
