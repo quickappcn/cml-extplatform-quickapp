@@ -73,3 +73,6 @@ coverage
 # ///////////////////////////
 
 *.code-workspace
+*.rpk
+*.jpg
+*.png
