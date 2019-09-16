@@ -22,7 +22,7 @@ module.exports = class QuickAppPlugin {
       }
     ]; // webpack的rules设置  用于当前端特殊文件处理
     this.moduleRules = []; // 文件后缀对应的节点moduleType  
-    this.logLevel = 3;
+    // this.logLevel = 3;
     this.originComponentExtList = ['.ux']; // 用于扩展原生组件的文件后缀查找
     this.runtimeNpmName = 'cml-quickapp-runtime'; // 指定当前端的运行时库
     this.builtinUINpmName = 'cml-quickapp-ui-builtin'; // 指定当前端的内置组件库
