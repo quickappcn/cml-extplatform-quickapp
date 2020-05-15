@@ -1,6 +1,6 @@
 {
   "name": "cml-quickapp-runtime",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,10 +21,6 @@
   },
   "author": "Chameleon-Team",
   "license": "Apache",
-  "dependencies": {
-    "cml-quickapp-mixins": "0.0.1",
-    "chameleon-runtime": "^0.2.0-alpha.4"
-  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
@@ -36,6 +32,8 @@
     "chai": "^4.2.0",
     "chameleon-css-loader": "0.1.0-alpha.4",
     "chameleon-mixins": "0.1.0-alpha.4",
+    "cml-quickapp-mixins": "0.0.1",
+    "chameleon-runtime": "^0.2.0-alpha.4",
     "fs-extra": "^7.0.1",
     "glob": "^7.1.4",
     "istanbul": "^1.1.0-alpha.1",
