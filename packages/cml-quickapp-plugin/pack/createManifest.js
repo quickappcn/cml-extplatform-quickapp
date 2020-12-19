@@ -14,7 +14,7 @@ module.exports = function(jsonNode, compiler) {
   resultRouter.pages = resultRouter.pages || {};
   if(projectRouter && projectRouter.routes) {
     projectRouter.routes.forEach((item, index)=>{
-      let matches = item.path.match(/(.*)\/(.*)$/);
+      let matches = item.path.substr(1).match(/(.*)\/(.*)$/);
       if(matches) {
         let key = matches[1];
         let value = matches[2];
